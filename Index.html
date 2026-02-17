@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Detetive 2 — Companion</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body>
+  <header class="top">
+    <h1>🕵️ Detetive 2</h1>
+    <p class="muted">Cada jogador usa no seu celular (sem host). Escaneie e marque suas deduções.</p>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>Scanner</h2>
+      <div class="row">
+        <button id="btnStart">Iniciar câmera</button>
+        <button id="btnStop" disabled>Parar</button>
+        <span id="status" class="pill">parado</span>
+        <span class="pill">Lido: <strong id="last">—</strong></span>
+      </div>
+      <div id="reader" class="reader"></div>
+
+      <hr>
+
+      <h2>Carta</h2>
+      <div id="cardBox" class="big">Escaneie uma carta…</div>
+      <img id="cardImg" class="img" style="display:none" alt="">
+
+      <div class="row">
+        <button id="btnHave" disabled>Tenho na mão</button>
+        <button id="btnSeen" disabled>Vi / Confirmado</button>
+        <button id="btnElim" disabled>Eliminar</button>
+      </div>
+
+      <p class="muted" style="margin-top:10px">
+        Dica: “Tenho na mão” remove a carta dos possíveis automaticamente nas sugestões.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>🧠 Dicas inteligentes</h2>
+      <button id="btnSmart">Sugerir palpite</button>
+      <div id="smartBox" class="pill block">—</div>
+
+      <hr>
+
+      <h2>📌 Minhas cartas</h2>
+      <button id="btnClearMarks">Limpar marcações</button>
+
+      <h3>Tenho na mão</h3>
+      <div id="haveList" class="list"></div>
+
+      <h3>Vi / Confirmado</h3>
+      <div id="seenList" class="list"></div>
+
+      <h3>Eliminadas</h3>
+      <div id="elimList" class="list"></div>
+
+      <hr>
+
+      <h2>📝 Notas</h2>
+      <textarea id="notes" rows="7" class="textarea"></textarea>
+      <div class="row">
+        <button id="btnSaveNotes">Salvar</button>
+        <button id="btnLoadNotes">Carregar</button>
+        <span id="noteStatus" class="muted"></span>
+      </div>
+    </section>
+  </main>
+
+  <script src="./data/cards.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

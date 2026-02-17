@@ -1,0 +1,32 @@
+// CARDS globais
+window.CARDS = {
+  "01": { tipo:"Suspeito", nome:"Advogado Sr Marinho", img:"Personagens/Advogado Sr Marinho.png" },
+  "02": { tipo:"Suspeito", nome:"Chef de Cozinha Tony Gourmet", img:"Personagens/Chef de Cozinha Tony Gourmet.png" },
+  "03": { tipo:"Suspeito", nome:"Coveiro Sergio Soturno", img:"Personagens/Coveiro Sergio Soturno.png" },
+  "04": { tipo:"Suspeito", nome:"Dancarina Srta Rosa", img:"Personagens/Dancarina Srta Rosa.png" },
+  "05": { tipo:"Suspeito", nome:"Florista Dona Branca", img:"Personagens/Florista Dona Branca.png" },
+  "06": { tipo:"Suspeito", nome:"Medica Dona Violeta", img:"Personagens/Medica Dona Violeta.png" },
+  "07": { tipo:"Suspeito", nome:"Mordomo James", img:"Personagens/Mordomo James.png" },
+  "08": { tipo:"Suspeito", nome:"Sargento Bigode", img:"Personagens/Sargento Bigode.png" },
+
+  "09": { tipo:"Arma", nome:"Arma Quimica", img:"Armas/Arma Quimica.png" },
+  "10": { tipo:"Arma", nome:"Espingarda", img:"Armas/Espingarda.png" },
+  "11": { tipo:"Arma", nome:"Faca", img:"Armas/Faca.png" },
+  "12": { tipo:"Arma", nome:"Pa", img:"Armas/Pa.png" },
+  "13": { tipo:"Arma", nome:"Pe de cabra", img:"Armas/Pe de cabra.png" },
+  "14": { tipo:"Arma", nome:"Soco ingles", img:"Armas/Soco ingles.png" },
+  "15": { tipo:"Arma", nome:"Tesoura", img:"Armas/Tesoura.png" },
+  "16": { tipo:"Arma", nome:"Veneno", img:"Armas/Veneno.png" },
+
+  "17": { tipo:"Local", nome:"Banco", img:"Locais/Banco.png" },
+  "18": { tipo:"Local", nome:"Boate", img:"Locais/Boate.png" },
+  "19": { tipo:"Local", nome:"Cemiterio", img:"Locais/Cemiterio.png" },
+  "20": { tipo:"Local", nome:"Estacao de trem", img:"Locais/Estacao de trem.png" },
+  "21": { tipo:"Local", nome:"Floricultura", img:"Locais/Floricultura.png" },
+  "22": { tipo:"Local", nome:"Hospital", img:"Locais/Hospital.png" },
+  "23": { tipo:"Local", nome:"Hotel", img:"Locais/Hotel.png" },
+  "24": { tipo:"Local", nome:"Mansao", img:"Locais/Mansao.png" },
+  "25": { tipo:"Local", nome:"Praca Central", img:"Locais/Praca Central.png" },
+  "26": { tipo:"Local", nome:"Prefeitura", img:"Locais/Prefeitura.png" },
+  "27": { tipo:"Local", nome:"Restaurante", img:"Locais/Restaurante.png" },
+};

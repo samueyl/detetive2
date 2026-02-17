@@ -1,0 +1,23 @@
+body{font-family:system-ui,Arial;margin:16px;max-width:1100px}
+.top h1{margin:0 0 6px}
+.muted{color:#666}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+@media(min-width:980px){.grid{grid-template-columns:1.2fr .8fr}}
+.card{border:1px solid #ddd;border-radius:14px;padding:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button,input,select,textarea{font:inherit;padding:10px 12px;border:1px solid #ccc;border-radius:10px}
+button{cursor:pointer}
+.pill{display:inline-block;padding:4px 10px;border-radius:999px;border:1px solid #ddd}
+.block{margin-top:10px}
+.reader{margin-top:10px;max-width:360px}
+.img{width:100%;max-width:340px;border-radius:12px;border:1px solid #eee;margin-top:10px}
+.big{font-size:1.08rem}
+hr{border:none;border-top:1px solid #eee;margin:12px 0}
+.list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.item{border:1px solid #eee;border-radius:12px;padding:8px;display:flex;gap:8px;align-items:center}
+.thumb{width:54px;height:54px;object-fit:cover;border-radius:10px;border:1px solid #eee}
+.textarea{width:100%}
+.k{font-weight:700}
+.tag{font-size:.85rem}
+.item{border:1px solid #eee;border-radius:12px;padding:8px;display:flex;gap:8px;align-items:center}
+.thumb{width:54px;height:54px;object-fit:cover;border-radius:10px;border:1px solid #eee}
