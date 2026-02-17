@@ -158,3 +158,4 @@ button:hover{
 .mark.x{ color:#ff6b6b; }
 .mark.q{ color:#ffd166; }
 .mark.v{ color:#7bd389; }
+.hidden{ display:none !important; }

@@ -210,7 +210,7 @@ function closeNotebook(){
   $("notebook").classList.add("hidden");
 }
 $("btnNotebook").addEventListener("click", openNotebook);
-$("notebookClose").addEventListener("click", closeNotebook);
+$("notebookClose").onclick = (e) => { e.preventDefault(); e.stopPropagation(); closeNotebook(); };
 $("notebook").addEventListener("click", (e)=>{ if (e.target.id === "notebook") closeNotebook(); });
 
 $("searchCard").addEventListener("input", buildNotebook);
