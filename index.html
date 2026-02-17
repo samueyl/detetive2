@@ -31,9 +31,7 @@
       <img id="cardImg" class="img" style="display:none" alt="">
 
       <div class="row">
-        <button id="btnHave" disabled>Tenho na mão</button>
-        <button id="btnSeen" disabled>Vi / Confirmado</button>
-        <button id="btnElim" disabled>Eliminar</button>
+        <button id="btnAccuse" disabled>🚨 Acusar (palpite final)</button>
       </div>
     </section>
 
@@ -47,12 +45,6 @@
 
       <h3>Tenho na mão</h3>
       <div id="haveList" class="list"></div>
-
-      <h3>Vi / Confirmado</h3>
-      <div id="seenList" class="list"></div>
-
-      <h3>Eliminadas</h3>
-      <div id="elimList" class="list"></div>
 
       <hr>
 
@@ -102,6 +94,25 @@
     </div>
   </div>
 
+  <!-- Modal: Acusação -->
+  <div id="accuse" class="modal hidden">
+    <div class="modalCard wide">
+      <button id="accuseClose" class="iconBtn" aria-label="Fechar" type="button">✕</button>
+      <div class="modalTitle">🚨 Acusação (palpite final)</div>
+
+      <div class="row">
+        <select id="accSus"></select>
+        <select id="accArm"></select>
+        <select id="accLoc"></select>
+        <button id="accSave" type="button">Salvar acusação</button>
+      </div>
+
+      <div class="pill block" id="accResult">—</div>
+      <p class="muted">Isso só fica salvo no seu celular (sem host).</p>
+    </div>
+  </div>
+
+  <!-- Scripts SEMPRE por último -->
   <script src="./data/cards.js"></script>
   <script src="./app.js"></script>
 </body>

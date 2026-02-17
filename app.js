@@ -1,11 +1,12 @@
+// app.js — scan -> auto "Tenho na mão", botão Acusar, caderno X/?/✓, modal imagem grande
+
 const CARDS = window.CARDS;
 
 const LS = {
   have: "det2_have",
-  seen: "det2_seen",
-  elim: "det2_elim",
   notes: "det2_notes",
-  notebook: "det2_notebook_marks" // { "01":"v", "20":"x", ... }
+  notebook: "det2_notebook_marks", // { "01":"v", "20":"x", ... }
+  accuse: "det2_accuse"            // { sus:"01", arm:"16", loc:"24" }
 };
 
 const $ = (id) => document.getElementById(id);
@@ -27,8 +28,6 @@ function saveObj(key, obj){
 }
 
 let have = loadSet(LS.have);
-let seen = loadSet(LS.seen);
-let elim = loadSet(LS.elim);
 let marks = loadObj(LS.notebook); // id -> "x" | "q" | "v"
 
 const ALL = Object.keys(CARDS);
@@ -39,7 +38,9 @@ function normalizeCode(raw){
 }
 
 function renderList(container, ids, {clickToOpen=false} = {}){
+  if (!container) return;
   container.innerHTML = "";
+
   ids.forEach(id=>{
     const c = CARDS[id];
     if (!c) return;
@@ -65,12 +66,7 @@ function renderList(container, ids, {clickToOpen=false} = {}){
 
 function refresh(){
   renderList($("haveList"), Array.from(have).sort(), {clickToOpen:true});
-  renderList($("seenList"), Array.from(seen).sort());
-  renderList($("elimList"), Array.from(elim).sort());
-
   saveSet(LS.have, have);
-  saveSet(LS.seen, seen);
-  saveSet(LS.elim, elim);
   saveObj(LS.notebook, marks);
 }
 
@@ -83,9 +79,7 @@ function showCard(id){
   if (!c){
     $("cardBox").innerHTML = `Carta desconhecida: <strong>${id}</strong>`;
     $("cardImg").style.display = "none";
-    $("btnHave").disabled = true;
-    $("btnSeen").disabled = true;
-    $("btnElim").disabled = true;
+    if ($("btnAccuse")) $("btnAccuse").disabled = true;
     return;
   }
 
@@ -93,26 +87,11 @@ function showCard(id){
   $("cardImg").src = c.img;
   $("cardImg").style.display = "block";
 
-  $("btnHave").disabled = false;
-  $("btnSeen").disabled = false;
-  $("btnElim").disabled = false;
-
-  $("btnHave").onclick = () => {
-    have.add(id); seen.delete(id); elim.delete(id);
-    // no caderno, "tenho" vira dúvida (opcional)
-    if (!marks[id]) marks[id] = "q";
-    refresh();
-  };
-  $("btnSeen").onclick = () => {
-    seen.add(id); have.delete(id); elim.delete(id);
-    if (!marks[id]) marks[id] = "v";
-    refresh();
-  };
-  $("btnElim").onclick = () => {
-    elim.add(id); have.delete(id);
-    marks[id] = "x";
-    refresh();
-  };
+  // Botão Acusar (abre modal)
+  if ($("btnAccuse")){
+    $("btnAccuse").disabled = false;
+    $("btnAccuse").onclick = (e) => { e.preventDefault(); openAccuse(); };
+  }
 }
 
 // ===== Modal imagem grande =====
@@ -125,8 +104,8 @@ function closeModal(){
   $("modal").classList.add("hidden");
   $("modalImg").src = "";
 }
-$("modalClose").addEventListener("click", closeModal);
-$("modal").addEventListener("click", (e)=>{ if (e.target.id === "modal") closeModal(); });
+if ($("modalClose")) $("modalClose").addEventListener("click", closeModal);
+if ($("modal")) $("modal").addEventListener("click", (e)=>{ if (e.target.id === "modal") closeModal(); });
 
 // ===== Caderno =====
 function markCycle(current){
@@ -145,8 +124,13 @@ function markLabel(m){
 }
 
 function buildNotebook(){
-  const q = ($("searchCard").value || "").trim().toLowerCase();
-  const filter = $("filterType").value;
+  const searchEl = $("searchCard");
+  const filterEl = $("filterType");
+  const grid = $("notebookGrid");
+  if (!grid) return;
+
+  const q = (searchEl?.value || "").trim().toLowerCase();
+  const filter = filterEl?.value || "all";
 
   const ids = ALL
     .filter(id => CARDS[id])
@@ -158,7 +142,6 @@ function buildNotebook(){
     })
     .sort();
 
-  const grid = $("notebookGrid");
   grid.innerHTML = "";
 
   ids.forEach(id=>{
@@ -177,22 +160,17 @@ function buildNotebook(){
       <div class="muted tag">${c.tipo} • ${id}</div>
     `;
 
-    // clique: alterna marcação
+    // clique: alterna marcação (não mexe mais em listas)
     div.addEventListener("click", ()=>{
       const next = markCycle(marks[id]);
       if (next) marks[id] = next;
       else delete marks[id];
 
-      // coerência opcional:
-      if (marks[id] === "x") { elim.add(id); have.delete(id); seen.delete(id); }
-      if (marks[id] === "v") { seen.add(id); elim.delete(id); }
-      // "q" não altera listas
-
-      refresh();
+      saveObj(LS.notebook, marks);
       buildNotebook();
     });
 
-    // duplo clique: abre imagem grande
+    // duplo clique: abre imagem grande (PC)
     div.addEventListener("dblclick", (e)=>{
       e.preventDefault();
       openModal(c.nome, c.img);
@@ -209,12 +187,65 @@ function openNotebook(){
 function closeNotebook(){
   $("notebook").classList.add("hidden");
 }
-$("btnNotebook").addEventListener("click", openNotebook);
-$("notebookClose").onclick = (e) => { e.preventDefault(); e.stopPropagation(); closeNotebook(); };
-$("notebook").addEventListener("click", (e)=>{ if (e.target.id === "notebook") closeNotebook(); });
 
-$("searchCard").addEventListener("input", buildNotebook);
-$("filterType").addEventListener("change", buildNotebook);
+if ($("btnNotebook")) $("btnNotebook").addEventListener("click", (e)=>{ e.preventDefault(); openNotebook(); });
+if ($("notebookClose")) $("notebookClose").onclick = (e) => { e.preventDefault(); e.stopPropagation(); closeNotebook(); };
+if ($("notebook")) $("notebook").addEventListener("click", (e)=>{ if (e.target.id === "notebook") closeNotebook(); });
+
+if ($("searchCard")) $("searchCard").addEventListener("input", buildNotebook);
+if ($("filterType")) $("filterType").addEventListener("change", buildNotebook);
+
+// ===== Modal Acusar =====
+function fillSelect(selectEl, tipo){
+  const ids = Object.keys(CARDS).filter(id => CARDS[id].tipo === tipo).sort();
+  selectEl.innerHTML = ids.map(id => `<option value="${id}">${CARDS[id].nome} (${id})</option>`).join("");
+}
+
+function renderAccuseResult(){
+  const saved = loadObj(LS.accuse);
+  const box = $("accResult");
+  if (!box) return;
+
+  if (!saved.sus || !saved.arm || !saved.loc){
+    box.textContent = "Nenhuma acusação salva ainda.";
+    return;
+  }
+  box.innerHTML = `Sua acusação salva: <b>${CARDS[saved.sus].nome}</b> + <b>${CARDS[saved.arm].nome}</b> + <b>${CARDS[saved.loc].nome}</b>`;
+}
+
+function openAccuse(){
+  const modal = $("accuse");
+  if (!modal) return;
+
+  // preenche selects
+  fillSelect($("accSus"), "Suspeito");
+  fillSelect($("accArm"), "Arma");
+  fillSelect($("accLoc"), "Local");
+
+  // carrega salvo
+  const saved = loadObj(LS.accuse);
+  if (saved.sus) $("accSus").value = saved.sus;
+  if (saved.arm) $("accArm").value = saved.arm;
+  if (saved.loc) $("accLoc").value = saved.loc;
+
+  renderAccuseResult();
+
+  modal.classList.remove("hidden");
+}
+
+function closeAccuse(){
+  const modal = $("accuse");
+  if (!modal) return;
+  modal.classList.add("hidden");
+}
+
+if ($("accuseClose")) $("accuseClose").addEventListener("click", closeAccuse);
+if ($("accuse")) $("accuse").addEventListener("click", (e)=>{ if (e.target.id === "accuse") closeAccuse(); });
+if ($("accSave")) $("accSave").addEventListener("click", ()=>{
+  const obj = { sus: $("accSus").value, arm: $("accArm").value, loc: $("accLoc").value };
+  saveObj(LS.accuse, obj);
+  renderAccuseResult();
+});
 
 // ===== Scanner =====
 let qr = null;
@@ -233,7 +264,16 @@ async function start(){
       (decodedText)=>{
         const id = normalizeCode(decodedText);
         if (!id) return;
+
         $("last").textContent = id;
+
+        // ✅ escaneou -> entra automaticamente na mão
+        if (CARDS[id]) {
+          have.add(id);
+          if (!marks[id]) marks[id] = "q"; // opcional: marca como dúvida no caderno
+          refresh();
+        }
+
         showCard(id);
       }
     );
@@ -258,31 +298,41 @@ async function stop(){
   $("status").textContent = "parado";
 }
 
-$("btnStart").addEventListener("click", start);
-$("btnStop").addEventListener("click", stop);
+if ($("btnStart")) $("btnStart").addEventListener("click", start);
+if ($("btnStop")) $("btnStop").addEventListener("click", stop);
 
 // ===== Notas =====
-$("notes").value = localStorage.getItem(LS.notes) || "";
-$("btnSaveNotes").addEventListener("click", ()=>{
+if ($("notes")) $("notes").value = localStorage.getItem(LS.notes) || "";
+if ($("btnSaveNotes")) $("btnSaveNotes").addEventListener("click", ()=>{
   localStorage.setItem(LS.notes, $("notes").value);
   $("noteStatus").textContent = "Salvo ✅";
   setTimeout(()=> $("noteStatus").textContent="", 1200);
 });
-$("btnLoadNotes").addEventListener("click", ()=>{
+if ($("btnLoadNotes")) $("btnLoadNotes").addEventListener("click", ()=>{
   $("notes").value = localStorage.getItem(LS.notes) || "";
   $("noteStatus").textContent = "Carregado ✅";
   setTimeout(()=> $("noteStatus").textContent="", 1200);
 });
 
 // ===== Limpar tudo =====
-$("btnClearMarks").addEventListener("click", ()=>{
+if ($("btnClearMarks")) $("btnClearMarks").addEventListener("click", ()=>{
   if (!confirm("Limpar suas marcações e caderno neste celular?")) return;
   have = new Set();
-  seen = new Set();
-  elim = new Set();
   marks = {};
   saveObj(LS.notebook, marks);
+  saveObj(LS.accuse, {});
   refresh();
+  renderAccuseResult();
+});
+
+// ===== Fechar com ESC (PC) =====
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    closeModal();
+    closeNotebook();
+    closeAccuse();
+  }
 });
 
 refresh();
+renderAccuseResult();
