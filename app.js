@@ -1,12 +1,11 @@
-// app.js — sem host, sem som, sem IA, multiplayer offline (cada celular privado)
-
 const CARDS = window.CARDS;
 
 const LS = {
-  have: "det2_have",   // tenho na mão
-  seen: "det2_seen",   // vi/confirmado
-  elim: "det2_elim",   // eliminado
-  notes: "det2_notes"
+  have: "det2_have",
+  seen: "det2_seen",
+  elim: "det2_elim",
+  notes: "det2_notes",
+  notebook: "det2_notebook_marks" // { "01":"v", "20":"x", ... }
 };
 
 const $ = (id) => document.getElementById(id);
@@ -19,24 +18,32 @@ function saveSet(key, set){
   localStorage.setItem(key, JSON.stringify(Array.from(set)));
 }
 
+function loadObj(key){
+  try { return JSON.parse(localStorage.getItem(key) || "{}"); }
+  catch { return {}; }
+}
+function saveObj(key, obj){
+  localStorage.setItem(key, JSON.stringify(obj));
+}
+
 let have = loadSet(LS.have);
 let seen = loadSet(LS.seen);
 let elim = loadSet(LS.elim);
+let marks = loadObj(LS.notebook); // id -> "x" | "q" | "v"
 
 const ALL = Object.keys(CARDS);
-const SUS = ALL.filter(id => CARDS[id].tipo === "Suspeito");
-const ARM = ALL.filter(id => CARDS[id].tipo === "Arma");
-const LOC = ALL.filter(id => CARDS[id].tipo === "Local");
 
 function normalizeCode(raw){
   const digits = String(raw).trim().replace(/\D/g, "");
   return digits ? digits.padStart(2,"0") : String(raw).trim();
 }
 
-function renderList(container, ids){
+function renderList(container, ids, {clickToOpen=false} = {}){
   container.innerHTML = "";
   ids.forEach(id=>{
     const c = CARDS[id];
+    if (!c) return;
+
     const div = document.createElement("div");
     div.className = "item";
     div.innerHTML = `
@@ -46,19 +53,25 @@ function renderList(container, ids){
         <div class="muted tag">${c.tipo} • ${id}</div>
       </div>
     `;
+
+    if (clickToOpen){
+      div.style.cursor = "pointer";
+      div.addEventListener("click", ()=> openModal(c.nome, c.img));
+    }
+
     container.appendChild(div);
   });
 }
 
 function refresh(){
-  // listas
-  renderList($("haveList"), Array.from(have).sort());
+  renderList($("haveList"), Array.from(have).sort(), {clickToOpen:true});
   renderList($("seenList"), Array.from(seen).sort());
   renderList($("elimList"), Array.from(elim).sort());
 
   saveSet(LS.have, have);
   saveSet(LS.seen, seen);
   saveSet(LS.elim, elim);
+  saveObj(LS.notebook, marks);
 }
 
 let lastId = null;
@@ -84,46 +97,124 @@ function showCard(id){
   $("btnSeen").disabled = false;
   $("btnElim").disabled = false;
 
-  $("btnHave").onclick = () => { have.add(id); seen.delete(id); elim.delete(id); refresh(); };
-  $("btnSeen").onclick = () => { seen.add(id); have.delete(id); elim.delete(id); refresh(); };
-  $("btnElim").onclick = () => { elim.add(id); have.delete(id); refresh(); };
+  $("btnHave").onclick = () => {
+    have.add(id); seen.delete(id); elim.delete(id);
+    // no caderno, "tenho" vira dúvida (opcional)
+    if (!marks[id]) marks[id] = "q";
+    refresh();
+  };
+  $("btnSeen").onclick = () => {
+    seen.add(id); have.delete(id); elim.delete(id);
+    if (!marks[id]) marks[id] = "v";
+    refresh();
+  };
+  $("btnElim").onclick = () => {
+    elim.add(id); have.delete(id);
+    marks[id] = "x";
+    refresh();
+  };
 }
 
-function remaining(categoryIds){
-  // o que ainda não foi eliminado e não está “na mão”
-  return categoryIds.filter(id => !elim.has(id) && !have.has(id));
+// ===== Modal imagem grande =====
+function openModal(title, img){
+  $("modalTitle").textContent = title;
+  $("modalImg").src = img;
+  $("modal").classList.remove("hidden");
+}
+function closeModal(){
+  $("modal").classList.add("hidden");
+  $("modalImg").src = "";
+}
+$("modalClose").addEventListener("click", closeModal);
+$("modal").addEventListener("click", (e)=>{ if (e.target.id === "modal") closeModal(); });
+
+// ===== Caderno =====
+function markCycle(current){
+  // ciclo: vazio -> v -> q -> x -> vazio
+  if (!current) return "v";
+  if (current === "v") return "q";
+  if (current === "q") return "x";
+  return null;
 }
 
-function smartTip(){
-  const rs = remaining(SUS);
-  const ra = remaining(ARM);
-  const rl = remaining(LOC);
-
-  // heurísticas úteis:
-  const tips = [];
-
-  tips.push(`Você ainda tem: <b>${rs.length}</b> suspeitos possíveis, <b>${ra.length}</b> armas, <b>${rl.length}</b> locais (ignorando o que você eliminou e o que está na sua mão).`);
-
-  // Se uma categoria está “grande”, prioriza ela
-  const max = Math.max(rs.length, ra.length, rl.length);
-  if (max === rs.length) tips.push("Priorize sugestões mudando mais os <b>suspeitos</b> para forçar refutações nessa categoria.");
-  else if (max === ra.length) tips.push("Priorize sugestões mudando mais as <b>armas</b> para forçar refutações nessa categoria.");
-  else tips.push("Priorize sugestões mudando mais os <b>locais</b> para forçar refutações nessa categoria.");
-
-  // Se já está perto de fechar:
-  if (rs.length <= 2) tips.push("Você está perto no <b>suspeito</b>: repita arma/local e alterne só os 2 suspeitos.");
-  if (ra.length <= 2) tips.push("Você está perto na <b>arma</b>: repita suspeito/local e alterne só as 2 armas.");
-  if (rl.length <= 2) tips.push("Você está perto no <b>local</b>: repita suspeito/arma e alterne só os 2 locais.");
-
-  // sugestão de palpite “bom” (sem IA)
-  if (rs.length && ra.length && rl.length){
-    const pick = (arr) => arr[Math.floor(Math.random()*arr.length)];
-    const s = pick(rs), a = pick(ra), l = pick(rl);
-    tips.push(`Sugestão de teste: <b>${CARDS[s].nome}</b> + <b>${CARDS[a].nome}</b> + <b>${CARDS[l].nome}</b>.`);
-  }
-
-  $("smartBox").innerHTML = `<div class="pill block">${tips.join("<br>")}</div>`;
+function markLabel(m){
+  if (m === "x") return {text:"X", cls:"x"};
+  if (m === "q") return {text:"?", cls:"q"};
+  if (m === "v") return {text:"✓", cls:"v"};
+  return {text:"—", cls:""};
 }
+
+function buildNotebook(){
+  const q = ($("searchCard").value || "").trim().toLowerCase();
+  const filter = $("filterType").value;
+
+  const ids = ALL
+    .filter(id => CARDS[id])
+    .filter(id => {
+      const c = CARDS[id];
+      if (filter !== "all" && c.tipo !== filter) return false;
+      if (!q) return true;
+      return (c.nome.toLowerCase().includes(q) || c.tipo.toLowerCase().includes(q) || id.includes(q));
+    })
+    .sort();
+
+  const grid = $("notebookGrid");
+  grid.innerHTML = "";
+
+  ids.forEach(id=>{
+    const c = CARDS[id];
+    const m = marks[id];
+    const b = markLabel(m);
+
+    const div = document.createElement("div");
+    div.className = "cardMini";
+    div.innerHTML = `
+      <img src="${c.img}" alt="${c.nome}">
+      <div class="badge">
+        <div class="name">${c.nome}</div>
+        <div class="mark ${b.cls}">${b.text}</div>
+      </div>
+      <div class="muted tag">${c.tipo} • ${id}</div>
+    `;
+
+    // clique: alterna marcação
+    div.addEventListener("click", ()=>{
+      const next = markCycle(marks[id]);
+      if (next) marks[id] = next;
+      else delete marks[id];
+
+      // coerência opcional:
+      if (marks[id] === "x") { elim.add(id); have.delete(id); seen.delete(id); }
+      if (marks[id] === "v") { seen.add(id); elim.delete(id); }
+      // "q" não altera listas
+
+      refresh();
+      buildNotebook();
+    });
+
+    // duplo clique: abre imagem grande
+    div.addEventListener("dblclick", (e)=>{
+      e.preventDefault();
+      openModal(c.nome, c.img);
+    });
+
+    grid.appendChild(div);
+  });
+}
+
+function openNotebook(){
+  $("notebook").classList.remove("hidden");
+  buildNotebook();
+}
+function closeNotebook(){
+  $("notebook").classList.add("hidden");
+}
+$("btnNotebook").addEventListener("click", openNotebook);
+$("notebookClose").addEventListener("click", closeNotebook);
+$("notebook").addEventListener("click", (e)=>{ if (e.target.id === "notebook") closeNotebook(); });
+
+$("searchCard").addEventListener("input", buildNotebook);
+$("filterType").addEventListener("change", buildNotebook);
 
 // ===== Scanner =====
 let qr = null;
@@ -183,17 +274,15 @@ $("btnLoadNotes").addEventListener("click", ()=>{
   setTimeout(()=> $("noteStatus").textContent="", 1200);
 });
 
-// limpar tudo
+// ===== Limpar tudo =====
 $("btnClearMarks").addEventListener("click", ()=>{
-  if (!confirm("Limpar suas marcações neste celular?")) return;
+  if (!confirm("Limpar suas marcações e caderno neste celular?")) return;
   have = new Set();
   seen = new Set();
   elim = new Set();
+  marks = {};
+  saveObj(LS.notebook, marks);
   refresh();
-  $("smartBox").textContent = "—";
 });
-
-// smart tips
-$("btnSmart").addEventListener("click", smartTip);
 
 refresh();

@@ -42,14 +42,12 @@
     </section>
 
     <section class="card">
-      <h2>🧠 Dicas inteligentes</h2>
-      <button id="btnSmart">Sugerir palpite</button>
-      <div id="smartBox" class="pill block">—</div>
-
-      <hr>
-
       <h2>📌 Minhas cartas</h2>
-      <button id="btnClearMarks">Limpar marcações</button>
+
+      <div class="row">
+        <button id="btnNotebook">📒 Caderno</button>
+        <button id="btnClearMarks">Limpar marcações</button>
+      </div>
 
       <h3>Tenho na mão</h3>
       <div id="haveList" class="list"></div>
@@ -63,13 +61,50 @@
       <hr>
 
       <h2>📝 Notas</h2>
-      <textarea id="notes" rows="7" class="textarea"></textarea>
+      <textarea id="notes" rows="7" class="textarea" placeholder="Escreva suas anotações aqui..."></textarea>
       <div class="row">
         <button id="btnSaveNotes">Salvar</button>
         <button id="btnLoadNotes">Carregar</button>
         <span id="noteStatus" class="muted"></span>
       </div>
     </section>
+
+    <!-- Modal: imagem grande (mostrar carta) -->
+    <div id="modal" class="modal hidden">
+      <div class="modalCard">
+        <button id="modalClose" class="iconBtn" aria-label="Fechar">✕</button>
+        <div id="modalTitle" class="modalTitle">—</div>
+        <img id="modalImg" class="modalImg" alt="">
+      </div>
+    </div>
+
+    <!-- Modal: Caderno -->
+    <div id="notebook" class="modal hidden">
+      <div class="modalCard wide">
+        <button id="notebookClose" class="iconBtn" aria-label="Fechar">✕</button>
+        <div class="modalTitle">📒 Caderno</div>
+
+        <div class="row">
+          <input id="searchCard" placeholder="Buscar (ex: banco, veneno, marinho)..." />
+          <select id="filterType">
+            <option value="all">Todas</option>
+            <option value="Suspeito">Suspeitos</option>
+            <option value="Arma">Armas</option>
+            <option value="Local">Locais</option>
+          </select>
+        </div>
+
+        <div class="legend">
+          <span class="pill">✓ = possível</span>
+          <span class="pill">? = dúvida</span>
+          <span class="pill">X = não é</span>
+          <span class="pill">Clique na carta para marcar</span>
+        </div>
+
+        <div id="notebookGrid" class="gridCards"></div>
+      </div>
+    </div>
+
   </main>
 
   <script src="./data/cards.js"></script>
