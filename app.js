@@ -441,7 +441,7 @@ let hintTimer = null;
 // >>>>> ALTERE O TEMPO AQUI <<<<<
 // exemplo: 30–90s => (30 + Math.random()*60)*1000
 function scheduleNextHint(){
-  const ms = (45 + Math.random() * 75) * 1000;
+  const ms = (90 + Math.random() * 200) * 1000;
 
   hintTimer = setTimeout(() => {
     const { text, tag } = buildHint();
