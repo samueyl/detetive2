@@ -284,3 +284,4 @@ hr{
   }
   .cardMini img{ height: 70px; }
 }
+#hintMeta{ display:none !important; }
