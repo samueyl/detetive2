@@ -23,38 +23,38 @@ function normalize(map){
 // =====================
 window.HINTS_BY_SUSPECT = normalize({
   "01": [ // Advogado Sr Marinho (suas 10)
-    "TESTEMUNHA: Ele falou bonito demais pra uma situação feia — como se já tivesse ensaiado a defesa.",
+    "TESTEMUNHA: A pessoa falou bonito demais pra uma situação feia — como se já tivesse ensaiado a defesa.",
     "RELATO: Quando perguntaram ‘onde você estava?’, veio uma resposta longa… e nenhuma parte soou espontânea.",
     "BOATO: Quem domina palavras costuma tentar dominar versões. E hoje tinha versão demais circulando.",
     "PAPEL: Tinha marcas de dedo em papel que ninguém deveria ter tocado — e alguém fingiu que era normal.",
     "SUSSURRO: ‘Isso não prova nada’ saiu rápido. Rápido demais pra quem é inocente.",
-    "OBS.: Ele não ficou nervoso com o crime… ficou nervoso com o relógio.",
-    "DETALHE: Sempre que um nome era citado, ele reorganizava a história como quem reorganiza frases.",
-    "RELATO: Ele tentou transformar dúvida em certeza com um tom de autoridade mansa.",
-    "BOATO: Dizem que ele ofereceu ajuda antes mesmo de pedirem — ajuda pode ser controle.",
+    "OBS.: A pessoa não ficou nervoso com o crime… ficou nervoso com o relógio.",
+    "DETALHE: Sempre que um nome era citado, A pessoa reorganizava a história como quem reorganiza frases.",
+    "RELATO: A pessoa tentou transformar dúvida em certeza com um tom de autoridade mansa.",
+    "BOATO: Dizem que A pessoa ofereceu ajuda antes mesmo de pedirem — ajuda pode ser controle.",
     "ANOTAÇÃO: Um argumento perfeito pode ser só uma máscara muito bem passada."
   ],
 
   "02": [ // Chef de Cozinha (suas 10)
     "TESTEMUNHA: As mãos dele estavam limpas demais pro lugar onde estava — como se tivesse lavado na pressa certa.",
-    "RELATO: Ele conhece rotas e horários como quem conhece fogão e faca: no automático.",
-    "BOATO: Dizem que ele sumiu por minutos e voltou com ‘desculpa’ pronta.",
+    "RELATO: A pessoa conhece rotas e horários como quem conhece fogão e faca: no automático.",
+    "BOATO: Dizem que A pessoa sumiu por minutos e voltou com ‘desculpa’ pronta.",
     "DETALHE: Cheiro de tempero forte pode esconder outra coisa. E alguém parecia contar com isso.",
-    "OBS.: Quando falaram de barulho, ele sorriu — como quem já sabia que ninguém escutaria nada.",
-    "RELATO: Ele evitou um canto específico, como se aquele canto guardasse um segredo quente.",
+    "OBS.: Quando falaram de barulho, A pessoa sorriu — como quem já sabia que ninguém escutaria nada.",
+    "RELATO: A pessoa evitou um canto específico, como se aquele canto guardasse um segredo quente.",
     "ANOTAÇÃO: Quem domina rotina domina oportunidades.",
-    "TESTEMUNHA: Ele ficou irritado quando mexeram em objetos — como se não quisesse bagunça na cena.",
+    "TESTEMUNHA: A pessoa ficou irritado quando mexeram em objetos — como se não quisesse bagunça na cena.",
     "BOATO: O crime parece ter sido feito com precisão, não com raiva.",
     "DETALHE: Às vezes o culpado é só alguém que sabe ‘como fazer rápido’."
   ],
 
   "03": [ // Coveiro Sérgio Soturno (suas 10)
-    "TESTEMUNHA: Ele não se assustou com a notícia… só ficou mais quieto.",
+    "TESTEMUNHA: A pessoa não se assustou com a notícia… só ficou mais quieto.",
     "RELATO: Tem gente que conhece o silêncio por dentro. E hoje alguém parecia confortável nele.",
-    "BOATO: Dizem que ele sabe onde ninguém procura — e isso é perigoso quando algo precisa sumir.",
-    "DETALHE: Quando falaram em ‘fim’, ele não fez pergunta nenhuma. Como se já soubesse o caminho.",
+    "BOATO: Dizem que A pessoa sabe onde ninguém procura — e isso é perigoso quando algo precisa sumir.",
+    "DETALHE: Quando falaram em ‘fim’, A pessoa não fez pergunta nenhuma. Como se já soubesse o caminho.",
     "OBS.: A calma dele era pesada, não era paz.",
-    "RELATO: Ele evitou explicar — e quem evita explicar às vezes evita se entregar.",
+    "RELATO: A pessoa evitou explicar — e quem evita explicar às vezes evita se entregar.",
     "ANOTAÇÃO: O medo apareceu nos outros. Nele, apareceu só uma certeza fria.",
     "TESTEMUNHA: Uma frase curta: ‘isso acontece’. Curta demais.",
     "BOATO: Alguns chamam de experiência. Outros chamam de intimidade com o pior.",
@@ -62,66 +62,66 @@ window.HINTS_BY_SUSPECT = normalize({
   ],
 
   "04": [ // Dançarina Srta Rosa (suas 10)
-    "TESTEMUNHA: Ela sorriu na hora errada — aquele sorriso que tenta distrair a culpa.",
-    "RELATO: Ela se moveu como se o lugar fosse palco, e palco é ótimo pra esconder intenções.",
-    "BOATO: Dizem que ela some e volta no tempo perfeito, sempre com um ‘ah, eu estava ali’.",
+    "TESTEMUNHA: A pessoa sorriu na hora errada — aquele sorriso que tenta distrair a culpa.",
+    "RELATO: A pessoa se moveu como se o lugar fosse palco, e palco é ótimo pra esconder intenções.",
+    "BOATO: Dizem que A pessoa some e volta no tempo perfeito, sempre com um ‘ah, eu estava ali’.",
     "DETALHE: A distração foi parte do método. Alguém queria olhos em qualquer coisa… menos no essencial.",
     "OBS.: Quem é carismático pode guiar a sala sem ninguém perceber.",
-    "RELATO: Quando a conversa apertou, ela mudou o ritmo — e todo mundo seguiu.",
+    "RELATO: Quando a conversa apertou, A pessoa mudou o ritmo — e todo mundo seguiu.",
     "ANOTAÇÃO: A melhor cortina de fumaça é um brilho bonito.",
-    "TESTEMUNHA: Ela desviou perguntas com delicadeza, como dança: sem choque, sem rastro.",
+    "TESTEMUNHA: A pessoa desviou perguntas com delicadeza, como dança: sem choque, sem rastro.",
     "BOATO: A história dela veio fluida demais. Fluidez às vezes é ensaio.",
     "DETALHE: Hoje, alguém usou charme como álibi."
   ],
 
   "05": [ // Florista Dona Branca (suas 10)
     "TESTEMUNHA: Um perfume doce ficou no ar… e alguém parecia contar com isso pra confundir memórias.",
-    "RELATO: Ela fala com gentileza, mas protege detalhes como quem protege espinhos.",
-    "BOATO: Dizem que ela estava calma demais para o tipo de notícia que quebra a noite.",
+    "RELATO: A pessoa fala com gentileza, mas protege detalhes como quem protege espinhos.",
+    "BOATO: Dizem que A pessoa estava calma demais para o tipo de notícia que quebra a noite.",
     "DETALHE: Pétalas no chão não provam nada… mas indicam passagem recente de alguém ‘cuidadoso’.",
     "OBS.: A delicadeza pode ser máscara tão boa quanto uma ameaça.",
-    "RELATO: Quando pressionaram, ela respondeu com frases curtas e bonitas — sem conteúdo.",
+    "RELATO: Quando pressionaram, A pessoa respondeu com frases curtas e bonitas — sem conteúdo.",
     "ANOTAÇÃO: Quem mexe com arranjos sabe esconder coisas no meio do que é ‘decorativo’.",
-    "TESTEMUNHA: Ela evitou olhar para um objeto específico, como se fosse algo pessoal.",
+    "TESTEMUNHA: A pessoa evitou olhar para um objeto específico, como se fosse algo pessoal.",
     "BOATO: A versão dela parecia preparada pra ser aceita sem discussão.",
     "DETALHE: Às vezes, a culpa vem embrulhada em seda."
   ],
 
   "06": [ // Médica Dona Violeta (suas 10)
-    "TESTEMUNHA: Ela observou reações como quem observa sintomas — silenciosa, anotando tudo com os olhos.",
-    "RELATO: Quando falaram de causa, ela já tinha hipótese pronta. Pronta demais.",
-    "BOATO: Dizem que ela explicou possibilidades antes mesmo de alguém perguntar.",
-    "DETALHE: Quem entende o corpo entende também como ele falha sem barulho.",
+    "TESTEMUNHA: A pessoa observou reações como quem observa sintomas — silenciosa, anotando tudo com os olhos.",
+    "RELATO: Quando falaram de causa, A pessoa já tinha hipótese pronta. Pronta demais.",
+    "BOATO: Dizem que A pessoa explicou possibilidades antes mesmo de alguém perguntar.",
+    "DETALHE: Quem entende o corpo entende também como A pessoa falha sem barulho.",
     "OBS.: A calma dela parecia treino, não tranquilidade.",
-    "RELATO: Ela se incomodou quando tocaram no assunto ‘tempo’. Tempo denuncia procedimento.",
+    "RELATO: A pessoa se incomodou quando tocaram no assunto ‘tempo’. Tempo denuncia procedimento.",
     "ANOTAÇÃO: Um crime pode parecer acidente quando alguém sabe fazer parecer.",
-    "TESTEMUNHA: Ela foi a primeira a dizer ‘pode ter sido natural’. Natural demais.",
+    "TESTEMUNHA: A pessoa foi a primeira a dizer ‘pode ter sido natural’. Natural demais.",
     "BOATO: O culpado pode ter usado conhecimento como luva.",
     "DETALHE: Hoje, a verdade pode estar escondida numa explicação técnica."
   ],
 
   "07": [ // Mordomo James (suas 10)
-    "TESTEMUNHA: Ele conhece portas e horários como quem conhece a própria respiração.",
-    "RELATO: Ele apareceu no momento certo pra ‘ajudar’, e ajuda às vezes é controle da cena.",
-    "BOATO: Dizem que ele some pelos corredores sem ninguém notar — e isso é uma vantagem enorme.",
+    "TESTEMUNHA: A pessoa conhece portas e horários como quem conhece a própria respiração.",
+    "RELATO: A pessoa apareceu no momento certo pra ‘ajudar’, e ajuda às vezes é controle da cena.",
+    "BOATO: Dizem que A pessoa some pelos corredores sem ninguém notar — e isso é uma vantagem enorme.",
     "DETALHE: Quem tem chave não precisa arrombar. Quem não arromba, não deixa marca.",
-    "OBS.: A presença dele é invisível até você precisar lembrar que ele estava lá.",
-    "RELATO: Ele respondeu sem emoção — e emoção às vezes é o que falta quando a culpa já foi resolvida.",
+    "OBS.: A presença dele é invisível até você precisar lembrar que A pessoa estava lá.",
+    "RELATO: A pessoa respondeu sem emoção — e emoção às vezes é o que falta quando a culpa já foi resolvida.",
     "ANOTAÇÃO: O culpado mais perigoso é o que parece parte do mobiliário.",
-    "TESTEMUNHA: Ele desviou um olhar rápido para a saída quando perguntaram ‘e depois?’",
+    "TESTEMUNHA: A pessoa desviou um olhar rápido para a saída quando perguntaram ‘e depois?’",
     "BOATO: A rotina dele pode ser o melhor disfarce.",
     "DETALHE: Hoje, alguém usou acesso como arma."
   ],
 
   "08": [ // Sargento Bigode (suas 10)
-    "TESTEMUNHA: Ele tentou comandar a conversa como se fosse investigação oficial — e isso pode ser máscara.",
+    "TESTEMUNHA: A pessoa tentou comandar a conversa como se fosse investigação oficial — e isso pode ser máscara.",
     "RELATO: Quem quer organizar o caos pode estar tentando decidir o que entra e o que sai da história.",
-    "BOATO: Dizem que ele ficou mais irritado com dúvidas do que com o crime.",
+    "BOATO: Dizem que A pessoa ficou mais irritado com dúvidas do que com o crime.",
     "DETALHE: Autoridade é ótima pra encerrar perguntas cedo demais.",
-    "OBS.: Ele olha o grupo como patrulha, não como gente. Frio demais.",
-    "RELATO: Ele perguntou ‘quem estava onde’ como interrogatório — e conduziu respostas.",
+    "OBS.: A pessoa olha o grupo como patrulha, não como gente. Frio demais.",
+    "RELATO: A pessoa perguntou ‘quem estava onde’ como interrogatório — e conduziu respostas.",
     "ANOTAÇÃO: Quem controla o ritmo controla o foco.",
-    "TESTEMUNHA: Ele ficou calmo quando citaram barulho… como se já soubesse que isso não importava.",
+    "TESTEMUNHA: A pessoa ficou calmo quando citaram barulho… como se já soubesse que isso não importava.",
     "BOATO: A pressa dele era seletiva: pressa pra concluir, não pra entender.",
     "DETALHE: Hoje, alguém usou disciplina como disfarce."
   ]
@@ -129,105 +129,105 @@ window.HINTS_BY_SUSPECT = normalize({
 
 // +10 novas por suspeito
 addHints(window.HINTS_BY_SUSPECT, "01", [
-  "RELATO: Ele corrigiu um detalhe que ninguém tinha dito — como se tivesse visto de perto.",
-  "OBS.: Quando alguém chorou, ele olhou pros lados antes de olhar pra pessoa.",
-  "ANOTAÇÃO: Ele se apegou a tecnicalidades, não à tragédia.",
-  "BOATO: Dizem que ele sugeriu um culpado cedo demais, pra ‘ajudar’.",
-  "DETALHE: A forma como ele escolheu palavras parecia mais importante que a verdade.",
-  "TESTEMUNHA: Ele repetiu a mesma frase duas vezes, igualzinho. Ensaiado.",
-  "RELATO: Ele evitou responder “sim” ou “não”. Só explicações.",
-  "OBS.: Ele se incomodou quando alguém falou em “prova”.",
+  "RELATO: A pessoa corrigiu um detalhe que ninguém tinha dito — como se tivesse visto de perto.",
+  "OBS.: Quando alguém chorou, A pessoa olhou pros lados antes de olhar pra pessoa.",
+  "ANOTAÇÃO: A pessoa se apegou a tecnicalidades, não à tragédia.",
+  "BOATO: Dizem que A pessoa sugeriu um culpado cedo demais, pra ‘ajudar’.",
+  "DETALHE: A forma como A pessoa escolheu palavras parecia mais importante que a verdade.",
+  "TESTEMUNHA: A pessoa repetiu a mesma frase duas vezes, igualzinho. Ensaiado.",
+  "RELATO: A pessoa evitou responder “sim” ou “não”. Só explicações.",
+  "OBS.: A pessoa se incomodou quando alguém falou em “prova”.",
   "ANOTAÇÃO: Quem tenta controlar o enredo geralmente teme o final.",
   "BOATO: Hoje parecia que alguém estava defendendo uma versão — não uma pessoa."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "02", [
-  "OBS.: Ele conferiu as mãos mais de uma vez, como se procurasse algo que já saiu.",
+  "OBS.: A pessoa conferiu as mãos mais de uma vez, como se procurasse algo que já saiu.",
   "RELATO: A primeira reação dele foi calcular, não se assustar.",
-  "DETALHE: Ele notou um utensílio fora do lugar rápido demais.",
-  "BOATO: Dizem que ele conhece atalhos onde ninguém passa.",
-  "TESTEMUNHA: Ele ficou atento ao que era servido, como se o conteúdo importasse demais.",
+  "DETALHE: A pessoa notou um utensílio fora do lugar rápido demais.",
+  "BOATO: Dizem que A pessoa conhece atalhos onde ninguém passa.",
+  "TESTEMUNHA: A pessoa ficou atento ao que era servido, como se o conteúdo importasse demais.",
   "ANOTAÇÃO: Quem lida com cortes e tempos sabe fazer tudo “no ponto”.",
-  "RELATO: Ele tentou levar a conversa pra rotina, como se nada tivesse acontecido.",
-  "OBS.: Quando falaram em “mistura”, ele piscou e mudou de assunto.",
+  "RELATO: A pessoa tentou levar a conversa pra rotina, como se nada tivesse acontecido.",
+  "OBS.: Quando falaram em “mistura”, A pessoa piscou e mudou de assunto.",
   "DETALHE: O culpado pode ser quem sabe esconder no comum.",
   "BOATO: Hoje alguém usou habilidade como desculpa."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "03", [
-  "OBS.: Ele evitou luz direta, preferiu ficar nos cantos.",
-  "RELATO: Ele conhecia detalhes do lugar que ninguém comentou.",
-  "TESTEMUNHA: Ele não perguntou “quem foi?”, perguntou “onde foi?”.",
-  "BOATO: Dizem que ele sabe guardar segredos como quem guarda terra.",
-  "DETALHE: O jeito que ele caminha não faz som — isso ajuda mais do que parece.",
+  "OBS.: A pessoa evitou luz direta, preferiu ficar nos cantos.",
+  "RELATO: A pessoa conhecia detalhes do lugar que ninguém comentou.",
+  "TESTEMUNHA: A pessoa não perguntou “quem foi?”, perguntou “onde foi?”.",
+  "BOATO: Dizem que A pessoa sabe guardar segredos como quem guarda terra.",
+  "DETALHE: O jeito que A pessoa caminha não faz som — isso ajuda mais do que parece.",
   "ANOTAÇÃO: Quem convive com despedidas perde o susto.",
-  "RELATO: Ele se calou quando mencionaram “sumir com algo”.",
-  "OBS.: Ele observou o chão como quem lê pistas nele.",
+  "RELATO: A pessoa se calou quando mencionaram “sumir com algo”.",
+  "OBS.: A pessoa observou o chão como quem lê pistas nele.",
   "BOATO: Hoje alguém estava confortável com o fim.",
   "DETALHE: A frieza dele não era defesa — era hábito."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "04", [
-  "OBS.: Ela escolheu onde ficar como se escolhesse marcação no palco.",
-  "RELATO: Quando a atenção foi pra outro lado, ela respirou aliviada.",
-  "TESTEMUNHA: Ela tocou no próprio cabelo sempre que mentia — parecia tic.",
-  "BOATO: Dizem que ela sabe prender olhares e soltar suspeitas.",
+  "OBS.: A pessoa escolheu onde ficar como se escolhesse marcação no palco.",
+  "RELATO: Quando a atenção foi pra outro lado, A pessoa respirou aliviada.",
+  "TESTEMUNHA: A pessoa tocou no próprio cabelo sempre que mentia — parecia tic.",
+  "BOATO: Dizem que A pessoa sabe prender olhares e soltar suspeitas.",
   "DETALHE: A história dela tinha ritmo, mas faltava peso.",
   "ANOTAÇÃO: Quem domina cena domina também distração.",
-  "RELATO: Ela fez piada num momento ruim, só pra quebrar tensão.",
-  "OBS.: Ela evitou ficar sozinha com alguém específico.",
+  "RELATO: A pessoa fez piada num momento ruim, só pra quebrar tensão.",
+  "OBS.: A pessoa evitou ficar sozinha com alguém específico.",
   "BOATO: Hoje alguém dançou em volta da verdade.",
   "DETALHE: Um sorriso pode ser cortina — e cortina esconde."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "05", [
-  "OBS.: Ela segurou a bolsa/objeto perto demais, como se escondesse algo pequeno.",
-  "RELATO: Ela tentou “adoçar” a conversa quando o assunto ficou sério.",
-  "TESTEMUNHA: Ela cheirou as mãos discretamente, como se conferisse perfume.",
-  "BOATO: Dizem que ela trocou de lugar rápido quando alguém chegou perto.",
+  "OBS.: A pessoa segurou a bolsa/objeto perto demais, como se escondesse algo pequeno.",
+  "RELATO: A pessoa tentou “adoçar” a conversa quando o assunto ficou sério.",
+  "TESTEMUNHA: A pessoa cheirou as mãos discretamente, como se conferisse perfume.",
+  "BOATO: Dizem que A pessoa trocou de lugar rápido quando alguém chegou perto.",
   "DETALHE: A delicadeza dela aparece mais quando quer evitar perguntas.",
   "ANOTAÇÃO: Quem sabe arrumar também sabe disfarçar.",
-  "RELATO: Ela elogiou alguém do nada — elogio pode ser distração.",
-  "OBS.: Ela ficou tensa quando citaram “rastros”.",
+  "RELATO: A pessoa elogiou alguém do nada — elogio pode ser distração.",
+  "OBS.: A pessoa ficou tensa quando citaram “rastros”.",
   "BOATO: Hoje alguém quis parecer inofensivo demais.",
   "DETALHE: O que é bonito também pode cortar."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "06", [
-  "OBS.: Ela mediu as pessoas com o olhar, como quem escolhe hipótese.",
-  "RELATO: Ela descreveu sintomas com detalhe… antes de alguém explicar.",
-  "TESTEMUNHA: Ela pediu “calma” num tom que parecia comando.",
-  "BOATO: Dizem que ela carregava algo pequeno no bolso/bolsa com cuidado.",
+  "OBS.: A pessoa mediu as pessoas com o olhar, como quem escolhe hipótese.",
+  "RELATO: A pessoa descreveu sintomas com detalhe… antes de alguém explicar.",
+  "TESTEMUNHA: A pessoa pediu “calma” num tom que parecia comando.",
+  "BOATO: Dizem que A pessoa carregava algo pequeno no bolso/bolsa com cuidado.",
   "DETALHE: Quem conhece doses conhece limites.",
   "ANOTAÇÃO: O culpado pode estar por trás de uma explicação “perfeita”.",
-  "RELATO: Ela ficou desconfortável quando citaram “tempo de efeito”.",
-  "OBS.: Ela tentou encerrar conversa com termos técnicos.",
+  "RELATO: A pessoa ficou desconfortável quando citaram “tempo de efeito”.",
+  "OBS.: A pessoa tentou encerrar conversa com termos técnicos.",
   "BOATO: Hoje alguém usou conhecimento pra parecer autoridade.",
   "DETALHE: Se parece acidente, pergunte quem entende de acidentes."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "07", [
-  "OBS.: Ele apareceu rápido demais quando chamaram por ajuda.",
-  "RELATO: Ele sabia exatamente onde cada pessoa esteve, sem perguntar.",
-  "TESTEMUNHA: Ele evitou câmera/espelho como se não quisesse ser registrado.",
-  "BOATO: Dizem que ele conhece rotinas alheias melhor que as próprias.",
-  "DETALHE: Chaves fazem barulho. Ele andava como se não tivesse nenhuma.",
+  "OBS.: A pessoa apareceu rápido demais quando chamaram por ajuda.",
+  "RELATO: A pessoa sabia exatamente onde cada pessoa esteve, sem perguntar.",
+  "TESTEMUNHA: A pessoa evitou câmera/espelho como se não quisesse ser registrado.",
+  "BOATO: Dizem que A pessoa conhece rotinas alheias melhor que as próprias.",
+  "DETALHE: Chaves fazem barulho. A pessoa andava como se não tivesse nenhuma.",
   "ANOTAÇÃO: Acesso é poder. E poder é tentação.",
-  "RELATO: Ele sugeriu ‘fechar a porta’ mais de uma vez.",
-  "OBS.: Ele ficou tenso quando falaram em “registro”.",
+  "RELATO: A pessoa sugeriu ‘fechar a porta’ mais de uma vez.",
+  "OBS.: A pessoa ficou tenso quando falaram em “registro”.",
   "BOATO: Hoje alguém agiu como parte da casa.",
   "DETALHE: Quem controla passagem controla história."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "08", [
-  "OBS.: Ele testou limites: quem obedece, quem discute, quem cala.",
-  "RELATO: Ele puxou uma pessoa pra conversa e isolou outra.",
-  "TESTEMUNHA: Ele ficou irritado quando alguém discordou dele.",
-  "BOATO: Dizem que ele tentou ‘reconstituir’ tudo do jeito dele.",
-  "DETALHE: Ele olhava as saídas como quem planeja rota.",
+  "OBS.: A pessoa testou limites: quem obedece, quem discute, quem cala.",
+  "RELATO: A pessoa puxou uma pessoa pra conversa e isolou outra.",
+  "TESTEMUNHA: A pessoa ficou irritado quando alguém discordou dele.",
+  "BOATO: Dizem que A pessoa tentou ‘reconstituir’ tudo do jeito dele.",
+  "DETALHE: A pessoa olhava as saídas como quem planeja rota.",
   "ANOTAÇÃO: Autoridade falsa quer plateia, não verdade.",
-  "RELATO: Ele perguntou mais do que respondeu.",
-  "OBS.: Ele queria decidir quando o assunto acabava.",
+  "RELATO: A pessoa perguntou mais do que respondeu.",
+  "OBS.: A pessoa queria decidir quando o assunto acabava.",
   "BOATO: Hoje alguém usou comando como cortina.",
   "DETALHE: Quem controla perguntas controla culpados."
 ]);
@@ -288,7 +288,7 @@ window.HINTS_BY_WEAPON = normalize({
     "TESTEMUNHA: Um barulho curto de metal… como se algo tivesse sido forçado só uma vez.",
     "RELATO: Não é só arma — é acesso. E acesso muda tudo.",
     "BOATO: Dizem que a cena foi ‘aberta’ à força e depois fingiram que sempre esteve assim.",
-    "DETALHE: Quando alguém abre caminho, ele abre também a chance de desaparecer.",
+    "DETALHE: Quando alguém abre caminho, A pessoa abre também a chance de desaparecer.",
     "OBS.: O método deixa marca, mas a marca pode ser confundida com bagunça antiga.",
     "RELATO: Um estalo seco pode ter sido o momento exato.",
     "ANOTAÇÃO: Ferramenta de arrombamento também serve para controlar portas e histórias.",
@@ -327,7 +327,7 @@ window.HINTS_BY_WEAPON = normalize({
     "DETALHE: Quando a causa chega depois, a mentira ganha minutos preciosos.",
     "OBS.: Isso exige preparo. E preparo exige calma.",
     "RELATO: O culpado não precisou ficar perto no final — só no começo.",
-    "ANOTAÇÃO: Nem toda arma aparece. Às vezes ela já foi embora quando a culpa chega.",
+    "ANOTAÇÃO: Nem toda arma aparece. Às vezes A pessoa já foi embora quando a culpa chega.",
     "TESTEMUNHA: Vi alguém oferecendo algo com gentileza demais.",
     "BOATO: Hoje, alguém apostou que ninguém conectaria os pontos.",
     "DETALHE: A pista pode estar no que foi dado, não no que foi tirado."
@@ -381,7 +381,7 @@ addHints(window.HINTS_BY_WEAPON, "12", [
   "BOATO: Dizem que alguém arrastou algo por poucos metros.",
   "TESTEMUNHA: Um som de metal raspando no chão e depois silêncio.",
   "ANOTAÇÃO: Ferramenta de trabalho vira arma quando há oportunidade.",
-  "RELATO: Quem usou isso não se importou com sujeira — ou já esperava ela.",
+  "RELATO: Quem usou isso não se importou com sujeira — ou já esperava A pessoa.",
   "OBS.: O culpado pode ter saído com pó nas roupas.",
   "DETALHE: Procure marcas no chão que parecem “acidente”.",
   "BOATO: Hoje alguém fez parecer rotina de lugar."
@@ -558,7 +558,7 @@ window.HINTS_BY_LOCATION = normalize({
     "DETALHE: Carimbos e assinaturas podem criar álibis falsos.",
     "OBS.: Onde há hierarquia, perguntas morrem cedo.",
     "RELATO: Um “eu estava resolvendo isso” vira desculpa perfeita.",
-    "ANOTAÇÃO: Poder não grita — ele manda calar.",
+    "ANOTAÇÃO: Poder não grita — A pessoa manda calar.",
     "TESTEMUNHA: Vi alguém sair de uma sala com pressa contida, segurando algo junto ao peito.",
     "BOATO: O culpado quis que tudo parecesse ‘burocracia’.",
     "DETALHE: Aqui, a pista pode ser quem sabia quais portas abrem."
@@ -728,106 +728,106 @@ addHints(window.HINTS_BY_LOCATION, "27", [
 
 // ---- SUSPEITOS ----
 addHints(window.HINTS_BY_SUSPECT, "01", [
-  "TESTEMUNHA: Ele ficou mais preocupado em ‘explicar’ do que em entender.",
-  "RELATO: Quando pediram detalhes simples, ele deu um discurso completo.",
-  "BOATO: Dizem que ele tentou combinar o que cada um ia dizer.",
-  "DETALHE: Ele repetia palavras específicas como se fosse roteiro.",
+  "TESTEMUNHA: A pessoa ficou mais preocupado em ‘explicar’ do que em entender.",
+  "RELATO: Quando pediram detalhes simples, A pessoa deu um discurso completo.",
+  "BOATO: Dizem que A pessoa tentou combinar o que cada um ia dizer.",
+  "DETALHE: A pessoa repetia palavras específicas como se fosse roteiro.",
   "OBS.: O olhar dele buscava aprovação quando a história fechava.",
   "ANOTAÇÃO: Quem controla a conversa costuma temer o silêncio.",
-  "TESTEMUNHA: Ele corrigiu a ordem dos fatos antes de alguém errar.",
-  "RELATO: Ele falou “isso é irrelevante” justamente no ponto mais relevante.",
-  "BOATO: Dizem que ele quis ‘encerrar logo’ a conversa sobre o crime.",
-  "DETALHE: Ele defendia uma versão, não uma verdade."
+  "TESTEMUNHA: A pessoa corrigiu a ordem dos fatos antes de alguém errar.",
+  "RELATO: A pessoa falou “isso é irrelevante” justamente no ponto mais relevante.",
+  "BOATO: Dizem que A pessoa quis ‘encerrar logo’ a conversa sobre o crime.",
+  "DETALHE: A pessoa defendia uma versão, não uma verdade."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "02", [
-  "TESTEMUNHA: Ele se incomodou quando citaram ‘ingredientes’ e ‘mistura’.",
-  "RELATO: Ele sabia exatamente o que estava faltando sem procurar direito.",
-  "BOATO: Dizem que ele foi ao fundo do lugar sozinho por alguns minutos.",
-  "DETALHE: Ele cheirou algo rápido, como quem confirma uma suspeita.",
+  "TESTEMUNHA: A pessoa se incomodou quando citaram ‘ingredientes’ e ‘mistura’.",
+  "RELATO: A pessoa sabia exatamente o que estava faltando sem procurar direito.",
+  "BOATO: Dizem que A pessoa foi ao fundo do lugar sozinho por alguns minutos.",
+  "DETALHE: A pessoa cheirou algo rápido, como quem confirma uma suspeita.",
   "OBS.: A calma dele parecia cálculo, não serenidade.",
   "ANOTAÇÃO: Rotina é álibi perfeito pra quem domina rotina.",
-  "TESTEMUNHA: Ele tentou limpar uma superfície sem ninguém pedir.",
-  "RELATO: Ele ficou atento às mãos dos outros, como quem teme marca.",
-  "BOATO: Dizem que ele usou barulho do ambiente como cobertura.",
+  "TESTEMUNHA: A pessoa tentou limpar uma superfície sem ninguém pedir.",
+  "RELATO: A pessoa ficou atento às mãos dos outros, como quem teme marca.",
+  "BOATO: Dizem que A pessoa usou barulho do ambiente como cobertura.",
   "DETALHE: O culpado pode ser quem age como se estivesse “trabalhando”."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "03", [
-  "TESTEMUNHA: Ele não perguntou se alguém estava bem — só observou.",
-  "RELATO: Quando falaram em ‘esconder’, ele ficou mais atento.",
-  "BOATO: Dizem que ele conhece os cantos onde a luz não chega.",
-  "DETALHE: Ele evitou pisar em certas áreas, como se respeitasse marcas.",
+  "TESTEMUNHA: A pessoa não perguntou se alguém estava bem — só observou.",
+  "RELATO: Quando falaram em ‘esconder’, A pessoa ficou mais atento.",
+  "BOATO: Dizem que A pessoa conhece os cantos onde a luz não chega.",
+  "DETALHE: A pessoa evitou pisar em certas áreas, como se respeitasse marcas.",
   "OBS.: A postura dele parecia de quem já viu isso antes.",
   "ANOTAÇÃO: Quem não teme o fim às vezes planeja o fim.",
-  "TESTEMUNHA: Ele olhou pro chão como quem lê mapa de passos.",
-  "RELATO: Ele se afastou quando todo mundo se juntou — e isso diz muito.",
-  "BOATO: Dizem que ele ficou perto de saídas discretas.",
+  "TESTEMUNHA: A pessoa olhou pro chão como quem lê mapa de passos.",
+  "RELATO: A pessoa se afastou quando todo mundo se juntou — e isso diz muito.",
+  "BOATO: Dizem que A pessoa ficou perto de saídas discretas.",
   "DETALHE: O silêncio dele não era choque; era escolha."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "04", [
-  "TESTEMUNHA: Ela riu baixo quando ninguém achou graça.",
-  "RELATO: Ela mudou o assunto como quem muda a música.",
-  "BOATO: Dizem que ela apareceu ‘do nada’ no momento mais conveniente.",
-  "DETALHE: Ela usou charme pra desarmar pergunta direta.",
-  "OBS.: Ela mediu quem estava olhando e ajustou o comportamento.",
+  "TESTEMUNHA: A pessoa riu baixo quando ninguém achou graça.",
+  "RELATO: A pessoa mudou o assunto como quem muda a música.",
+  "BOATO: Dizem que A pessoa apareceu ‘do nada’ no momento mais conveniente.",
+  "DETALHE: A pessoa usou charme pra desarmar pergunta direta.",
+  "OBS.: A pessoa mediu quem estava olhando e ajustou o comportamento.",
   "ANOTAÇÃO: Carisma é ótimo pra conduzir sem mandar.",
-  "TESTEMUNHA: Ela foi a primeira a dizer “calma”, mas parecia alívio.",
-  "RELATO: Quando pediram precisão, ela respondeu com poesia.",
-  "BOATO: Dizem que ela sumiu no intervalo em que ninguém reparou.",
+  "TESTEMUNHA: A pessoa foi a primeira a dizer “calma”, mas parecia alívio.",
+  "RELATO: Quando pediram precisão, A pessoa respondeu com poesia.",
+  "BOATO: Dizem que A pessoa sumiu no intervalo em que ninguém reparou.",
   "DETALHE: O álibi dela pareceu bonito demais pra ser real."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "05", [
-  "TESTEMUNHA: Ela ficou tensa quando alguém mencionou cheiro no ambiente.",
-  "RELATO: Ela manteve as mãos ocupadas o tempo todo, como defesa.",
-  "BOATO: Dizem que ela queria sair antes de começarem as perguntas.",
-  "DETALHE: Ela protegeu um objeto como se fosse segredo de bolso.",
+  "TESTEMUNHA: A pessoa ficou tensa quando alguém mencionou cheiro no ambiente.",
+  "RELATO: A pessoa manteve as mãos ocupadas o tempo todo, como defesa.",
+  "BOATO: Dizem que A pessoa queria sair antes de começarem as perguntas.",
+  "DETALHE: A pessoa protegeu um objeto como se fosse segredo de bolso.",
   "OBS.: A voz dela ficou doce quando ficou acuada.",
   "ANOTAÇÃO: Delicadeza pode ser arma silenciosa.",
-  "TESTEMUNHA: Ela desviou o olhar quando citaram ‘rastro’ e ‘marca’.",
-  "RELATO: Ela falou muito de sentimentos e pouco de fatos.",
-  "BOATO: Dizem que ela “arrumou” algo que ninguém tinha bagunçado.",
+  "TESTEMUNHA: A pessoa desviou o olhar quando citaram ‘rastro’ e ‘marca’.",
+  "RELATO: A pessoa falou muito de sentimentos e pouco de fatos.",
+  "BOATO: Dizem que A pessoa “arrumou” algo que ninguém tinha bagunçado.",
   "DETALHE: O culpado pode ser quem parece inofensivo demais."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "06", [
-  "TESTEMUNHA: Ela tentou dar diagnóstico antes de qualquer análise.",
-  "RELATO: Ela falou de ‘tempo de ação’ como quem já sabia.",
-  "BOATO: Dizem que ela sugeriu “causa natural” rápido demais.",
-  "DETALHE: Ela se incomodou com a palavra “procedimento”.",
-  "OBS.: Ela ficou serena no momento em que todos ficaram pálidos.",
+  "TESTEMUNHA: A pessoa tentou dar diagnóstico antes de qualquer análise.",
+  "RELATO: A pessoa falou de ‘tempo de ação’ como quem já sabia.",
+  "BOATO: Dizem que A pessoa sugeriu “causa natural” rápido demais.",
+  "DETALHE: A pessoa se incomodou com a palavra “procedimento”.",
+  "OBS.: A pessoa ficou serena no momento em que todos ficaram pálidos.",
   "ANOTAÇÃO: Técnica demais pode ser escudo pra culpa.",
-  "TESTEMUNHA: Ela observou reações como se estivesse avaliando resultado.",
-  "RELATO: Ela perguntou o que a pessoa tinha consumido antes de tudo.",
-  "BOATO: Dizem que ela sabia onde estavam itens “sensíveis”.",
+  "TESTEMUNHA: A pessoa observou reações como se estivesse avaliando resultado.",
+  "RELATO: A pessoa perguntou o que a pessoa tinha consumido antes de tudo.",
+  "BOATO: Dizem que A pessoa sabia onde estavam itens “sensíveis”.",
   "DETALHE: Às vezes o culpado é quem sabe como apagar sinais."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "07", [
-  "TESTEMUNHA: Ele sabia quem entrou e saiu sem ninguém contar.",
-  "RELATO: Ele apareceu oferecendo solução antes de perguntarem.",
-  "BOATO: Dizem que ele fechou uma porta “por hábito” no momento certo.",
-  "DETALHE: Ele conhecia o lugar como se fosse extensão dele.",
-  "OBS.: Ele se posicionou onde podia ver tudo sem ser visto.",
+  "TESTEMUNHA: A pessoa sabia quem entrou e saiu sem ninguém contar.",
+  "RELATO: A pessoa apareceu oferecendo solução antes de perguntarem.",
+  "BOATO: Dizem que A pessoa fechou uma porta “por hábito” no momento certo.",
+  "DETALHE: A pessoa conhecia o lugar como se fosse extensão dele.",
+  "OBS.: A pessoa se posicionou onde podia ver tudo sem ser visto.",
   "ANOTAÇÃO: O melhor disfarce é parecer parte do cenário.",
-  "TESTEMUNHA: Ele evitou explicar onde estava entre dois momentos-chave.",
-  "RELATO: Ele respondeu curto quando perguntaram de horários.",
-  "BOATO: Dizem que ele tinha acesso onde outros não tinham.",
+  "TESTEMUNHA: A pessoa evitou explicar onde estava entre dois momentos-chave.",
+  "RELATO: A pessoa respondeu curto quando perguntaram de horários.",
+  "BOATO: Dizem que A pessoa tinha acesso onde outros não tinham.",
   "DETALHE: Quem tem chave controla caminho e versão."
 ]);
 
 addHints(window.HINTS_BY_SUSPECT, "08", [
-  "TESTEMUNHA: Ele tentou “organizar” quem falava e quem calava.",
-  "RELATO: Ele fez perguntas rápidas pra não dar tempo de pensar.",
-  "BOATO: Dizem que ele pressionou alguém a confirmar uma versão.",
-  "DETALHE: Ele queria decidir o que era importante e o que não era.",
+  "TESTEMUNHA: A pessoa tentou “organizar” quem falava e quem calava.",
+  "RELATO: A pessoa fez perguntas rápidas pra não dar tempo de pensar.",
+  "BOATO: Dizem que A pessoa pressionou alguém a confirmar uma versão.",
+  "DETALHE: A pessoa queria decidir o que era importante e o que não era.",
   "OBS.: A postura dele era de comando, mas os olhos eram de medo.",
   "ANOTAÇÃO: Autoridade imposta pode esconder insegurança culpada.",
-  "TESTEMUNHA: Ele se irritou quando alguém pediu calma e paciência.",
-  "RELATO: Ele tentou encerrar o assunto do ‘como’ e focar no ‘quem’.",
-  "BOATO: Dizem que ele já tinha um suspeito favorito.",
+  "TESTEMUNHA: A pessoa se irritou quando alguém pediu calma e paciência.",
+  "RELATO: A pessoa tentou encerrar o assunto do ‘como’ e focar no ‘quem’.",
+  "BOATO: Dizem que A pessoa já tinha um suspeito favorito.",
   "DETALHE: Quem quer concluir rápido nem sempre quer justiça."
 ]);
 
@@ -955,7 +955,7 @@ addHints(window.HINTS_BY_LOCATION, "18", [
   "RELATO: Luz piscando cria segundos cegos.",
   "BOATO: Dizem que o culpado esperou a batida mais forte.",
   "DETALHE: Um empurrão pode virar desculpa perfeita.",
-  "OBS.: Aqui, o culpado não corre; ele dança.",
+  "OBS.: Aqui, o culpado não corre; A pessoa dança.",
   "ANOTAÇÃO: Multidão é escudo e é máscara.",
   "TESTEMUNHA: Um sorriso no escuro nem sempre é alegria.",
   "RELATO: Quem se perde no ritmo perde também a atenção.",
@@ -969,7 +969,7 @@ addHints(window.HINTS_BY_LOCATION, "19", [
   "BOATO: Dizem que alguém conhecia atalhos sem placa.",
   "DETALHE: Folhas quebradas contam direção.",
   "OBS.: A escuridão não cria crime, mas protege crime.",
-  "ANOTAÇÃO: Quem escolhe esse lugar quer que o lugar esconda por ele.",
+  "ANOTAÇÃO: Quem escolhe esse lugar quer que o lugar esconda por A pessoa.",
   "TESTEMUNHA: Um passo leve pode ser mais suspeito que um passo forte.",
   "RELATO: A luz fraca é aliada de quem não quer ser visto.",
   "BOATO: Dizem que alguém ficou parado, observando em silêncio.",
@@ -1091,113 +1091,113 @@ addHints(window.HINTS_BY_LOCATION, "27", [
 
 // 01 Advogado Sr Marinho
 window.HINTS_BY_SUSPECT["01"].push(...[
-  "TESTEMUNHA: Ele respondeu com termos difíceis, como se estivesse tentando confundir em vez de explicar.",
-  "RELATO: Quando alguém perguntou algo simples, ele transformou em um discurso grande.",
-  "BOATO: Dizem que ele tentou corrigir a fala dos outros o tempo todo, como se editasse a história.",
-  "DETALHE: Ele repetiu a mesma frase duas vezes, igual quem decorou uma resposta.",
-  "OBS.: Ele ficou mais preocupado com ‘o que vai dar’ do que com o que aconteceu.",
+  "TESTEMUNHA: A pessoa respondeu com termos difíceis, como se estivesse tentando confundir em vez de explicar.",
+  "RELATO: Quando alguém perguntou algo simples, A pessoa transformou em um discurso grande.",
+  "BOATO: Dizem que A pessoa tentou corrigir a fala dos outros o tempo todo, como se editasse a história.",
+  "DETALHE: A pessoa repetiu a mesma frase duas vezes, igual quem decorou uma resposta.",
+  "OBS.: A pessoa ficou mais preocupado com ‘o que vai dar’ do que com o que aconteceu.",
   "ANOTAÇÃO: Quem controla a conversa controla o que as pessoas lembram.",
-  "RELATO: Ele evitou dizer ‘não sei’ — sempre tinha uma resposta pronta.",
-  "TESTEMUNHA: Quando alguém citou um horário, ele mudou o assunto rápido.",
-  "BOATO: Dizem que ele tentou convencer as pessoas antes mesmo de ouvirem tudo.",
+  "RELATO: A pessoa evitou dizer ‘não sei’ — sempre tinha uma resposta pronta.",
+  "TESTEMUNHA: Quando alguém citou um horário, A pessoa mudou o assunto rápido.",
+  "BOATO: Dizem que A pessoa tentou convencer as pessoas antes mesmo de ouvirem tudo.",
   "DETALHE: O jeito dele parecia mais de defesa do que de surpresa."
 ]);
 
 // 02 Chef de Cozinha
 window.HINTS_BY_SUSPECT["02"].push(...[
-  "TESTEMUNHA: Ele sabia exatamente onde cada coisa ficava, como se o lugar fosse dele.",
-  "RELATO: Ele sumiu por pouco tempo e voltou como se nada tivesse acontecido.",
-  "BOATO: Dizem que ele ficou irritado quando alguém mexeu em objetos do ambiente.",
-  "DETALHE: Ele olhava muito para as mãos, como se lembrasse de ter usado algo.",
-  "OBS.: Ele falava em ‘rotina’ e ‘normal’ o tempo todo, como se quisesse que todos acreditassem nisso.",
+  "TESTEMUNHA: A pessoa sabia exatamente onde cada coisa ficava, como se o lugar fosse dele.",
+  "RELATO: A pessoa sumiu por pouco tempo e voltou como se nada tivesse acontecido.",
+  "BOATO: Dizem que A pessoa ficou irritado quando alguém mexeu em objetos do ambiente.",
+  "DETALHE: A pessoa olhava muito para as mãos, como se lembrasse de ter usado algo.",
+  "OBS.: A pessoa falava em ‘rotina’ e ‘normal’ o tempo todo, como se quisesse que todos acreditassem nisso.",
   "ANOTAÇÃO: Quem domina o movimento do lugar consegue criar ‘minutos cegos’.",
-  "RELATO: Ele reagiu rápido demais quando falaram sobre barulho ou bagunça.",
-  "TESTEMUNHA: Ele evitou um canto específico, como se não quisesse ser visto ali.",
+  "RELATO: A pessoa reagiu rápido demais quando falaram sobre barulho ou bagunça.",
+  "TESTEMUNHA: A pessoa evitou um canto específico, como se não quisesse ser visto ali.",
   "BOATO: Dizem que a história dele sempre tem uma desculpa pronta.",
   "DETALHE: Parece alguém que faz tudo com precisão, sem deixar sobrar tempo."
 ]);
 
 // 03 Coveiro Sérgio Soturno
 window.HINTS_BY_SUSPECT["03"].push(...[
-  "TESTEMUNHA: Ele não demonstrou susto — só ficou mais fechado.",
-  "RELATO: Enquanto todo mundo falava, ele observava em silêncio, como se já esperasse algo.",
-  "BOATO: Dizem que ele conhece lugares onde ninguém costuma ir.",
-  "DETALHE: Quando falaram em ‘sumir com algo’, ele não reagiu — como se fosse normal.",
-  "OBS.: Ele parecia confortável com o clima pesado, diferente dos outros.",
+  "TESTEMUNHA: A pessoa não demonstrou susto — só ficou mais fechado.",
+  "RELATO: Enquanto todo mundo falava, A pessoa observava em silêncio, como se já esperasse algo.",
+  "BOATO: Dizem que A pessoa conhece lugares onde ninguém costuma ir.",
+  "DETALHE: Quando falaram em ‘sumir com algo’, A pessoa não reagiu — como se fosse normal.",
+  "OBS.: A pessoa parecia confortável com o clima pesado, diferente dos outros.",
   "ANOTAÇÃO: Quem não teme a cena, às vezes já imaginou essa cena antes.",
-  "RELATO: Ele respondeu com frases curtas, sem explicar nada.",
-  "TESTEMUNHA: Ele olhou pro chão como quem procura marca ou sinal.",
-  "BOATO: Dizem que ele sabe lidar com ‘fim’ como parte do dia.",
+  "RELATO: A pessoa respondeu com frases curtas, sem explicar nada.",
+  "TESTEMUNHA: A pessoa olhou pro chão como quem procura marca ou sinal.",
+  "BOATO: Dizem que A pessoa sabe lidar com ‘fim’ como parte do dia.",
   "DETALHE: O jeito dele parecia de quem já viu coisas demais e não se impressiona."
 ]);
 
 // 04 Dançarina Srta Rosa
 window.HINTS_BY_SUSPECT["04"].push(...[
-  "TESTEMUNHA: Ela usava sorriso e charme para fugir de perguntas diretas.",
-  "RELATO: Quando a conversa ficava séria, ela fazia uma brincadeira e mudava o clima.",
-  "BOATO: Dizem que ela sabe distrair as pessoas sem esforço.",
-  "DETALHE: Ela se movimentava muito, como se nunca quisesse ficar parada no mesmo lugar.",
-  "OBS.: Ela tinha resposta bonita, mas pouca explicação real.",
+  "TESTEMUNHA: A pessoa usava sorriso e charme para fugir de perguntas diretas.",
+  "RELATO: Quando a conversa ficava séria, A pessoa fazia uma brincadeira e mudava o clima.",
+  "BOATO: Dizem que A pessoa sabe distrair as pessoas sem esforço.",
+  "DETALHE: A pessoa se movimentava muito, como se nunca quisesse ficar parada no mesmo lugar.",
+  "OBS.: A pessoa tinha resposta bonita, mas pouca explicação real.",
   "ANOTAÇÃO: Quem chama atenção para si mesmo afasta atenção do que importa.",
-  "RELATO: Ela ‘lembrava’ de detalhes só quando alguém insistia.",
-  "TESTEMUNHA: Quando perguntaram de horários, ela ficou vaga e deu volta.",
-  "BOATO: Dizem que ela some e reaparece sempre no momento certo.",
-  "DETALHE: Ela parecia mais preocupada em parecer inocente do que em entender o crime."
+  "RELATO: A pessoa ‘lembrava’ de detalhes só quando alguém insistia.",
+  "TESTEMUNHA: Quando perguntaram de horários, A pessoa ficou vaga e deu volta.",
+  "BOATO: Dizem que A pessoa some e reaparece sempre no momento certo.",
+  "DETALHE: A pessoa parecia mais preocupada em parecer inocente do que em entender o crime."
 ]);
 
 // 05 Florista Dona Branca
 window.HINTS_BY_SUSPECT["05"].push(...[
   "TESTEMUNHA: Um cheiro doce ficou forte perto dela e depois foi difícil lembrar detalhes.",
-  "RELATO: Ela falava com calma, mas segurava informações como quem segura segredo.",
-  "BOATO: Dizem que ela sabe disfarçar tensão com gentileza.",
-  "DETALHE: Ela evitou olhar para um ponto específico, como se tivesse ligação com aquilo.",
-  "OBS.: Ela parecia ‘boa demais’ em manter a compostura.",
+  "RELATO: A pessoa falava com calma, mas segurava informações como quem segura segredo.",
+  "BOATO: Dizem que A pessoa sabe disfarçar tensão com gentileza.",
+  "DETALHE: A pessoa evitou olhar para um ponto específico, como se tivesse ligação com aquilo.",
+  "OBS.: A pessoa parecia ‘boa demais’ em manter a compostura.",
   "ANOTAÇÃO: Coisas bonitas também podem esconder coisas ruins.",
-  "RELATO: Quando alguém apertou a pergunta, ela respondeu curto e mudou de assunto.",
-  "TESTEMUNHA: Ela ficou defensiva quando citaram objetos pequenos e fáceis de esconder.",
-  "BOATO: Dizem que ela estava preparada para ser acreditada.",
+  "RELATO: Quando alguém apertou a pergunta, A pessoa respondeu curto e mudou de assunto.",
+  "TESTEMUNHA: A pessoa ficou defensiva quando citaram objetos pequenos e fáceis de esconder.",
+  "BOATO: Dizem que A pessoa estava preparada para ser acreditada.",
   "DETALHE: A delicadeza dela parecia uma proteção, não só um jeito."
 ]);
 
 // 06 Médica Dona Violeta
 window.HINTS_BY_SUSPECT["06"].push(...[
-  "TESTEMUNHA: Ela analisava tudo com olhar clínico, como se estivesse avaliando sinais.",
-  "RELATO: Ela falou de ‘causas possíveis’ sem ninguém pedir, como se já tivesse pensado nisso.",
-  "BOATO: Dizem que ela tentou fazer parecer algo natural rápido demais.",
-  "DETALHE: Ela se incomodou quando falaram sobre tempo e sequência dos fatos.",
-  "OBS.: Ela parecia calma por treino, não por tranquilidade.",
+  "TESTEMUNHA: A pessoa analisava tudo com olhar clínico, como se estivesse avaliando sinais.",
+  "RELATO: A pessoa falou de ‘causas possíveis’ sem ninguém pedir, como se já tivesse pensado nisso.",
+  "BOATO: Dizem que A pessoa tentou fazer parecer algo natural rápido demais.",
+  "DETALHE: A pessoa se incomodou quando falaram sobre tempo e sequência dos fatos.",
+  "OBS.: A pessoa parecia calma por treino, não por tranquilidade.",
   "ANOTAÇÃO: Quem entende o corpo sabe como algo pode parecer acidente.",
-  "RELATO: Ela evitou perguntas emocionais e ficou só no técnico.",
-  "TESTEMUNHA: Quando alguém passou mal, ela reagiu como se já esperasse.",
-  "BOATO: Dizem que ela sabe ‘explicar’ qualquer coisa com termos difíceis.",
+  "RELATO: A pessoa evitou perguntas emocionais e ficou só no técnico.",
+  "TESTEMUNHA: Quando alguém passou mal, A pessoa reagiu como se já esperasse.",
+  "BOATO: Dizem que A pessoa sabe ‘explicar’ qualquer coisa com termos difíceis.",
   "DETALHE: A postura dela parecia de quem já tinha um diagnóstico pronto."
 ]);
 
 // 07 Mordomo James
 window.HINTS_BY_SUSPECT["07"].push(...[
-  "TESTEMUNHA: Ele sabia quem entrou e quem saiu, como se controlasse o movimento.",
-  "RELATO: Ele apareceu ‘para ajudar’ bem no momento em que a cena precisava de alguém.",
-  "BOATO: Dizem que ele conhece atalhos e portas que os outros nem percebem.",
-  "DETALHE: Ele estava perto demais das áreas de passagem, sempre.",
-  "OBS.: Ele parecia invisível — e isso é perigoso numa situação dessas.",
+  "TESTEMUNHA: A pessoa sabia quem entrou e quem saiu, como se controlasse o movimento.",
+  "RELATO: A pessoa apareceu ‘para ajudar’ bem no momento em que a cena precisava de alguém.",
+  "BOATO: Dizem que A pessoa conhece atalhos e portas que os outros nem percebem.",
+  "DETALHE: A pessoa estava perto demais das áreas de passagem, sempre.",
+  "OBS.: A pessoa parecia invisível — e isso é perigoso numa situação dessas.",
   "ANOTAÇÃO: Quem circula sem chamar atenção pode fazer muita coisa sem ser notado.",
-  "RELATO: Quando perguntaram ‘você viu?’, ele respondeu com precisão demais.",
-  "TESTEMUNHA: Ele olhou para uma saída como quem calcula rota.",
-  "BOATO: Dizem que ele tem acesso a lugares fechados sem levantar suspeita.",
+  "RELATO: Quando perguntaram ‘você viu?’, A pessoa respondeu com precisão demais.",
+  "TESTEMUNHA: A pessoa olhou para uma saída como quem calcula rota.",
+  "BOATO: Dizem que A pessoa tem acesso a lugares fechados sem levantar suspeita.",
   "DETALHE: A calma dele parecia de quem já resolveu o que precisava."
 ]);
 
 // 08 Sargento Bigode
 window.HINTS_BY_SUSPECT["08"].push(...[
-  "TESTEMUNHA: Ele tentou mandar na conversa como se fosse o responsável pelo caso.",
-  "RELATO: Ele fez perguntas como interrogatório e muita gente ficou desconfortável.",
-  "BOATO: Dizem que ele queria concluir rápido, sem deixar dúvidas.",
-  "DETALHE: Quando alguém levantou hipótese diferente, ele cortou na hora.",
-  "OBS.: Ele se irritou mais com confusão do que com o crime.",
+  "TESTEMUNHA: A pessoa tentou mandar na conversa como se fosse o responsável pelo caso.",
+  "RELATO: A pessoa fez perguntas como interrogatório e muita gente ficou desconfortável.",
+  "BOATO: Dizem que A pessoa queria concluir rápido, sem deixar dúvidas.",
+  "DETALHE: Quando alguém levantou hipótese diferente, A pessoa cortou na hora.",
+  "OBS.: A pessoa se irritou mais com confusão do que com o crime.",
   "ANOTAÇÃO: Quem controla o grupo controla o foco — e isso pode esconder coisas.",
-  "RELATO: Ele insistiu em ‘ordem’ e ‘regra’ como se isso resolvesse tudo.",
-  "TESTEMUNHA: Ele parecia saber quais perguntas não podiam ser feitas.",
-  "BOATO: Dizem que ele escolheu um ‘culpado’ cedo demais.",
+  "RELATO: A pessoa insistiu em ‘ordem’ e ‘regra’ como se isso resolvesse tudo.",
+  "TESTEMUNHA: A pessoa parecia saber quais perguntas não podiam ser feitas.",
+  "BOATO: Dizem que A pessoa escolheu um ‘culpado’ cedo demais.",
   "DETALHE: A pressa dele era para encerrar o assunto, não para entender."
 ]);
 
@@ -1492,114 +1492,114 @@ window.HINTS_BY_LOCATION["27"].push(...[
 
 // 01 Advogado Sr Marinho
 window.HINTS_BY_SUSPECT["01"].push(...[
-  "TESTEMUNHA: Ele disse a palavra “procedimento” e logo em seguida olhou para o celular como se conferisse tempo.",
-  "RELATO: Quando perguntaram “quem viu primeiro?”, ele respondeu com outra pergunta e fez um gesto de ‘calma’ com a mão.",
-  "BOATO: Ele repetiu o mesmo trecho da história com as mesmas palavras, duas vezes, sem mudar nada.",
-  "DETALHE: No momento em que citaram um horário, ele corrigiu o minuto exato — mas disse que “nem estava olhando relógio”.",
-  "OBS.: Ele ajeitou papéis/objetos na mesa enquanto respondia, como se precisasse ‘organizar’ a cena.",
-  "ANOTAÇÃO: Ele disse “isso não é prova” antes mesmo de alguém falar em prova.",
-  "RELATO: Quando alguém falou “foi rápido”, ele completou “rápido mesmo” — como se já soubesse a duração.",
-  "TESTEMUNHA: Ele pediu para alguém “anotar direito” uma frase específica.",
-  "BOATO: Quando a conversa apertou, ele soltou um elogio (“você tá indo bem”) pra quebrar o clima.",
-  "DETALHE: Ele ficou mais irritado com uma contradição pequena do que com a notícia do crime."
+  "TESTEMUNHA: A pessoa disse a palavra “procedimento” e logo em seguida olhou para o celular como se conferisse tempo.",
+  "RELATO: Quando perguntaram “quem viu primeiro?”, A pessoa respondeu com outra pergunta e fez um gesto de ‘calma’ com a mão.",
+  "BOATO: A pessoa repetiu o mesmo trecho da história com as mesmas palavras, duas vezes, sem mudar nada.",
+  "DETALHE: No momento em que citaram um horário, A pessoa corrigiu o minuto exato — mas disse que “nem estava olhando relógio”.",
+  "OBS.: A pessoa ajeitou papéis/objetos na mesa enquanto respondia, como se precisasse ‘organizar’ a cena.",
+  "ANOTAÇÃO: A pessoa disse “isso não é prova” antes mesmo de alguém falar em prova.",
+  "RELATO: Quando alguém falou “foi rápido”, A pessoa completou “rápido mesmo” — como se já soubesse a duração.",
+  "TESTEMUNHA: A pessoa pediu para alguém “anotar direito” uma frase específica.",
+  "BOATO: Quando a conversa apertou, A pessoa soltou um elogio (“você tá indo bem”) pra quebrar o clima.",
+  "DETALHE: A pessoa ficou mais irritado com uma contradição pequena do que com a notícia do crime."
 ]);
 
 // 02 Chef de Cozinha
 window.HINTS_BY_SUSPECT["02"].push(...[
-  "TESTEMUNHA: Ele tinha um pano/guardanapo dobrado no bolso e mexia nele quando falavam do momento do crime.",
-  "RELATO: Quando citaram um canto do lugar, ele disse “ali é apertado” sem ninguém ter descrito o espaço.",
-  "BOATO: Ele voltou com cheiro forte (tempero/sabonete) e disse que “foi só lavar a mão rapidinho”.",
-  "DETALHE: Ele apontou a posição de um objeto com precisão demais: “tava bem aqui, dois dedos pra esquerda”.",
-  "OBS.: Quando alguém levantou voz, ele falou “não grita, dá pra ouvir” como se soubesse que tinha gente perto.",
-  "ANOTAÇÃO: Ele ficou incomodado quando alguém mudou um item de lugar — tipo ‘não mexe nisso’.",
-  "RELATO: Ele respondeu “eu tava na correria” e logo citou uma sequência exata de tarefas.",
-  "TESTEMUNHA: Ele olhou para a saída de serviço/porta lateral antes de responder.",
-  "BOATO: Disseram que ele sabia qual hora o barulho do ambiente fica maior.",
-  "DETALHE: No fim, ele perguntou “já limparam aquilo?” — e ninguém tinha falado em limpar nada."
+  "TESTEMUNHA: A pessoa tinha um pano/guardanapo dobrado no bolso e mexia nele quando falavam do momento do crime.",
+  "RELATO: Quando citaram um canto do lugar, A pessoa disse “ali é apertado” sem ninguém ter descrito o espaço.",
+  "BOATO: A pessoa voltou com cheiro forte (tempero/sabonete) e disse que “foi só lavar a mão rapidinho”.",
+  "DETALHE: A pessoa apontou a posição de um objeto com precisão demais: “tava bem aqui, dois dedos pra esquerda”.",
+  "OBS.: Quando alguém levantou voz, A pessoa falou “não grita, dá pra ouvir” como se soubesse que tinha gente perto.",
+  "ANOTAÇÃO: A pessoa ficou incomodado quando alguém mudou um item de lugar — tipo ‘não mexe nisso’.",
+  "RELATO: A pessoa respondeu “eu tava na correria” e logo citou uma sequência exata de tarefas.",
+  "TESTEMUNHA: A pessoa olhou para a saída de serviço/porta lateral antes de responder.",
+  "BOATO: Disseram que A pessoa sabia qual hora o barulho do ambiente fica maior.",
+  "DETALHE: No fim, A pessoa perguntou “já limparam aquilo?” — e ninguém tinha falado em limpar nada."
 ]);
 
 // 03 Coveiro Sérgio Soturno
 window.HINTS_BY_SUSPECT["03"].push(...[
-  "TESTEMUNHA: Ele ficou olhando pro chão como se procurasse marca de passos, e não pro que as pessoas falavam.",
-  "RELATO: Quando falaram “alguém sumiu”, ele disse “sumir é fácil” e ficou quieto depois.",
-  "BOATO: Ele reconheceu um caminho de sombras sem ninguém apontar direção.",
-  "DETALHE: Tinha pó/terra na barra da calça dele, mesmo sem ele ter tocado no chão.",
-  "OBS.: Ele evitou ficar perto da luz; sempre escolhia o canto mais escuro da conversa.",
-  "ANOTAÇÃO: Quando perguntaram “por quê?”, ele respondeu “tem coisa que é só…” e não terminou a frase.",
-  "RELATO: Ele sabia onde o som não chega (um ponto mais isolado) e comentou isso como se fosse óbvio.",
-  "TESTEMUNHA: Ele tocou no bolso como se conferisse se algo ainda estava ali.",
-  "BOATO: Disseram que ele ficou calmo demais quando alguém mencionou “esconder”.",
-  "DETALHE: Ele não reagiu à notícia — reagiu quando citaram ‘tempo’ e ‘rastro’."
+  "TESTEMUNHA: A pessoa ficou olhando pro chão como se procurasse marca de passos, e não pro que as pessoas falavam.",
+  "RELATO: Quando falaram “alguém sumiu”, A pessoa disse “sumir é fácil” e ficou quieto depois.",
+  "BOATO: A pessoa reconheceu um caminho de sombras sem ninguém apontar direção.",
+  "DETALHE: Tinha pó/terra na barra da calça dele, mesmo sem A pessoa ter tocado no chão.",
+  "OBS.: A pessoa evitou ficar perto da luz; sempre escolhia o canto mais escuro da conversa.",
+  "ANOTAÇÃO: Quando perguntaram “por quê?”, A pessoa respondeu “tem coisa que é só…” e não terminou a frase.",
+  "RELATO: A pessoa sabia onde o som não chega (um ponto mais isolado) e comentou isso como se fosse óbvio.",
+  "TESTEMUNHA: A pessoa tocou no bolso como se conferisse se algo ainda estava ali.",
+  "BOATO: Disseram que A pessoa ficou calmo demais quando alguém mencionou “esconder”.",
+  "DETALHE: A pessoa não reagiu à notícia — reagiu quando citaram ‘tempo’ e ‘rastro’."
 ]);
 
 // 04 Dançarina Srta Rosa
 window.HINTS_BY_SUSPECT["04"].push(...[
-  "TESTEMUNHA: Ela mudou o assunto com uma piada exatamente quando fizeram uma pergunta direta.",
-  "RELATO: Ela disse “ninguém lembra direito porque tava tudo rápido” e sorriu como se isso resolvesse tudo.",
-  "BOATO: Ela apareceu do outro lado do lugar sem ninguém ver ela atravessando.",
-  "DETALHE: Quando citaram o ponto do crime, ela já estava com o corpo virado pra direção oposta.",
-  "OBS.: Ela tocava no cabelo/roupa repetidamente quando falavam de ‘perto’ e ‘contato’.",
-  "ANOTAÇÃO: Ela respondeu com “eu acho” e depois falou com certeza total no minuto seguinte.",
-  "RELATO: Ela descreveu uma distração (“todo mundo olhou pra…”) com detalhes bem vivos.",
-  "TESTEMUNHA: Ela sugeriu que outra pessoa “tava estranha” antes mesmo de alguém suspeitar.",
-  "BOATO: Disseram que ela sabe exatamente quando todo mundo olha pro mesmo lugar.",
-  "DETALHE: Ela ficou nervosa quando pediram pra repetir a história no mesmo ordem."
+  "TESTEMUNHA: A pessoa mudou o assunto com uma piada exatamente quando fizeram uma pergunta direta.",
+  "RELATO: A pessoa disse “ninguém lembra direito porque tava tudo rápido” e sorriu como se isso resolvesse tudo.",
+  "BOATO: A pessoa apareceu do outro lado do lugar sem ninguém ver A pessoa atravessando.",
+  "DETALHE: Quando citaram o ponto do crime, A pessoa já estava com o corpo virado pra direção oposta.",
+  "OBS.: A pessoa tocava no cabelo/roupa repetidamente quando falavam de ‘perto’ e ‘contato’.",
+  "ANOTAÇÃO: A pessoa respondeu com “eu acho” e depois falou com certeza total no minuto seguinte.",
+  "RELATO: A pessoa descreveu uma distração (“todo mundo olhou pra…”) com detalhes bem vivos.",
+  "TESTEMUNHA: A pessoa sugeriu que outra pessoa “tava estranha” antes mesmo de alguém suspeitar.",
+  "BOATO: Disseram que A pessoa sabe exatamente quando todo mundo olha pro mesmo lugar.",
+  "DETALHE: A pessoa ficou nervosa quando pediram pra repetir a história no mesmo ordem."
 ]);
 
 // 05 Florista Dona Branca
 window.HINTS_BY_SUSPECT["05"].push(...[
   "TESTEMUNHA: O cheiro dela ficou mais forte exatamente quando o assunto chegou perto do crime.",
-  "RELATO: Ela segurava um saquinho/caixinha como se fosse algo importante demais.",
-  "BOATO: Ela disse “que horror” sem mudar a expressão; a voz parecia ensaiada.",
+  "RELATO: A pessoa segurava um saquinho/caixinha como se fosse algo importante demais.",
+  "BOATO: A pessoa disse “que horror” sem mudar a expressão; a voz parecia ensaiada.",
   "DETALHE: Tinha um pedacinho pequeno (pétala/folha) grudado nela como rastro recente.",
-  "OBS.: Quando perguntaram “você viu?”, ela respondeu “eu sinto” e desviou do fato.",
-  "ANOTAÇÃO: Ela ficou defensiva quando alguém falou “objeto pequeno”.",
-  "RELATO: Ela insistiu em arrumar uma coisa (mexer numa mesa/objeto) em vez de responder.",
-  "TESTEMUNHA: Ela evitou olhar pra um canto específico, mas olhou rápido duas vezes.",
-  "BOATO: Disseram que ela queria que todo mundo aceitasse a versão dela “por educação”.",
-  "DETALHE: Ela tentou encerrar o assunto com “vamos ter calma” logo após uma pergunta chave."
+  "OBS.: Quando perguntaram “você viu?”, A pessoa respondeu “eu sinto” e desviou do fato.",
+  "ANOTAÇÃO: A pessoa ficou defensiva quando alguém falou “objeto pequeno”.",
+  "RELATO: A pessoa insistiu em arrumar uma coisa (mexer numa mesa/objeto) em vez de responder.",
+  "TESTEMUNHA: A pessoa evitou olhar pra um canto específico, mas olhou rápido duas vezes.",
+  "BOATO: Disseram que A pessoa queria que todo mundo aceitasse a versão dela “por educação”.",
+  "DETALHE: A pessoa tentou encerrar o assunto com “vamos ter calma” logo após uma pergunta chave."
 ]);
 
 // 06 Médica Dona Violeta
 window.HINTS_BY_SUSPECT["06"].push(...[
-  "TESTEMUNHA: Ela disse “pressão” e “pulso” sem ninguém pedir avaliação de saúde.",
-  "RELATO: Ela fez perguntas técnicas (“quanto tempo?”, “qual sintoma primeiro?”) antes de ouvir o relato completo.",
-  "BOATO: Ela falou “pode ser natural” e logo olhou ao redor pra ver quem concordava.",
-  "DETALHE: Ela ficou tensa quando citaram algo consumido (bebida/comida/remédio).",
-  "OBS.: Ela corrigiu alguém: “isso não é assim” — como se precisasse controlar a explicação.",
-  "ANOTAÇÃO: Ela se animou demais ao falar de hipóteses, como se fosse um caso interessante.",
-  "RELATO: Ela disse “isso acontece” como se estivesse acostumada com o resultado.",
-  "TESTEMUNHA: Ela lavou as mãos ou pediu álcool logo após um comentário sobre contato.",
-  "BOATO: Disseram que ela sabia o ‘tempo certo’ pra um efeito aparecer.",
-  "DETALHE: Ela evitou falar do que fez nos últimos minutos antes do ocorrido."
+  "TESTEMUNHA: A pessoa disse “pressão” e “pulso” sem ninguém pedir avaliação de saúde.",
+  "RELATO: A pessoa fez perguntas técnicas (“quanto tempo?”, “qual sintoma primeiro?”) antes de ouvir o relato completo.",
+  "BOATO: A pessoa falou “pode ser natural” e logo olhou ao redor pra ver quem concordava.",
+  "DETALHE: A pessoa ficou tensa quando citaram algo consumido (bebida/comida/remédio).",
+  "OBS.: A pessoa corrigiu alguém: “isso não é assim” — como se precisasse controlar a explicação.",
+  "ANOTAÇÃO: A pessoa se animou demais ao falar de hipóteses, como se fosse um caso interessante.",
+  "RELATO: A pessoa disse “isso acontece” como se estivesse acostumada com o resultado.",
+  "TESTEMUNHA: A pessoa lavou as mãos ou pediu álcool logo após um comentário sobre contato.",
+  "BOATO: Disseram que A pessoa sabia o ‘tempo certo’ pra um efeito aparecer.",
+  "DETALHE: A pessoa evitou falar do que fez nos últimos minutos antes do ocorrido."
 ]);
 
 // 07 Mordomo James
 window.HINTS_BY_SUSPECT["07"].push(...[
-  "TESTEMUNHA: Ele citou uma porta/corredor específico como se fosse óbvio, mas ninguém tinha mencionado.",
-  "RELATO: Ele falou “aquela porta não costuma ficar aberta” — e ficou nervoso quando perguntaram ‘por quê’.",
-  "BOATO: Ele apareceu com um molho/chave/cartão na mão e guardou rápido quando notaram.",
-  "DETALHE: Ele sabia exatamente a hora que a área ficou vazia.",
-  "OBS.: Quando todos discutiam, ele se posicionou perto da saída sem perceber.",
-  "ANOTAÇÃO: Ele ofereceu “ajuda” para recolher coisas (e assim mexer na cena).",
-  "RELATO: Ele descreveu quem estava onde como se tivesse vigiado o tempo todo.",
-  "TESTEMUNHA: Ele olhou para as câmeras/alto das paredes como quem confere se gravou.",
-  "BOATO: Disseram que ele conhece passagem lateral que poucos usam.",
-  "DETALHE: Ele ficou calmo demais quando falaram em ‘acesso’ e ‘porta’."
+  "TESTEMUNHA: A pessoa citou uma porta/corredor específico como se fosse óbvio, mas ninguém tinha mencionado.",
+  "RELATO: A pessoa falou “aquela porta não costuma ficar aberta” — e ficou nervoso quando perguntaram ‘por quê’.",
+  "BOATO: A pessoa apareceu com um molho/chave/cartão na mão e guardou rápido quando notaram.",
+  "DETALHE: A pessoa sabia exatamente a hora que a área ficou vazia.",
+  "OBS.: Quando todos discutiam, A pessoa se posicionou perto da saída sem perceber.",
+  "ANOTAÇÃO: A pessoa ofereceu “ajuda” para recolher coisas (e assim mexer na cena).",
+  "RELATO: A pessoa descreveu quem estava onde como se tivesse vigiado o tempo todo.",
+  "TESTEMUNHA: A pessoa olhou para as câmeras/alto das paredes como quem confere se gravou.",
+  "BOATO: Disseram que A pessoa conhece passagem lateral que poucos usam.",
+  "DETALHE: A pessoa ficou calmo demais quando falaram em ‘acesso’ e ‘porta’."
 ]);
 
 // 08 Sargento Bigode
 window.HINTS_BY_SUSPECT["08"].push(...[
-  "TESTEMUNHA: Ele disse “todo mundo em fila” antes de qualquer pessoa pedir organização.",
-  "RELATO: Ele anotou mentalmente nomes e depois repetiu como se fosse lista pronta.",
-  "BOATO: Ele escolheu quem fala primeiro e quem fala por último, sem perceber.",
-  "DETALHE: Ele cortou uma pergunta com “isso é irrelevante” — e era exatamente a pergunta certa.",
-  "OBS.: Ele ficou irritado quando alguém duvidou da versão oficial dele.",
-  "ANOTAÇÃO: Ele falou “vamos fechar isso” cedo demais.",
-  "RELATO: Ele perguntou “quem estava perto” e olhou direto para uma pessoa específica.",
-  "TESTEMUNHA: Ele se acalmou quando percebeu que todos estavam confusos.",
-  "BOATO: Disseram que ele tentou decidir o culpado por ‘perfil’ e não por fato.",
-  "DETALHE: Ele evitou falar onde ele mesmo estava no minuto exato."
+  "TESTEMUNHA: A pessoa disse “todo mundo em fila” antes de qualquer pessoa pedir organização.",
+  "RELATO: A pessoa anotou mentalmente nomes e depois repetiu como se fosse lista pronta.",
+  "BOATO: A pessoa escolheu quem fala primeiro e quem fala por último, sem perceber.",
+  "DETALHE: A pessoa cortou uma pergunta com “isso é irrelevante” — e era exatamente a pergunta certa.",
+  "OBS.: A pessoa ficou irritado quando alguém duvidou da versão oficial dele.",
+  "ANOTAÇÃO: A pessoa falou “vamos fechar isso” cedo demais.",
+  "RELATO: A pessoa perguntou “quem estava perto” e olhou direto para uma pessoa específica.",
+  "TESTEMUNHA: A pessoa se acalmou quando percebeu que todos estavam confusos.",
+  "BOATO: Disseram que A pessoa tentou decidir o culpado por ‘perfil’ e não por fato.",
+  "DETALHE: A pessoa evitou falar onde A pessoa mesmo estava no minuto exato."
 ]);
 
 
@@ -1658,7 +1658,7 @@ window.HINTS_BY_WEAPON["12"].push(...[
   "OBS.: Um objeto grande precisa de esconderijo momentâneo (canto/parede/atrás).",
   "ANOTAÇÃO: Procure o rastro no piso: arrasto curto, risco, poeira.",
   "RELATO: O culpado pode ter usado a desculpa de ‘mexer com coisa no chão’.",
-  "TESTEMUNHA: Vi sujeira na sola do sapato de alguém e ela tentou raspar.",
+  "TESTEMUNHA: Vi sujeira na sola do sapato de alguém e A pessoa tentou raspar.",
   "BOATO: Disseram que um canto ficou ‘mais limpo’ do que antes.",
   "DETALHE: Chão e sapato contam mais que palavras."
 ]);
