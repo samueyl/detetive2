@@ -18,6 +18,36 @@ const LS = {
 
 const $ = (id) => document.getElementById(id);
 
+// ======================
+// MODAL DE DICA (POPUP)
+// ======================
+function openHintModal({ title="🕵️ Dica", text="", imgSrc="", imgAlt="Dica" }){
+  const modal = $("hintModal");
+  if (!modal) return;
+
+  if ($("hintTitle")) $("hintTitle").textContent = title;
+  if ($("hintImg")) {
+    $("hintImg").src = imgSrc;
+    $("hintImg").alt = imgAlt;
+  }
+  if ($("hintText")) $("hintText").textContent = text;
+
+  modal.classList.remove("hidden");
+}
+
+function closeHintModal(){
+  const modal = $("hintModal");
+  if (!modal) return;
+
+  modal.classList.add("hidden");
+  if ($("hintImg")) $("hintImg").src = "";
+  if ($("hintText")) $("hintText").textContent = "";
+}
+
+if ($("hintClose")) $("hintClose").addEventListener("click", closeHintModal);
+if ($("hintModal")) $("hintModal").addEventListener("click", (e)=>{ if (e.target.id === "hintModal") closeHintModal(); });
+
+
 function loadSet(key){
   try { return new Set(JSON.parse(localStorage.getItem(key) || "[]")); }
   catch { return new Set(); }
@@ -440,15 +470,61 @@ let hintTimer = null;
 
 // >>>>> ALTERE O TEMPO AQUI <<<<<
 // exemplo: 30–90s => (30 + Math.random()*60)*1000
+
+// ======================
+// IMAGENS POR TIPO DE DICA
+// ======================
+const HINT_SOURCE_TYPES = ["Testemunha","Boato","Detalhe","Relato","Observacao","Anotacao"];
+
+// ajuste nomes exatamente como estão na pasta Testemunha (print que você mandou)
+const WITNESSES = ["Christian.png","Deborah.png","Lubia.png","Samuel.png","Thayanny.png"];
+
+
+function getHintImageBySource(source){
+  // source vem tipo "Testemunha", "Boato", etc.
+  if (source === "Testemunha") {
+    const who = pick(WITNESSES);
+    return {
+      src: `./Testemunha/${who}`,
+      title: "👁️ Testemunha"
+    };
+  }
+
+  // outras pastas: tem só 1 imagem com mesmo nome da pasta
+  // Ex: ./Boato/Boato.png, ./Detalhe/Detalhe.png, etc.
+  return {
+    src: `./${source}/${source}.png`,
+    title: `📌 ${source}`
+  };
+}
+
+
 function scheduleNextHint(){
   const ms = (200 + Math.random() * 400) * 1000;
 
-  hintTimer = setTimeout(() => {
-    const { text, tag } = buildHint();
-    setHintBox(text, tag);
+    hintTimer = setTimeout(() => {
+    const { text } = buildHint();
+
+    setHintBox(text);
     pushHistory(text);
+
+    // só abre popup se já tiver crime
+    if (hasSecret()) {
+      const source = pick(HINT_SOURCE_TYPES);
+      const imgInfo = getHintImageBySource(source);
+
+      openHintModal({
+        title: imgInfo.title,
+        text,
+        imgSrc: imgInfo.src,
+        imgAlt: source
+      });
+    }
+
     scheduleNextHint();
   }, ms);
+
+
 }
 
 function startHintsAuto(){
@@ -703,6 +779,7 @@ if ($("btnClearMarks")) $("btnClearMarks").addEventListener("click", async ()=>{
 // ESC (PC)
 document.addEventListener("keydown", async (e) => {
   if (e.key === "Escape") {
+    closeHintModal();
     closeModal();
     closeNotebook();
     closeAccuse();
