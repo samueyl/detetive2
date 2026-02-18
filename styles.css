@@ -160,3 +160,98 @@ button:hover{
 .mark.q{ color:#ffd166; }
 .mark.v{ color:#7bd389; }
 .hidden{ display:none !important; }
+/* =========================
+   NOTEBOOK (modal) VERTICAL + GRID COM SCROLL
+   ========================= */
+
+/* deixa o modal do caderno bem alto e vertical */
+#notebook .modalCard.wide{
+  width: min(960px, 96vw);
+  height: min(92vh, 900px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* importante p/ scroll ficar só no grid */
+}
+
+/* barra de busca + filtros sempre visíveis */
+#notebook .modalTitle{
+  flex: 0 0 auto;
+}
+
+#notebook .row{
+  flex: 0 0 auto;
+}
+
+/* grid das cartinhas: ocupa o restante e tem scroll */
+#notebookGrid{
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 10px;
+
+  padding: 10px 2px 14px;
+}
+
+/* cartinha mini menor (pra caber todas) */
+.cardMini{
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* imagem pequena e padronizada */
+.cardMini img{
+  width: 100%;
+  height: 92px;
+  object-fit: cover;
+  display: block;
+}
+
+/* nome + marca compactos */
+.cardMini .badge{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px 2px;
+}
+
+.cardMini .name{
+  font-size: 12px;
+  line-height: 1.15;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* marca X/?/✓ pequena */
+.cardMini .mark{
+  min-width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* tipinho embaixo bem discreto */
+.cardMini .tag{
+  font-size: 11px;
+  opacity: .75;
+  padding: 0 8px 8px;
+}
+
+/* em telas muito pequenas, aumenta a densidade */
+@media (max-width: 420px){
+  #notebookGrid{
+    grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+    gap: 8px;
+  }
+  .cardMini img{ height: 84px; }
+}
