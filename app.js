@@ -1,19 +1,27 @@
 // app.js — scan -> auto "Tenho na mão", botão Acusar, caderno X/?/✓, modal imagem grande
-// + Modo Crime (3 scans) oculto + Dicas OFFLINE (200+) com timer aleatório (suspense)
+// + MODO CRIME (3 scans) + DICAS OFFLINE (HINTS_PACK) com timer aleatório
 
 const CARDS = window.CARDS;
 
+// ===============================
+// LocalStorage Keys
+// ===============================
 const LS = {
   have: "det2_have",
   notes: "det2_notes",
-  notebook: "det2_notebook_marks", // { "01":"v", "20":"x", ... }
+  notebook: "det2_notebook_marks", // { "01":"v" | "q" | "x" }
   accuse: "det2_accuse",           // { sus:"01", arm:"16", loc:"24" }
-  secret: "det2_secret",           // { sus:"01", arm:"16", loc:"24" } (crime real, oculto)
-  hintHistory: "det2_hint_history" // array de strings (não repetir)
+
+  // crime + dicas
+  secret: "det2_secret",           // { sus:"01", arm:"16", loc:"24" }
+  hintHistory: "det2_hint_history" // array de strings
 };
 
 const $ = (id) => document.getElementById(id);
 
+// ===============================
+// Helpers
+// ===============================
 function loadSet(key){
   try { return new Set(JSON.parse(localStorage.getItem(key) || "[]")); }
   catch { return new Set(); }
@@ -31,8 +39,13 @@ function saveObj(key, obj){
 }
 
 function loadJSON(key, fallback){
-  try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
-  catch { return fallback; }
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+    return JSON.parse(raw);
+  } catch {
+    return fallback;
+  }
 }
 function saveJSON(key, val){
   localStorage.setItem(key, JSON.stringify(val));
@@ -41,13 +54,16 @@ function saveJSON(key, val){
 let have = loadSet(LS.have);
 let marks = loadObj(LS.notebook); // id -> "x" | "q" | "v"
 
-const ALL = Object.keys(CARDS);
+const ALL = Object.keys(CARDS || {});
 
 function normalizeCode(raw){
   const digits = String(raw).trim().replace(/\D/g, "");
   return digits ? digits.padStart(2,"0") : String(raw).trim();
 }
 
+// ===============================
+// Render "Tenho na mão"
+// ===============================
 function renderList(container, ids, {clickToOpen=false} = {}){
   if (!container) return;
   container.innerHTML = "";
@@ -81,6 +97,9 @@ function refresh(){
   saveObj(LS.notebook, marks);
 }
 
+// ===============================
+// Card exibida após scan
+// ===============================
 let lastId = null;
 
 function showCard(id){
@@ -94,20 +113,22 @@ function showCard(id){
     return;
   }
 
+  // Aqui pode mostrar o ID do scan normal (se você quiser esconder também, me avisa)
   if ($("cardBox")) $("cardBox").innerHTML = `<strong>${c.nome}</strong> <span class="pill">${c.tipo}</span>`;
-  if ($("cardImg")) {
+  if ($("cardImg")){
     $("cardImg").src = c.img;
     $("cardImg").style.display = "block";
   }
 
-  // Botão Acusar (abre modal)
   if ($("btnAccuse")){
     $("btnAccuse").disabled = false;
     $("btnAccuse").onclick = (e) => { e.preventDefault(); openAccuse(); };
   }
 }
 
-// ===== Modal imagem grande =====
+// ===============================
+// Modal imagem grande
+// ===============================
 function openModal(title, img){
   if (!$("modal")) return;
   $("modalTitle").textContent = title;
@@ -122,7 +143,9 @@ function closeModal(){
 if ($("modalClose")) $("modalClose").addEventListener("click", closeModal);
 if ($("modal")) $("modal").addEventListener("click", (e)=>{ if (e.target.id === "modal") closeModal(); });
 
-// ===== Caderno =====
+// ===============================
+// Caderno (marcações ✓ ? X)
+// ===============================
 function markCycle(current){
   // ciclo: vazio -> v -> q -> x -> vazio
   if (!current) return "v";
@@ -130,7 +153,6 @@ function markCycle(current){
   if (current === "q") return "x";
   return null;
 }
-
 function markLabel(m){
   if (m === "x") return {text:"X", cls:"x"};
   if (m === "q") return {text:"?", cls:"q"};
@@ -153,7 +175,11 @@ function buildNotebook(){
       const c = CARDS[id];
       if (filter !== "all" && c.tipo !== filter) return false;
       if (!q) return true;
-      return (c.nome.toLowerCase().includes(q) || c.tipo.toLowerCase().includes(q) || id.includes(q));
+      return (
+        c.nome.toLowerCase().includes(q) ||
+        c.tipo.toLowerCase().includes(q) ||
+        id.includes(q)
+      );
     })
     .sort();
 
@@ -172,10 +198,9 @@ function buildNotebook(){
         <div class="name">${c.nome}</div>
         <div class="mark ${b.cls}">${b.text}</div>
       </div>
-      <div class="muted tag">${c.tipo} • ${id}</div>
+      <div class="muted tag">${c.tipo}</div>
     `;
 
-    // clique: alterna marcação
     div.addEventListener("click", ()=>{
       const next = markCycle(marks[id]);
       if (next) marks[id] = next;
@@ -184,7 +209,6 @@ function buildNotebook(){
       buildNotebook();
     });
 
-    // duplo clique: abre imagem grande (PC)
     div.addEventListener("dblclick", (e)=>{
       e.preventDefault();
       openModal(c.nome, c.img);
@@ -211,10 +235,12 @@ if ($("notebook")) $("notebook").addEventListener("click", (e)=>{ if (e.target.i
 if ($("searchCard")) $("searchCard").addEventListener("input", buildNotebook);
 if ($("filterType")) $("filterType").addEventListener("change", buildNotebook);
 
-// ===== Modal Acusar =====
+// ===============================
+// Modal Acusar
+// ===============================
 function fillSelect(selectEl, tipo){
   const ids = Object.keys(CARDS).filter(id => CARDS[id].tipo === tipo).sort();
-  selectEl.innerHTML = ids.map(id => `<option value="${id}">${CARDS[id].nome} (${id})</option>`).join("");
+  selectEl.innerHTML = ids.map(id => `<option value="${id}">${CARDS[id].nome}</option>`).join("");
 }
 
 function renderAccuseResult(){
@@ -245,7 +271,6 @@ function openAccuse(){
   renderAccuseResult();
   modal.classList.remove("hidden");
 }
-
 function closeAccuse(){
   const modal = $("accuse");
   if (!modal) return;
@@ -261,7 +286,7 @@ if ($("accSave")) $("accSave").addEventListener("click", ()=>{
 });
 
 // ===============================
-// MODO CRIME (3 scans) — OCULTO
+// MODO CRIME (3 scans) — SECRETO
 // ===============================
 let crimeMode = {
   open: false,
@@ -269,16 +294,23 @@ let crimeMode = {
   temp: { sus: null, arm: null, loc: null }
 };
 
-function hasSecret(){
+function getSecret(){
   const s = loadJSON(LS.secret, null);
-  return !!(s && s.sus && s.arm && s.loc);
+  if (!s || !s.sus || !s.arm || !s.loc) return null;
+  return s;
+}
+function hasSecret(){
+  return !!getSecret();
 }
 
 function setCrimeButtons(){
   const ok = hasSecret();
+
   if ($("btnHintsStart")) $("btnHintsStart").disabled = !ok;
   if ($("btnHintNow")) $("btnHintNow").disabled = !ok;
-  if ($("btnHintsStop")) $("btnHintsStop").disabled = true;
+
+  // btnHintsStop fica disabled até iniciar
+  if ($("btnHintsStop") && !hintTimer) $("btnHintsStop").disabled = true;
 }
 
 function openCrimeModal(){
@@ -286,6 +318,7 @@ function openCrimeModal(){
   crimeMode.open = true;
   crimeMode.step = 1;
   crimeMode.temp = { sus: null, arm: null, loc: null };
+
   $("crime").classList.remove("hidden");
   if ($("crimeSave")) $("crimeSave").disabled = true;
   if ($("crimeStep")) $("crimeStep").textContent = "Passo 1/3: escaneie o SUSPEITO";
@@ -307,6 +340,8 @@ function acceptCrimeScan(id){
   const c = CARDS[id];
   if (!c) return;
 
+  // NADA de nome/ID do crime na tela.
+  // Só valida tipo e avança.
   if (crimeMode.step === 1) {
     if (c.tipo !== "Suspeito") {
       if ($("crimeStep")) $("crimeStep").textContent = "❌ Essa não é de SUSPEITO. Escaneie um SUSPEITO.";
@@ -341,10 +376,16 @@ function acceptCrimeScan(id){
 }
 
 function saveCrime(){
+  // Salva o trio no localStorage (sem mostrar)
   saveJSON(LS.secret, crimeMode.temp);
+
+  // Reinicia histórico de dica opcional (pra “nova história”)
+  // Se você quiser MANTER histórico mesmo trocando o crime, comente as 2 linhas abaixo:
+  // saveJSON(LS.hintHistory, []);
+
   closeCrimeModal();
   setCrimeButtons();
-  setHintBox("✅ Crime configurado. As dicas podem começar.", "sistema");
+  setHintBox("✅ Crime configurado. Agora você pode iniciar as dicas.", "sistema");
 }
 
 function onScanForCrime(id){
@@ -353,6 +394,7 @@ function onScanForCrime(id){
   return true;
 }
 
+// Eventos do modal crime + botão
 if ($("btnCrimeSetup")) $("btnCrimeSetup").addEventListener("click", openCrimeModal);
 if ($("crimeClose")) $("crimeClose").addEventListener("click", closeCrimeModal);
 if ($("crime")) $("crime").addEventListener("click", (e)=>{ if (e.target.id === "crime") closeCrimeModal(); });
@@ -360,76 +402,85 @@ if ($("crimeReset")) $("crimeReset").addEventListener("click", resetCrime);
 if ($("crimeSave")) $("crimeSave").addEventListener("click", saveCrime);
 
 // ===============================
-// DICAS OFFLINE (200+) + TIMER ALEATÓRIO
+// DICAS OFFLINE (HINTS_PACK)
 // ===============================
-const HINTS = window.HINTS_PACK || { mix: ["(hints.js não carregou)"] };
+function getHintsPack(){
+  return window.HINTS_PACK || window.HINTS_PACKED || window.HINTS_PACKS || null;
+}
 
 function setHintBox(text, tag="dica"){
   if ($("hintBox")) $("hintBox").textContent = text;
   if ($("hintMeta")) $("hintMeta").textContent = `(${tag}) ${new Date().toLocaleTimeString()}`;
 }
 
-function getHintHistory(){
+function getHistory(){
   return loadJSON(LS.hintHistory, []);
 }
-function pushHintHistory(text){
-  const h = getHintHistory();
+function pushHistory(text){
+  const h = getHistory();
   h.push(text);
-  saveJSON(LS.hintHistory, h.slice(-120)); // guarda bastante pra evitar repetir
+  saveJSON(LS.hintHistory, h.slice(-80)); // guarda últimas 80
 }
 
 function pickNonRepeating(list){
-  const history = new Set(getHintHistory());
+  const history = new Set(getHistory());
   const candidates = list.filter(x => !history.has(x));
-  const pool = candidates.length ? candidates : list;
-  return pool[Math.floor(Math.random()*pool.length)];
+  if (candidates.length) return candidates[Math.floor(Math.random()*candidates.length)];
+  return list[Math.floor(Math.random()*list.length)];
 }
 
 function buildHint(){
-  const style = $("hintStyle")?.value || "mix";
-  const base = HINTS[style] || HINTS.mix || [];
+  const pack = getHintsPack();
+  if (!pack) return { text: "⚠️ hints.js não carregou. Confira se você incluiu <script src='./data/hints.js'></script> antes do app.js.", tag: "erro" };
+
+  // se tiver seletor de estilo no futuro, aqui dá pra usar. Por enquanto “mix”
+  const base = Array.isArray(pack.mix) && pack.mix.length
+    ? pack.mix
+    : [
+        ...(pack.testemunha || []),
+        ...(pack.relatorio || []),
+        ...(pack.boato || []),
+        ...(pack.bilhete || []),
+        ...(pack.radio || []),
+        ...(pack.extras || [])
+      ];
+
   let text = pickNonRepeating(base);
 
-  // tempero suspense (genérico, sem spoiler)
-  const secretOk = hasSecret();
-  if (secretOk && Math.random() < 0.35) {
+  // Temperinho extra (SEM SPOILER) — usa apenas a existência do segredo, não cita nada
+  if (hasSecret() && Math.random() < 0.35) {
     const extras = [
-      "O ar ficou pesado por um segundo, como se o lugar lembrasse de algo.",
-      "Alguém sabia exatamente onde pisar — e isso não é sorte.",
-      "O silêncio é uma pista quando todo mundo fala demais.",
-      "Uma verdade pequena costuma se esconder numa mentira grande.",
-      "Se a cena parece simples, é porque alguém trabalhou para parecer."
+      "A sensação é de que alguém queria que tudo parecesse… normal.",
+      "O ar ficou pesado por um segundo — e ninguém comentou.",
+      "Quando a verdade se aproxima, o culpado tenta acelerar o fim.",
+      "Tem pista demais… como se alguém estivesse plantando ruído.",
+      "O detalhe mais perigoso é aquele que todo mundo ignora."
     ];
     text = `${text}\n\n${extras[Math.floor(Math.random()*extras.length)]}`;
   }
 
-  return { text, tag: (style === "mix" ? "misto" : style) };
+  return { text, tag: "suspense" };
 }
 
+// Timer aleatório
 let hintTimer = null;
 
 function scheduleNextHint(){
-  // Ritmo “cinema”:
-  // 65%: dica rápida (30–70s)
-  // 35%: pausa mais longa (120–240s)
-  const fast = Math.random() < 0.65;
-  const ms = fast
-    ? (30 + Math.random() * 40) * 1000
-    : (120 + Math.random() * 120) * 1000;
+  // 45–120s (ajuste aqui se quiser)
+  const ms = (45 + Math.random() * 75) * 1000;
 
   hintTimer = setTimeout(() => {
     const { text, tag } = buildHint();
     setHintBox(text, tag);
-    pushHintHistory(text);
+    pushHistory(text);
     scheduleNextHint();
   }, ms);
 
   if ($("hintMeta")) $("hintMeta").textContent = `Próxima dica em ~${Math.round(ms/1000)}s`;
 }
 
-
 function startHints(){
-  if (!hasSecret()){
+  if (!hasSecret()) {
     setHintBox("🔒 Configure o crime (3 scans) antes de iniciar as dicas.", "sistema");
     return;
   }
@@ -441,7 +492,7 @@ function startHints(){
   if ($("btnHintsStop")) $("btnHintsStop").disabled = false;
   if ($("btnHintNow")) $("btnHintNow").disabled = false;
 
-  setHintBox("🎬 Dicas iniciadas. Histórias aparecem em tempos aleatórios (sem spoiler).", "sistema");
+  setHintBox("🕯️ Dicas iniciadas… fique atento. Elas surgirão em momentos imprevisíveis.", "sistema");
 }
 
 function stopHints(){
@@ -456,26 +507,29 @@ function stopHints(){
 }
 
 function hintNow(){
-  if (!hasSecret()){
-    setHintBox("🔒 Configure o crime (3 scans) antes.", "sistema");
+  if (!hasSecret()) {
+    setHintBox("🔒 Configure o crime (3 scans) antes de pedir uma dica.", "sistema");
     return;
   }
   const { text, tag } = buildHint();
   setHintBox(text, tag);
-  pushHintHistory(text);
+  pushHistory(text);
 }
 
 function clearHintHistory(){
   saveJSON(LS.hintHistory, []);
-  setHintBox("Histórico limpo. As dicas vão variar mais agora.", "sistema");
+  setHintBox("Histórico limpo. As próximas dicas vão variar mais.", "sistema");
 }
 
+// Botões das dicas
 if ($("btnHintsStart")) $("btnHintsStart").addEventListener("click", startHints);
 if ($("btnHintsStop")) $("btnHintsStop").addEventListener("click", stopHints);
 if ($("btnHintNow")) $("btnHintNow").addEventListener("click", hintNow);
 if ($("btnHintsClear")) $("btnHintsClear").addEventListener("click", clearHintHistory);
 
-// ===== Scanner =====
+// ===============================
+// Scanner (html5-qrcode)
+// ===============================
 let qr = null;
 
 async function start(){
@@ -493,12 +547,13 @@ async function start(){
         const id = normalizeCode(decodedText);
         if (!id) return;
 
+        // mostra o último lido (normal) — se quiser esconder sempre, me avisa
         if ($("last")) $("last").textContent = "✓";
 
-        // se estiver no modo crime, consome o scan e NÃO mostra a carta
+        // Se estiver configurando crime, consome o scan e NÃO exibe carta
         if (onScanForCrime(id)) return;
 
-        // escaneou -> entra automaticamente na mão
+        // ✅ escaneou -> entra automaticamente na mão
         if (CARDS[id]) {
           have.add(id);
           if (!marks[id]) marks[id] = "q"; // opcional: marca como dúvida no caderno
@@ -532,7 +587,9 @@ async function stop(){
 if ($("btnStart")) $("btnStart").addEventListener("click", start);
 if ($("btnStop")) $("btnStop").addEventListener("click", stop);
 
-// ===== Notas =====
+// ===============================
+// Notas
+// ===============================
 if ($("notes")) $("notes").value = localStorage.getItem(LS.notes) || "";
 if ($("btnSaveNotes")) $("btnSaveNotes").addEventListener("click", ()=>{
   localStorage.setItem(LS.notes, $("notes").value);
@@ -545,22 +602,27 @@ if ($("btnLoadNotes")) $("btnLoadNotes").addEventListener("click", ()=>{
   setTimeout(()=> { if ($("noteStatus")) $("noteStatus").textContent=""; }, 1200);
 });
 
-// ===== Limpar tudo =====
+// ===============================
+// Limpar tudo
+// ===============================
 if ($("btnClearMarks")) $("btnClearMarks").addEventListener("click", ()=>{
-  if (!confirm("Limpar suas marcações, crime e histórico neste celular?")) return;
+  if (!confirm("Limpar suas marcações, cartas e crime neste celular?")) return;
   have = new Set();
   marks = {};
   saveObj(LS.notebook, marks);
   saveObj(LS.accuse, {});
-  saveJSON(LS.secret, {});
+  saveJSON(LS.secret, null);
   saveJSON(LS.hintHistory, []);
+  stopHints();
   refresh();
   renderAccuseResult();
   setCrimeButtons();
-  setHintBox("Tudo limpo neste celular.", "sistema");
+  setHintBox("Tudo limpo. Configure o crime (3 scans) novamente.", "sistema");
 });
 
-// ===== Fechar com ESC (PC) =====
+// ===============================
+// Fechar com ESC (PC)
+// ===============================
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closeModal();
@@ -570,6 +632,13 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+// Boot
 refresh();
 renderAccuseResult();
 setCrimeButtons();
+
+if (hasSecret()) {
+  setHintBox("🔒 Crime já configurado neste celular. Você pode iniciar as dicas.", "sistema");
+} else {
+  setHintBox("🔒 Configure o crime (3 scans) para começar.", "sistema");
+}
