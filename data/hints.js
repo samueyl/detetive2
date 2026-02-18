@@ -1,233 +1,389 @@
-// data/hints.js — 200 dicas MISTURADAS alinhadas às cartas do Detetive 2
-// - As 200 são GERADAS ao carregar (sem precisar escrever 200 na mão)
-// - Todas mencionam (direta ou indiretamente) cartas reais do baralho
-// - Sem spoiler: não monta "suspeito + arma + local" na mesma frase como acusação
-// - Inclui também um gerador de "coerência" para o app.js usar com o trio secreto
+// data/hints.js — 270 dicas (10 por carta) alinhadas às 27 cartas do baralho
+// O app vai sortear UMA dica por vez, escolhendo entre: arma / suspeito / local.
 
-(function () {
-  // ======= BARALHO (conforme sua lista) =======
-  const SUS = [
-    { id: "01", nome: "Advogado Sr. Marinho", arqu: "elegante", traços: ["fala mansa", "argumento", "controle", "álibi bonito"] },
-    { id: "02", nome: "Chef de Cozinha", arqu: "preciso", traços: ["rotina", "lâmina", "mão firme", "hora certa"] },
-    { id: "03", nome: "Coveiro Sergio Soturno", arqu: "sombrio", traços: ["silêncio", "terra", "paciência", "olhar frio"] },
-    { id: "04", nome: "Dançarina Srta. Rosa", arqu: "carismática", traços: ["encena", "distração", "ritmo", "sorriso fácil"] },
-    { id: "05", nome: "Florista Dona Branca", arqu: "delicada", traços: ["perfume", "luvas", "espinhos", "gentileza afiada"] },
-    { id: "06", nome: "Medica Dona Violeta", arqu: "autoridade", traços: ["calma", "diagnóstico", "protocolo", "frieza clínica"] },
-    { id: "07", nome: "Mordomo James", arqu: "discreto", traços: ["chaves", "corredores", "rotina alheia", "presença invisível"] },
-    { id: "08", nome: "Sargento Bigode", arqu: "força", traços: ["postura", "ordem", "voz alta", "intimidação"] },
-  ];
+window.HINTS_BY_SUSPECT = {
+  // 01 Advogado Sr Marinho
+  "01": [
+    "TESTEMUNHA: Ele falou bonito demais pra uma situação feia — como se já tivesse ensaiado a defesa.",
+    "RELATO: Quando perguntaram ‘onde você estava?’, veio uma resposta longa… e nenhuma parte soou espontânea.",
+    "BOATO: Quem domina palavras costuma tentar dominar versões. E hoje tinha versão demais circulando.",
+    "PAPEL: Tinha marcas de dedo em papel que ninguém deveria ter tocado — e alguém fingiu que era normal.",
+    "SUSSURRO: ‘Isso não prova nada’ saiu rápido. Rápido demais pra quem é inocente.",
+    "OBS.: Ele não ficou nervoso com o crime… ficou nervoso com o relógio.",
+    "DETALHE: Sempre que um nome era citado, ele reorganizava a história como quem reorganiza frases.",
+    "RELATO: Ele tentou transformar dúvida em certeza com um tom de autoridade mansa.",
+    "BOATO: Dizem que ele ofereceu ajuda antes mesmo de pedirem — ajuda pode ser controle.",
+    "ANOTAÇÃO: Um argumento perfeito pode ser só uma máscara muito bem passada."
+  ],
 
-  const LOC = [
-    { id: "17", nome: "Banco", tipo: "público", traços: ["câmeras", "fila", "tensão", "sussurros"] },
-    { id: "18", nome: "Boate", tipo: "barulhento", traços: ["música", "luz baixa", "gente", "desvio de atenção"] },
-    { id: "19", nome: "Cemitério", tipo: "silencioso", traços: ["neblina", "terra", "passos", "eco"] },
-    { id: "20", nome: "Estação de trem", tipo: "público", traços: ["apito", "pressa", "multidão", "partidas"] },
-    { id: "21", nome: "Floricultura", tipo: "fechado", traços: ["perfume", "vasos", "tesoura", "espinhos"] },
-    { id: "22", nome: "Hospital", tipo: "público", traços: ["corredor", "plantão", "silêncio branco", "luvas"] },
-    { id: "23", nome: "Hotel", tipo: "público", traços: ["chaves", "quartos", "sussurros", "corredor longo"] },
-    { id: "24", nome: "Mansão", tipo: "fechado", traços: ["luxo", "escadas", "portas", "segredos"] },
-    { id: "25", nome: "Praça Central", tipo: "público", traços: ["bancos", "luzes", "testemunhas", "ruído"] },
-    { id: "26", nome: "Prefeitura", tipo: "público", traços: ["papéis", "carimbos", "salas", "poder"] },
-    { id: "27", nome: "Restaurante", tipo: "barulhento", traços: ["cozinha", "pratos", "cheiro", "movimento"] },
-  ];
+  // 02 Chef de Cozinha
+  "02": [
+    "TESTEMUNHA: As mãos dele estavam limpas demais pro lugar onde estava — como se tivesse lavado na pressa certa.",
+    "RELATO: Ele conhece rotas e horários como quem conhece fogão e faca: no automático.",
+    "BOATO: Dizem que ele sumiu por minutos e voltou com ‘desculpa’ pronta.",
+    "DETALHE: Cheiro de tempero forte pode esconder outra coisa. E alguém parecia contar com isso.",
+    "OBS.: Quando falaram de barulho, ele sorriu — como quem já sabia que ninguém escutaria nada.",
+    "RELATO: Ele evitou um canto específico, como se aquele canto guardasse um segredo quente.",
+    "ANOTAÇÃO: Quem domina rotina domina oportunidades.",
+    "TESTEMUNHA: Ele ficou irritado quando mexeram em objetos — como se não quisesse bagunça na cena.",
+    "BOATO: O crime parece ter sido feito com precisão, não com raiva.",
+    "DETALHE: Às vezes o culpado é só alguém que sabe ‘como fazer rápido’."
+  ],
 
-  const ARM = [
-    { id: "09", nome: "Arma química", classe: "silenciosa", traços: ["odor sutil", "dose", "tempo", "sintomas"] },
-    { id: "10", nome: "Espingarda", classe: "barulhenta", traços: ["estrondo", "pânico", "impacto", "fim rápido"] },
-    { id: "11", nome: "Faca", classe: "silenciosa", traços: ["precisão", "curto alcance", "mão firme", "sombra"] },
-    { id: "12", nome: "Pá", classe: "pesada", traços: ["terra", "força", "marca", "pressa"] },
-    { id: "13", nome: "Pé de cabra", classe: "pesada", traços: ["metal", "alavanca", "porta", "impacto seco"] },
-    { id: "14", nome: "Soco Inglês", classe: "discreta", traços: ["curto", "próximo", "raiva contida", "surpresa"] },
-    { id: "15", nome: "Tesoura", classe: "silenciosa", traços: ["corte", "oficina", "perto", "brilho rápido"] },
-    { id: "16", nome: "Veneno", classe: "silenciosa", traços: ["calma", "espera", "copos", "tempo"] },
-  ];
+  // 03 Coveiro Sérgio Soturno
+  "03": [
+    "TESTEMUNHA: Ele não se assustou com a notícia… só ficou mais quieto.",
+    "RELATO: Tem gente que conhece o silêncio por dentro. E hoje alguém parecia confortável nele.",
+    "BOATO: Dizem que ele sabe onde ninguém procura — e isso é perigoso quando algo precisa sumir.",
+    "DETALHE: Quando falaram em ‘fim’, ele não fez pergunta nenhuma. Como se já soubesse o caminho.",
+    "OBS.: A calma dele era pesada, não era paz.",
+    "RELATO: Ele evitou explicar — e quem evita explicar às vezes evita se entregar.",
+    "ANOTAÇÃO: O medo apareceu nos outros. Nele, apareceu só uma certeza fria.",
+    "TESTEMUNHA: Uma frase curta: ‘isso acontece’. Curta demais.",
+    "BOATO: Alguns chamam de experiência. Outros chamam de intimidade com o pior.",
+    "DETALHE: O culpado pode ser quem não teme a escuridão."
+  ],
 
-  const byId = (arr, id) => arr.find(x => x.id === id);
-  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
-  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+  // 04 Dançarina Srta Rosa
+  "04": [
+    "TESTEMUNHA: Ela sorriu na hora errada — aquele sorriso que tenta distrair a culpa.",
+    "RELATO: Ela se moveu como se o lugar fosse palco, e palco é ótimo pra esconder intenções.",
+    "BOATO: Dizem que ela some e volta no tempo perfeito, sempre com um ‘ah, eu estava ali’.",
+    "DETALHE: A distração foi parte do método. Alguém queria olhos em qualquer coisa… menos no essencial.",
+    "OBS.: Quem é carismático pode guiar a sala sem ninguém perceber.",
+    "RELATO: Quando a conversa apertou, ela mudou o ritmo — e todo mundo seguiu.",
+    "ANOTAÇÃO: A melhor cortina de fumaça é um brilho bonito.",
+    "TESTEMUNHA: Ela desviou perguntas com delicadeza, como dança: sem choque, sem rastro.",
+    "BOATO: A história dela veio fluida demais. Fluidez às vezes é ensaio.",
+    "DETALHE: Hoje, alguém usou charme como álibi."
+  ],
 
-  // ======= TEMPLATES MISTURADOS (sem spoiler) =======
-  // Regra: frase menciona 1 carta OU 1 local + 1 “clima”, OU 1 arma + 1 “efeito”, etc.
-  const T = {
-    testemunha: [
-      (x) => `Eu passei por ${x} e senti que alguém estava normal demais ali.`,
-      (x) => `Em ${x}, o barulho escondia coisas que não deviam ser escondidas.`,
-      (x) => `No caminho até ${x}, vi um olhar procurando testemunhas antes de agir.`,
-      (x) => `Perto de ${x}, ouvi um som curto… e depois silêncio calculado.`,
-      (x) => `Em ${x}, a pressa parecia rotina — e isso me deu arrepio.`,
-      (x) => `Eu vi alguém sair de ${x} como quem já tinha ensaiado a calma.`,
-      (x) => `Em ${x}, alguém tentou mudar de assunto na hora exata.`,
-      (x) => `O ar de ${x} tinha um detalhe estranho: parecia “arrumado” demais.`,
-    ],
-    relatorio: [
-      (x) => `RELATÓRIO: ${x} favorece álibis fáceis. Onde há público, há versões demais.`,
-      (x) => `RELATÓRIO: Em ${x}, a cronologia é tudo. A mentira tropeça no relógio.`,
-      (x) => `RELATÓRIO: ${x} tem pontos cegos. Alguém sabia onde ficar.`,
-      (x) => `RELATÓRIO: Normalidade em ${x} foi excessiva. Indício de controle.`,
-      (x) => `RELATÓRIO: Movimentação suspeita em ${x}. Recomenda-se revisar acessos.`,
-      (x) => `RELATÓRIO: O ambiente de ${x} ajuda quem quer desaparecer sem correr.`,
-    ],
-    boato: [
-      (x) => `Boato: em ${x}, todo mundo viu… mas ninguém quer dizer que viu.`,
-      (x) => `Boato: ${x} é o tipo de lugar perfeito pra uma história “pronta”.`,
-      (x) => `Boato: depois de ${x}, alguém ficou calmo demais pra ser inocente.`,
-      (x) => `Boato: em ${x}, o culpado só precisou de um minuto certo.`,
-      (x) => `Boato: ${x} guarda segredo no que parece banal.`,
-    ],
-    bilhete: [
-      (x) => `BILHETE: “Em ${x}, a verdade sussurra. Não confie no óbvio.”`,
-      (x) => `BILHETE amassado: “${x} tem um ponto cego. Procure onde ninguém procura.”`,
-      (x) => `BILHETE: “Se a cena em ${x} estiver limpa demais… alguém limpou.”`,
-      (x) => `BILHETE: “Em ${x}, quem parece útil demais pode estar guiando você.”`,
-    ],
-    radio: [
-      (x) => `RÁDIO: “Boletim: atenção em ${x}. Há relatos de contradições pequenas.”`,
-      (x) => `RÁDIO (chiado): “Evitem pressa em ${x}. Pressa é aliada do culpado.”`,
-      (x) => `RÁDIO: “Em ${x}, compare versões por horário. A emoção engana.”`,
-      (x) => `RÁDIO: “Alerta: ${x} favorece encenação. Cuidado com a pista perfeita.”`,
-    ],
+  // 05 Florista Dona Branca
+  "05": [
+    "TESTEMUNHA: Um perfume doce ficou no ar… e alguém parecia contar com isso pra confundir memórias.",
+    "RELATO: Ela fala com gentileza, mas protege detalhes como quem protege espinhos.",
+    "BOATO: Dizem que ela estava calma demais para o tipo de notícia que quebra a noite.",
+    "DETALHE: Pétalas no chão não provam nada… mas indicam passagem recente de alguém ‘cuidadoso’.",
+    "OBS.: A delicadeza pode ser máscara tão boa quanto uma ameaça.",
+    "RELATO: Quando pressionaram, ela respondeu com frases curtas e bonitas — sem conteúdo.",
+    "ANOTAÇÃO: Quem mexe com arranjos sabe esconder coisas no meio do que é ‘decorativo’.",
+    "TESTEMUNHA: Ela evitou olhar para um objeto específico, como se fosse algo pessoal.",
+    "BOATO: A versão dela parecia preparada pra ser aceita sem discussão.",
+    "DETALHE: Às vezes, a culpa vem embrulhada em seda."
+  ],
 
-    // armas (1 carta)
-    arma: [
-      (w) => `Eu ouvi gente comentando sobre ${w}… e ninguém parecia confortável com o assunto.`,
-      (w) => `RELATÓRIO: ${w} indica método. Método indica intenção.`,
-      (w) => `Boato: ${w} não é escolha de impulso. É escolha de controle.`,
-      (w) => `BILHETE: “${w} não precisa de barulho para deixar marca.”`,
-      (w) => `RÁDIO: “${w} costuma aparecer quando alguém quer terminar rápido.”`,
-      (w) => `O pior de ${w} é o depois — quando tudo parece normal… e não está.`,
-    ],
+  // 06 Médica Dona Violeta
+  "06": [
+    "TESTEMUNHA: Ela observou reações como quem observa sintomas — silenciosa, anotando tudo com os olhos.",
+    "RELATO: Quando falaram de causa, ela já tinha hipótese pronta. Pronta demais.",
+    "BOATO: Dizem que ela explicou possibilidades antes mesmo de alguém perguntar.",
+    "DETALHE: Quem entende o corpo entende também como ele falha sem barulho.",
+    "OBS.: A calma dela parecia treino, não tranquilidade.",
+    "RELATO: Ela se incomodou quando tocaram no assunto ‘tempo’. Tempo denuncia procedimento.",
+    "ANOTAÇÃO: Um crime pode parecer acidente quando alguém sabe fazer parecer.",
+    "TESTEMUNHA: Ela foi a primeira a dizer ‘pode ter sido natural’. Natural demais.",
+    "BOATO: O culpado pode ter usado conhecimento como luva.",
+    "DETALHE: Hoje, a verdade pode estar escondida numa explicação técnica."
+  ],
 
-    // suspeitos (1 carta)
-    suspeito: [
-      (s) => `Eu vi ${s} sorrir no momento errado. Pequeno… mas real.`,
-      (s) => `RELATÓRIO: ${s} tem um tipo de calma que pode ser treino.`,
-      (s) => `Boato: ${s} sabe conduzir conversa sem levantar a voz.`,
-      (s) => `BILHETE: “Observe ${s}. Quem controla a narrativa controla o medo.”`,
-      (s) => `RÁDIO: “${s} foi citado em sussurros. Sussurros não surgem do nada.”`,
-      (s) => `${s} parecia estar no lugar certo na hora certa… certo demais.`,
-    ],
-  };
+  // 07 Mordomo James
+  "07": [
+    "TESTEMUNHA: Ele conhece portas e horários como quem conhece a própria respiração.",
+    "RELATO: Ele apareceu no momento certo pra ‘ajudar’, e ajuda às vezes é controle da cena.",
+    "BOATO: Dizem que ele some pelos corredores sem ninguém notar — e isso é uma vantagem enorme.",
+    "DETALHE: Quem tem chave não precisa arrombar. Quem não arromba, não deixa marca.",
+    "OBS.: A presença dele é invisível até você precisar lembrar que ele estava lá.",
+    "RELATO: Ele respondeu sem emoção — e emoção às vezes é o que falta quando a culpa já foi resolvida.",
+    "ANOTAÇÃO: O culpado mais perigoso é o que parece parte do mobiliário.",
+    "TESTEMUNHA: Ele desviou um olhar rápido para a saída quando perguntaram ‘e depois?’",
+    "BOATO: A rotina dele pode ser o melhor disfarce.",
+    "DETALHE: Hoje, alguém usou acesso como arma."
+  ],
 
-  // ======= GERADOR DAS 200 MISTURADAS =======
-  function makeOne() {
-    const mode = pick(["testemunha","relatorio","boato","bilhete","radio","arma","suspeito"]);
-    if (mode === "arma") return pick(T.arma)(pick(ARM).nome);
-    if (mode === "suspeito") return pick(T.suspeito)(pick(SUS).nome);
+  // 08 Sargento Bigode
+  "08": [
+    "TESTEMUNHA: Ele tentou comandar a conversa como se fosse investigação oficial — e isso pode ser máscara.",
+    "RELATO: Quem quer organizar o caos pode estar tentando decidir o que entra e o que sai da história.",
+    "BOATO: Dizem que ele ficou mais irritado com dúvidas do que com o crime.",
+    "DETALHE: Autoridade é ótima pra encerrar perguntas cedo demais.",
+    "OBS.: Ele olha o grupo como patrulha, não como gente. Frio demais.",
+    "RELATO: Ele perguntou ‘quem estava onde’ como interrogatório — e conduziu respostas.",
+    "ANOTAÇÃO: Quem controla o ritmo controla o foco.",
+    "TESTEMUNHA: Ele ficou calmo quando citaram barulho… como se já soubesse que isso não importava.",
+    "BOATO: A pressa dele era seletiva: pressa pra concluir, não pra entender.",
+    "DETALHE: Hoje, alguém usou disciplina como disfarce."
+  ]
+};
 
-    // os 5 primeiros usam locais
-    const loc = pick(LOC).nome;
-    return pick(T[mode])(loc);
-  }
+window.HINTS_BY_WEAPON = {
+  // 09 Arma Química
+  "09": [
+    "TESTEMUNHA: Teve um cheiro estranho por um instante… e depois todo mundo duvidou do próprio nariz.",
+    "RELATO: A confusão foi no corpo antes de ser na cabeça. Como se alguém quisesse ‘desorientar’ a cena.",
+    "BOATO: Dizem que o culpado contou com efeito invisível — sem barulho, sem gesto dramático.",
+    "DETALHE: Quando a pista mexe com sentidos, a verdade vira discussão, não prova.",
+    "OBS.: Ninguém viu o golpe. Só viram a consequência.",
+    "RELATO: Alguém abriu algo rápido e fechou — como quem não quer deixar o ar falar.",
+    "ANOTAÇÃO: O método ideal é o que faz parecer ‘mal-estar’.",
+    "TESTEMUNHA: Um segundo de ardor no ar e pronto: a sala inteira ficou vulnerável.",
+    "BOATO: O culpado preferiu que parecesse acidente.",
+    "DETALHE: Hoje, o crime pode ter sido um sussurro químico."
+  ],
 
-  // garantir diversidade: às vezes mistura 2 frases (sem virar spoiler)
-  function maybeDouble(line) {
-    if (Math.random() > 0.35) return line;
-    const extra = makeOne();
+  // 10 Espingarda
+  "10": [
+    "TESTEMUNHA: Um estrondo não é só barulho — é pânico organizado. Alguém quis fim rápido.",
+    "RELATO: Depois do impacto, veio o silêncio. Silêncio de quem sabia que ia acontecer.",
+    "BOATO: Dizem que o culpado contou com o choque pra ninguém pensar direito.",
+    "DETALHE: Barulho grande cria álibi: ‘eu não ouvi direito’, ‘foi longe’, ‘não sei’.",
+    "OBS.: O método intimida. E intimidação também é controle.",
+    "RELATO: Quem age assim não quer discussão; quer encerramento.",
+    "ANOTAÇÃO: Um segundo resolve tudo… e apaga perguntas.",
+    "TESTEMUNHA: Todo mundo olhou pro lado errado por reflexo.",
+    "BOATO: O culpado apostou que o barulho viraria a história inteira.",
+    "DETALHE: Hoje, o crime parece ter sido um ponto final."
+  ],
 
-    // evita juntar 2 nomes de suspeitos/armas no mesmo bloco muitas vezes
-    const bad = /(Advogado|Chef|Coveiro|Dançarina|Florista|Medica|Mordomo|Sargento)/i.test(line)
-             && /(Advogado|Chef|Coveiro|Dançarina|Florista|Medica|Mordomo|Sargento)/i.test(extra);
-    if (bad) return line;
+  // 11 Faca
+  "11": [
+    "TESTEMUNHA: Não houve grito longo… só um corte no ar e depois normalidade falsa.",
+    "RELATO: Isso exige proximidade. E proximidade exige confiança ou surpresa.",
+    "BOATO: Dizem que foi rápido, como gesto treinado.",
+    "DETALHE: Pouco barulho, pouco tempo, muita intenção.",
+    "OBS.: Quem escolhe isso não quer chamar atenção — quer certeza.",
+    "RELATO: Um movimento curto pode ser o começo e o fim.",
+    "ANOTAÇÃO: A arma mais antiga ainda funciona porque depende de coragem.",
+    "TESTEMUNHA: Vi alguém limpar a mão como se tivesse tocado em metal frio.",
+    "BOATO: O culpado precisou chegar perto… e sair sem ser notado.",
+    "DETALHE: Hoje, a verdade pode estar na distância que alguém conseguiu atravessar."
+  ],
 
-    return `${line}\n\n${extra}`;
-  }
+  // 12 Pá
+  "12": [
+    "TESTEMUNHA: Teve terra onde não devia. E ninguém soube explicar.",
+    "RELATO: Isso tem peso de ‘trabalho’, não de impulso. Como se fosse tarefa.",
+    "BOATO: Dizem que o culpado usou algo comum pra parecer acaso.",
+    "DETALHE: Um instrumento assim deixa marcas no chão — e o chão não mente.",
+    "OBS.: Precisa de espaço. Precisa de oportunidade.",
+    "RELATO: O barulho pode ser disfarçado como rotina do lugar.",
+    "ANOTAÇÃO: Quando a ferramenta parece normal, o crime se esconde na normalidade.",
+    "TESTEMUNHA: Um som seco, de metal batendo em algo denso… e depois pressa contida.",
+    "BOATO: Quem escolheu isso queria improviso com cara de rotina.",
+    "DETALHE: Hoje, a pista pode estar no pó que alguém tentou tirar do sapato."
+  ],
 
-  function generate200() {
-    const set = new Set();
-    let guard = 0;
-    while (set.size < 200 && guard < 5000) {
-      let line = maybeDouble(makeOne());
+  // 13 Pé de Cabra
+  "13": [
+    "TESTEMUNHA: Um barulho curto de metal… como se algo tivesse sido forçado só uma vez.",
+    "RELATO: Não é só arma — é acesso. E acesso muda tudo.",
+    "BOATO: Dizem que a cena foi ‘aberta’ à força e depois fingiram que sempre esteve assim.",
+    "DETALHE: Quando alguém abre caminho, ele abre também a chance de desaparecer.",
+    "OBS.: O método deixa marca, mas a marca pode ser confundida com bagunça antiga.",
+    "RELATO: Um estalo seco pode ter sido o momento exato.",
+    "ANOTAÇÃO: Ferramenta de arrombamento também serve para controlar portas e histórias.",
+    "TESTEMUNHA: Vi alguém com as mãos tensas, como quem usou força recente.",
+    "BOATO: O culpado não precisou de chave — só de decisão.",
+    "DETALHE: Hoje, a pista pode estar na fechadura que ninguém quer olhar."
+  ],
 
-      // finais de suspense
-      if (Math.random() < 0.25) {
-        const end = pick([
-          "Não confie no óbvio. O óbvio é abrigo.",
-          "Volte aos minutos antes. Sempre tem um buraco.",
-          "A verdade não grita — ela sussurra.",
-          "Quem pede pressa quer menos perguntas.",
-          "Se a cena está limpa, pergunte: quem limpou?"
-        ]);
-        line = `${line}\n\n${end}`;
-      }
+  // 14 Soco Inglês
+  "14": [
+    "TESTEMUNHA: Não foi um ataque distante. Foi perto demais, rápido demais.",
+    "RELATO: Isso pede coragem e frieza — e pede que o culpado se misture logo depois.",
+    "BOATO: Dizem que a multidão ajudou: um empurra, outro esbarra, e pronto.",
+    "DETALHE: A arma desaparece fácil. O efeito, nem tanto.",
+    "OBS.: É o tipo de coisa que acontece num piscar de olhos.",
+    "RELATO: Alguém podia estar ao lado e ainda assim negar.",
+    "ANOTAÇÃO: Proximidade é pista. Quem conseguiu ficar perto?",
+    "TESTEMUNHA: Vi alguém esconder a mão como se protegesse algo pequeno.",
+    "BOATO: O culpado contou com confusão e contato.",
+    "DETALHE: Hoje, a verdade pode estar em quem estava ‘perto demais’."
+  ],
 
-      set.add(line);
-      guard++;
-    }
-    return Array.from(set).slice(0, 200);
-  }
+  // 15 Tesoura
+  "15": [
+    "TESTEMUNHA: Um corte pequeno pode ser mais silencioso que qualquer segredo.",
+    "RELATO: Isso parece cotidiano — e justamente por isso passa despercebido.",
+    "BOATO: Dizem que foi preciso. Não exigiu força. Exigiu intenção.",
+    "DETALHE: Quem usa isso costuma ter mão firme e gesto rápido.",
+    "OBS.: A arma se confunde com objeto comum.",
+    "RELATO: O culpado pode ter carregado sem parecer ameaça.",
+    "ANOTAÇÃO: O perigo às vezes é o que parece ferramenta.",
+    "TESTEMUNHA: Vi alguém com um gesto de cortar no ar enquanto falava… nervoso.",
+    "BOATO: O crime pode ter sido um detalhe afiado.",
+    "DETALHE: Hoje, procure quem tinha acesso a objetos ‘inofensivos’."
+  ],
 
-  // ======= COERÊNCIA DO TRIO SECRETO (sem spoiler) =======
-  // O app.js vai chamar isso e ele NÃO mostra nomes/ids do trio, só características.
-  function overlayFromSecret({ susId, armId, locId }) {
-    const sus = byId(SUS, susId);
-    const arm = byId(ARM, armId);
-    const loc = byId(LOC, locId);
+  // 16 Veneno
+  "16": [
+    "TESTEMUNHA: Não houve barulho. Só um tempo estranho entre ‘antes’ e ‘depois’.",
+    "RELATO: O efeito atrasado é a melhor cortina: todo mundo procura o momento errado.",
+    "BOATO: Dizem que parecia acidente — e essa é a beleza cruel do método.",
+    "DETALHE: Quando a causa chega depois, a mentira ganha minutos preciosos.",
+    "OBS.: Isso exige preparo. E preparo exige calma.",
+    "RELATO: O culpado não precisou ficar perto no final — só no começo.",
+    "ANOTAÇÃO: Nem toda arma aparece. Às vezes ela já foi embora quando a culpa chega.",
+    "TESTEMUNHA: Vi alguém oferecendo algo com gentileza demais.",
+    "BOATO: Hoje, alguém apostou que ninguém conectaria os pontos.",
+    "DETALHE: A pista pode estar no que foi dado, não no que foi tirado."
+  ]
+};
 
-    if (!sus || !arm || !loc) {
-      return "Há um método aqui. Nada foi por acaso — alguém contou com o ambiente.";
-    }
+window.HINTS_BY_LOCATION = {
+  // 17 Banco
+  "17": [
+    "TESTEMUNHA: Todo mundo finge calma, mas o ar pesa. Segurança demais também é teatro.",
+    "RELATO: Câmeras existem, mas pontos cegos também. Alguém sabia disso.",
+    "BOATO: Dizem que a fila e o ‘vai e vem’ ajudaram a esconder um gesto curto.",
+    "DETALHE: Porta giratória atrasa alguns… e libera outros no tempo certo.",
+    "OBS.: Onde há controle, há também brecha calculada.",
+    "RELATO: O barulho é baixo, mas a tensão é alta. Perfeito pra distrações silenciosas.",
+    "ANOTAÇÃO: A pressa educada é a máscara desse lugar.",
+    "TESTEMUNHA: Sussurros sobre dinheiro encobrem qualquer outra conversa.",
+    "BOATO: O culpado se misturou como cliente.",
+    "DETALHE: Aqui, a prova pode ser quem entrou e saiu “normal”."
+  ],
 
-    // 1) local
-    const locLine = (() => {
-      if (loc.tipo === "barulhento") {
-        return `O lugar era barulhento — perfeito para esconder um instante decisivo. Entre luzes e ruídos, uma escolha passa despercebida.`;
-      }
-      if (loc.tipo === "silencioso") {
-        return `O lugar era silencioso — e silêncio é pista quando todo mundo tenta falar por cima. Um passo parece mais pesado quando não há música pra engolir.`;
-      }
-      if (loc.tipo === "fechado") {
-        return `O lugar era fechado — bom para emboscada e ruim para improviso. Quem entrou ali sabia onde o olhar não alcança.`;
-      }
-      return `O lugar era público — bom para álibis e ruim para verdades. Onde há gente, há versões demais.`;
-    })();
+  // 18 Boate
+  "18": [
+    "TESTEMUNHA: Música alta. Luz cortando. Um empurrão vira desculpa perfeita.",
+    "RELATO: A confusão é conveniente. Quem quer sumir escolhe confusão.",
+    "BOATO: Dizem que o crime aconteceu no meio do brilho — e ninguém percebeu por achar que era dança.",
+    "DETALHE: Corpo esbarra em corpo, e a verdade cai no chão sem barulho.",
+    "OBS.: O lugar cria álibis em segundos.",
+    "RELATO: O som engole palavras. E engole também pedidos de socorro.",
+    "ANOTAÇÃO: Aqui, o culpado não precisa correr; só precisa dançar com a multidão.",
+    "TESTEMUNHA: Vi alguém sorrir com a música… mas o sorriso não era de festa.",
+    "BOATO: O culpado esperou a batida certa.",
+    "DETALHE: O momento perfeito é quando ninguém consegue prestar atenção."
+  ],
 
-    // 2) arma
-    const armLine = (() => {
-      if (arm.classe === "barulhenta") {
-        return `O método parecia feito para terminar rápido: impacto, choque, e depois… uma tentativa de normalizar o caos.`;
-      }
-      if (arm.classe === "pesada") {
-        return `O método deixou um tipo de marca que não precisa gritar — basta um som seco e a coragem de estar perto.`;
-      }
-      if (arm.classe === "silenciosa") {
-        return `O método foi discreto, quase educado. O perigo não foi o som — foi a ausência dele.`;
-      }
-      return `O método exigiu proximidade. Não é coisa de quem quer distância — é coisa de quem quer controle.`;
-    })();
+  // 19 Cemitério
+  "19": [
+    "TESTEMUNHA: Frio. Pedra. Um silêncio que parece acusar qualquer passo.",
+    "RELATO: Lugar de poucas testemunhas. E poucas testemunhas viram muito pouco.",
+    "BOATO: Dizem que alguém já conhecia os caminhos entre sombras.",
+    "DETALHE: Folhas secas denunciam o que o escuro tenta esconder.",
+    "OBS.: Aqui, o tempo parece mais lento — e isso dá coragem a quem não devia ter.",
+    "RELATO: Um nome gravado pode ser motivo. Motivo antigo.",
+    "ANOTAÇÃO: Onde tudo é fim, alguém pode achar que consequência não existe.",
+    "TESTEMUNHA: Passos lentos… e depois um silêncio maior ainda.",
+    "BOATO: O culpado queria que o lugar fizesse o trabalho de esconder.",
+    "DETALHE: Procure o caminho que evita luz."
+  ],
 
-    // 3) suspeito (arquétipo)
-    const susLine = (() => {
-      const t = pick(sus.traços);
-      if (sus.arqu === "autoridade") {
-        return `E havia alguém com postura de autoridade. Autoridade acalma… e às vezes cala. Um detalhe de ${t} entrega mais do que discurso.`;
-      }
-      if (sus.arqu === "discreto") {
-        return `E havia alguém discreto, que conhece rotinas alheias. Discrição não chama atenção — ela atravessa. Um detalhe de ${t} ficou no ar.`;
-      }
-      if (sus.arqu === "carismática") {
-        return `E havia alguém carismático o bastante para distrair. Carisma é luz — e a luz também cega. Um detalhe de ${t} apareceu na hora errada.`;
-      }
-      if (sus.arqu === "sombrio") {
-        return `E havia alguém acostumado ao peso do silêncio. Silêncio não é ausência — é escolha. Um detalhe de ${t} pareceu ensaiado.`;
-      }
-      if (sus.arqu === "elegante") {
-        return `E havia alguém com fala bonita. Fala bonita constrói álibi. Um detalhe de ${t} soou como argumento antes da pergunta.`;
-      }
-      if (sus.arqu === "força") {
-        return `E havia alguém com presença forte. Presença forte muda a sala. Um detalhe de ${t} apareceu quando o assunto encostou no perigo.`;
-      }
-      return `E havia alguém metódico. Método se esconde em rotina. Um detalhe de ${t} não combinou com o resto.`;
-    })();
+  // 20 Estação de Trem
+  "20": [
+    "TESTEMUNHA: Apitos e ecos. Passos apressados viram rotina — perfeito pra sumir.",
+    "RELATO: Chegada e saída: o melhor álibi é o movimento constante.",
+    "BOATO: Dizem que alguém contou com anúncios distantes pra mascarar um som curto.",
+    "DETALHE: Uma porta batendo sem vento pode ser mais que distração.",
+    "OBS.: Todo mundo tem pressa aqui. Pressa é capa.",
+    "RELATO: Quem conhece horários conhece também os minutos cegos.",
+    "ANOTAÇÃO: A verdade se perde quando todo mundo ‘tá indo pra algum lugar’.",
+    "TESTEMUNHA: Vi alguém mudar de plataforma como quem muda de história.",
+    "BOATO: O culpado escolheu o momento do anúncio.",
+    "DETALHE: Aqui, a pista pode ser a direção que ninguém conferiu."
+  ],
 
-    // entrega 3 linhas coerentes (sem nomes)
-    return `${locLine}\n\n${armLine}\n\n${susLine}`;
-  }
+  // 21 Floricultura
+  "21": [
+    "TESTEMUNHA: Cheiro doce. Vidro. Umidade. Parece paz… mas paz também é disfarce.",
+    "RELATO: Tesouras e embalagens fazem ruídos pequenos que escondem ruídos piores.",
+    "BOATO: Dizem que pétalas no chão viraram caminho sem querer.",
+    "DETALHE: Vitrine mostra tudo… menos o canto onde ninguém olha.",
+    "OBS.: Beleza demais pode ser cenário montado.",
+    "RELATO: Quem entra aqui costuma ficar ‘encantado’. Encanto distrai.",
+    "ANOTAÇÃO: Perfumes confundem memória. Memória confusa ajuda culpado.",
+    "TESTEMUNHA: Vi alguém limpando as mãos como se tivesse mexido em algo que não era planta.",
+    "BOATO: O culpado queria parecer delicado.",
+    "DETALHE: Aqui, o silêncio não é vazio — é escolhido."
+  ],
 
-  // ======= EXPORT =======
-  window.HINTS_PACK = window.HINTS_PACK || {};
-  window.HINTS_PACK.mix = generate200();
+  // 22 Hospital
+  "22": [
+    "TESTEMUNHA: Cheiro de álcool. Portas leves. Gente com pressa contida.",
+    "RELATO: Corredores criam sumiços rápidos. Um virar de esquina e pronto.",
+    "BOATO: Dizem que luvas e máscaras viraram desculpa para não reconhecer ninguém.",
+    "DETALHE: Aqui, qualquer mal-estar parece “normal”. E isso é perigoso.",
+    "OBS.: A rotina protege o culpado: tudo parece procedimento.",
+    "RELATO: Um carrinho passando pode cobrir um som curto.",
+    "ANOTAÇÃO: Onde há urgência, há distração.",
+    "TESTEMUNHA: Uma respiração presa… como se o ar também fosse prova.",
+    "BOATO: O culpado contou com o caos silencioso.",
+    "DETALHE: Aqui, a pista pode ser quem estava calmo demais."
+  ],
 
-  // função para o app.js chamar
-  window.HINTS_PACK.coherentOverlay = overlayFromSecret;
+  // 23 Hotel
+  "23": [
+    "TESTEMUNHA: Corredores longos. Portas iguais. Tapetes que engolem som.",
+    "RELATO: Cartões de acesso deixam rastros invisíveis — alguém sabia usar isso.",
+    "BOATO: Dizem que o culpado trocou de andar como quem troca de versão.",
+    "DETALHE: Câmeras existem, mas o ângulo nunca é perfeito.",
+    "OBS.: Aqui, “hóspede” é identidade fácil de vestir.",
+    "RELATO: Elevador cria encontros curtos e separações rápidas.",
+    "ANOTAÇÃO: Um lugar de passagem é ótimo para desaparecer sem explicar.",
+    "TESTEMUNHA: Vi alguém parar numa porta e voltar como se tivesse errado — mas não errou.",
+    "BOATO: O culpado esperou o corredor ficar vazio.",
+    "DETALHE: Aqui, o detalhe é quem tinha acesso sem chamar atenção."
+  ],
 
-})();
+  // 24 Mansão
+  "24": [
+    "TESTEMUNHA: Luxo e silêncio. Portas pesadas. Tapetes que abafam confissão.",
+    "RELATO: Cantos cegos demais para um lugar grande. Alguém escolheu um deles.",
+    "BOATO: Dizem que quadros pareciam observar — e ninguém queria ser observado.",
+    "DETALHE: Escadas longas separam testemunhas. O culpado gosta disso.",
+    "OBS.: Aqui, a casa ‘engole’ som e engole também suspeita.",
+    "RELATO: Quem se sente dono do lugar anda sem pressa — e isso não chama atenção.",
+    "ANOTAÇÃO: Grandeza cria distância. Distância cria oportunidade.",
+    "TESTEMUNHA: Vi uma porta fechar devagar demais, como se alguém quisesse zero ruído.",
+    "BOATO: O culpado conhecia a casa por dentro.",
+    "DETALHE: Aqui, o segredo mora em portas que parecem decorativas."
+  ],
+
+  // 25 Praça Central
+  "25": [
+    "TESTEMUNHA: Luz de poste, bancos e passos ecoando. Público demais pra confiar.",
+    "RELATO: Todo mundo vê… mas ninguém vê o suficiente.",
+    "BOATO: Dizem que o culpado se misturou como se fosse só mais um.",
+    "DETALHE: Um movimento simples vira invisível quando tem gente demais.",
+    "OBS.: Onde ninguém é de ninguém, culpa também se dilui.",
+    "RELATO: O barulho aberto encobre conversas baixas e gestos curtos.",
+    "ANOTAÇÃO: Lugar público cria o melhor tipo de dúvida: ‘foi quem?’",
+    "TESTEMUNHA: Vi alguém olhar as saídas antes de agir, como quem já tinha rota.",
+    "BOATO: O culpado contou com a rotina da praça.",
+    "DETALHE: Aqui, a pista pode ser quem tentou parecer turista."
+  ],
+
+  // 26 Prefeitura
+  "26": [
+    "TESTEMUNHA: Corredores frios, papéis e poder. Gente que finge não ver.",
+    "RELATO: Salas fechadas guardam segredos melhor que pessoas.",
+    "BOATO: Dizem que alguém usou autoridade como escudo.",
+    "DETALHE: Carimbos e assinaturas podem criar álibis falsos.",
+    "OBS.: Onde há hierarquia, perguntas morrem cedo.",
+    "RELATO: Um “eu estava resolvendo isso” vira desculpa perfeita.",
+    "ANOTAÇÃO: Poder não grita — ele manda calar.",
+    "TESTEMUNHA: Vi alguém sair de uma sala com pressa contida, segurando algo junto ao peito.",
+    "BOATO: O culpado quis que tudo parecesse ‘burocracia’.",
+    "DETALHE: Aqui, a pista pode ser quem sabia quais portas abrem."
+  ],
+
+  // 27 Restaurante
+  "27": [
+    "TESTEMUNHA: Talheres e vozes. Pratos batendo. Sussurros entre mesas.",
+    "RELATO: Movimento encenado: todo mundo ocupado, ninguém atento.",
+    "BOATO: Dizem que alguém usou a cozinha como corredor secreto.",
+    "DETALHE: Luz quente e barulho de salão abafam coisas pequenas.",
+    "OBS.: Onde há serviço, há desculpa: ‘eu só estava trabalhando’.",
+    "RELATO: Um copo na mão é álibi, e também é oportunidade.",
+    "ANOTAÇÃO: Aqui, o culpado pode se esconder atrás da rotina do atendimento.",
+    "TESTEMUNHA: Vi alguém entrar e sair rápido, como se só tivesse ido ‘pegar algo’.",
+    "BOATO: O culpado esperou o pico de barulho.",
+    "DETALHE: Neste lugar, o crime pode parecer só mais um acidente de noite cheia."
+  ]
+};
+
+// Conveniência: lista de tipos disponíveis (usado pelo app)
+window.HINT_TYPES = ["weapon","suspect","location"];

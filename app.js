@@ -2,6 +2,10 @@
 
 const CARDS = window.CARDS;
 const HINTS_PACK = window.HINTS_PACK || {};
+const HINTS_BY_SUSPECT = window.HINTS_BY_SUSPECT || {};
+const HINTS_BY_WEAPON  = window.HINTS_BY_WEAPON  || {};
+const HINTS_BY_LOCATION= window.HINTS_BY_LOCATION|| {};
+
 
 const LS = {
   have: "det2_have",
@@ -388,30 +392,49 @@ function buildCoherentOverlay(){
 
 
 function buildHint(){
-  const baseList = (HINTS_PACK.mix && HINTS_PACK.mix.length)
-    ? HINTS_PACK.mix
-    : ["A noite engoliu um detalhe pequeno… e é nele que a verdade costuma morar."];
+  const s = getSecret();
+  if (!s) return { text: "Configure o crime para começar a receber pistas.", tag: "sistema" };
 
-  let text = pickNonRepeating(baseList);
+  const ids = [s.a, s.b, s.c].filter(Boolean);
+  const susId = ids.find(id => CARDS[id]?.tipo === "Suspeito");
+  const armId = ids.find(id => CARDS[id]?.tipo === "Arma");
+  const locId = ids.find(id => CARDS[id]?.tipo === "Local");
 
-  const overlay = buildCoherentOverlay();
-  if (overlay && Math.random() < 0.90) {
-    text = `${text}\n\n${overlay}`;
+  // escolhe aleatoriamente qual tipo de pista sai agora
+  const types = [];
+  if (armId) types.push("weapon");
+  if (susId) types.push("suspect");
+  if (locId) types.push("location");
+
+  const pickType = types[Math.floor(Math.random() * types.length)];
+
+  let list = [];
+  let tag = "pista";
+
+  if (pickType === "weapon") {
+    list = HINTS_BY_WEAPON[armId] || [];
+    tag = "arma";
+  } else if (pickType === "suspect") {
+    list = HINTS_BY_SUSPECT[susId] || [];
+    tag = "suspeito";
+  } else {
+    list = HINTS_BY_LOCATION[locId] || [];
+    tag = "local";
   }
 
-
-  const endings = [
-    "Não confie no óbvio. O óbvio é o abrigo do culpado.",
-    "Quando alguém quer encerrar o assunto, é porque o assunto morde.",
-    "Volte aos minutos antes. Sempre existe um buraco ali.",
-    "A verdade não grita — ela sussurra onde ninguém quer ouvir."
-  ];
-  if (Math.random() < 0.35) {
-    text = `${text}\n\n${endings[Math.floor(Math.random()*endings.length)]}`;
+  // fallback se algo estiver faltando
+  if (!list.length) {
+    const fallback = (HINTS_PACK.mix && HINTS_PACK.mix.length) ? HINTS_PACK.mix : [
+      "A verdade costuma se esconder onde ninguém olha duas vezes."
+    ];
+    return { text: pickNonRepeating(fallback), tag: "pista" };
   }
 
-  return { text, tag: "pista" };
+  // 1 dica por vez (sem overlay, sem endings)
+  const text = pickNonRepeating(list);
+  return { text, tag };
 }
+
 
 let hintTimer = null;
 
