@@ -48,6 +48,297 @@
 
       <hr>
 
+            // ===============================
+      // MODO CRIME (3 scans) + DICAS OFFLINE
+      // ===============================
+      const LS2 = {
+        secret: "det2_secret",          // {sus:"01", arm:"16", loc:"24"}
+        hintHistory: "det2_hint_history" // array de strings
+      };
+
+      function loadJSON(key, fallback){
+        try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
+        catch { return fallback; }
+      }
+      function saveJSON(key, val){
+        localStorage.setItem(key, JSON.stringify(val));
+      }
+
+      let crimeMode = {
+        open: false,
+        step: 1,
+        temp: { sus: null, arm: null, loc: null }
+      };
+
+      function hasSecret(){
+        const s = loadJSON(LS2.secret, null);
+        return !!(s && s.sus && s.arm && s.loc);
+      }
+
+      function setCrimeButtons(){
+        const ok = hasSecret();
+        if ($("btnHintsStart")) $("btnHintsStart").disabled = !ok;
+        if ($("btnHintNow")) $("btnHintNow").disabled = !ok;
+      }
+
+      function openCrimeModal(){
+        crimeMode.open = true;
+        crimeMode.step = 1;
+        crimeMode.temp = { sus: null, arm: null, loc: null };
+        $("crime").classList.remove("hidden");
+        $("crimeSave").disabled = true;
+        $("crimeStep").textContent = "Passo 1/3: escaneie o SUSPEITO";
+      }
+
+      function closeCrimeModal(){
+        crimeMode.open = false;
+        $("crime").classList.add("hidden");
+      }
+
+      function resetCrime(){
+        crimeMode.step = 1;
+        crimeMode.temp = { sus: null, arm: null, loc: null };
+        $("crimeSave").disabled = true;
+        $("crimeStep").textContent = "Passo 1/3: escaneie o SUSPEITO";
+      }
+
+      function acceptCrimeScan(id){
+        // não mostra nada na tela. só avança o passo.
+        const c = CARDS[id];
+        if (!c) return;
+
+        if (crimeMode.step === 1) {
+          if (c.tipo !== "Suspeito") {
+            $("crimeStep").textContent = "❌ Essa não é de SUSPEITO. Escaneie um SUSPEITO.";
+            return;
+          }
+          crimeMode.temp.sus = id;
+          crimeMode.step = 2;
+          $("crimeStep").textContent = "Passo 2/3: escaneie a ARMA";
+          return;
+        }
+
+        if (crimeMode.step === 2) {
+          if (c.tipo !== "Arma") {
+            $("crimeStep").textContent = "❌ Essa não é de ARMA. Escaneie uma ARMA.";
+            return;
+          }
+          crimeMode.temp.arm = id;
+          crimeMode.step = 3;
+          $("crimeStep").textContent = "Passo 3/3: escaneie o LOCAL";
+          return;
+        }
+
+        if (crimeMode.step === 3) {
+          if (c.tipo !== "Local") {
+            $("crimeStep").textContent = "❌ Esse não é de LOCAL. Escaneie um LOCAL.";
+            return;
+          }
+          crimeMode.temp.loc = id;
+          $("crimeStep").textContent = "✅ Pronto! Agora clique em “Salvar crime”.";
+          $("crimeSave").disabled = false;
+        }
+      }
+
+      function saveCrime(){
+        saveJSON(LS2.secret, crimeMode.temp);
+        closeCrimeModal();
+        setCrimeButtons();
+        setHintBox("✅ Crime configurado. As dicas podem começar.", "sistema");
+      }
+
+      // liga botões do modal crime
+      if ($("btnCrimeSetup")) $("btnCrimeSetup").addEventListener("click", openCrimeModal);
+      if ($("crimeClose")) $("crimeClose").addEventListener("click", closeCrimeModal);
+      if ($("crime")) $("crime").addEventListener("click", (e)=>{ if (e.target.id === "crime") closeCrimeModal(); });
+      if ($("crimeReset")) $("crimeReset").addEventListener("click", resetCrime);
+      if ($("crimeSave")) $("crimeSave").addEventListener("click", saveCrime);
+
+      // ===== Integração com seu scanner existente =====
+      // Dentro do callback do scanner, depois que você obtém o id,
+      // chame isto ANTES de showCard(id):
+      // if (crimeMode.open) { acceptCrimeScan(id); return; }
+      //
+      // Vou colocar uma função que você chama do callback:
+      function onScanForCrime(id){
+        if (!crimeMode.open) return false;
+        acceptCrimeScan(id);
+        return true; // indica que consumiu o scan
+      }
+
+      // ===============================
+      // DICAS OFFLINE (NÃO REVELAM O TRIO)
+      // ===============================
+      const HINTS = {
+        testemunha: [
+          "Eu vi uma sombra atravessando o corredor — não dava pra distinguir o rosto, mas a pressa denunciava culpa.",
+          "Ouvi um estalo seco e, logo depois, passos tentando parecer calmos. Quem anda calmo depois de um susto?",
+          "Tinha cheiro de algo forte no ar… não sei dizer o quê, só sei que todo mundo começou a desconfiar de todo mundo.",
+          "Vi alguém limpando as mãos como se tivesse mexido em algo sujo. Não era poeira.",
+          "Uma conversa cortada no meio: ‘não aqui…’ e depois silêncio. Silêncio demais.",
+          "Alguém deixou cair uma coisa metálica pequena — não vi o que era, mas fez um som inconfundível no chão.",
+          "A luz piscou e, na escuridão, ouvi o arrastar de algo sendo empurrado para longe.",
+          "Uma risada nervosa, curta. Gente nervosa ri quando não devia.",
+          "Eu juraria que alguém estava tentando disfarçar um ferimento… mas parecia pequeno.",
+          "Vi alguém encarando uma porta fechada, como se esperasse que ela abrisse sozinha."
+        ],
+        relatorio: [
+          "RELATÓRIO: Sinais de desordem mínima. O agressor parecia conhecer o lugar e evitar barulho desnecessário.",
+          "RELATÓRIO: Há indícios de pressa controlada — não é um crime impulsivo, é um crime com plano.",
+          "RELATÓRIO: Testemunhas divergentes. Um detalhe se repete: ‘parecia alguém à vontade ali’.",
+          "RELATÓRIO: Nenhuma janela arrombada. Isso sugere acesso fácil — ou confiança demais.",
+          "RELATÓRIO: Marcas leves no chão. Algo foi movido, mas com cuidado.",
+          "RELATÓRIO: O ambiente não indica luta longa. Pode ter sido rápido, ou a vítima foi surpreendida.",
+          "RELATÓRIO: Objetos pessoais intactos. Motivo parece ser outro, não roubo.",
+          "RELATÓRIO: Dois pontos chamam atenção: silêncio após o ocorrido e alguém tentando ‘organizar’ a cena."
+        ],
+        boato: [
+          "Dizem que o culpado não queria ferir — queria apenas calar alguém que sabia demais.",
+          "Ouvi por aí que foi um ‘acerto de contas’… mas quem conta essas histórias geralmente esconde algo.",
+          "Falam que a vítima recebeu um recado antes. Recado curto. Sem assinatura.",
+          "Tem gente dizendo que foi acidente. Acidente é a desculpa perfeita quando ninguém quer olhar de perto.",
+          "Comentaram que alguém andou fazendo perguntas demais nos últimos dias… perguntas perigosas.",
+          "Dizem que o criminoso voltou ao local depois. Quem volta, volta porque se importa — ou porque esqueceu algo."
+        ],
+        bilhete: [
+          "BILHETE amassado: ‘Não confie no óbvio. O óbvio é a isca.’",
+          "BILHETE rasgado: ‘Se eu não voltar, procure onde ninguém procura.’",
+          "BILHETE sem assinatura: ‘Você está seguindo a pista certa… mas pelo motivo errado.’",
+          "BILHETE: ‘O silêncio do culpado é mais alto do que qualquer confissão.’",
+          "BILHETE: ‘Três detalhes importam. Um deles é mentira.’"
+        ],
+        radio: [
+          "RÁDIO (chiado): ‘Movimentação estranha hoje… a cidade inteira parece prender a respiração.’",
+          "RÁDIO: ‘A noite caiu cedo — ou foi só impressão de quem tem culpa?’",
+          "RÁDIO: ‘Atenção: evitem circular sozinhos. Um criminoso pode estar entre nós.’",
+          "RÁDIO: ‘Dizem que a verdade está num detalhe… e que detalhe pode enganar.’"
+        ],
+        mix: [] // preenchido abaixo
+      };
+
+      // mistura tudo no mix
+      HINTS.mix = [
+        ...HINTS.testemunha,
+        ...HINTS.relatorio,
+        ...HINTS.boato,
+        ...HINTS.bilhete,
+        ...HINTS.radio
+      ];
+
+      // Funções utilitárias
+      function setHintBox(text, tag="dica"){
+        if ($("hintBox")) $("hintBox").textContent = text;
+        if ($("hintMeta")) $("hintMeta").textContent = `(${tag}) ${new Date().toLocaleTimeString()}`;
+      }
+
+      function getHistory(){
+        return loadJSON(LS2.hintHistory, []);
+      }
+      function pushHistory(text){
+        const h = getHistory();
+        h.push(text);
+        saveJSON(LS2.hintHistory, h.slice(-60)); // guarda últimas 60
+      }
+
+      function pickNonRepeating(list){
+        const history = new Set(getHistory());
+        // tenta achar uma que não tenha saído ainda
+        const candidates = list.filter(x => !history.has(x));
+        if (candidates.length) return candidates[Math.floor(Math.random()*candidates.length)];
+        // se já repetiu tudo, escolhe qualquer
+        return list[Math.floor(Math.random()*list.length)];
+      }
+
+      function buildHint(){
+        const style = $("hintStyle")?.value || "mix";
+        const base = HINTS[style] || HINTS.mix;
+        let text = pickNonRepeating(base);
+
+        // “tempero” leve (sem spoiler) baseado no segredo:
+        // só adiciona um detalhe genérico (não cita nomes/IDs)
+        const secret = loadJSON(LS2.secret, null);
+        if (secret) {
+          const extras = [
+            "Um detalhe parece fora do lugar… e ninguém admite ter visto.",
+            "A sensação é de que o culpado conhecia a rotina do ambiente.",
+            "Há pistas demais — e quando tem pista demais, alguém está plantando confusão.",
+            "O crime parece simples… até você perceber o que não aconteceu.",
+            "Se o suspeito queria sumir, por que deixou rastro emocional?"
+          ];
+          // 35% de chance de adicionar uma segunda frase extra
+          if (Math.random() < 0.35) {
+            text = `${text}\n\n${extras[Math.floor(Math.random()*extras.length)]}`;
+          }
+        }
+
+        return { text, tag: style === "mix" ? "misto" : style };
+      }
+
+      // Timer aleatório
+      let hintTimer = null;
+
+      function scheduleNextHint(){
+        // 45–120s
+        const ms = (45 + Math.random() * 75) * 1000;
+
+        hintTimer = setTimeout(() => {
+          const { text, tag } = buildHint();
+          setHintBox(text, tag);
+          pushHistory(text);
+          scheduleNextHint();
+        }, ms);
+
+        if ($("hintMeta")) $("hintMeta").textContent = `Próxima dica em ~${Math.round(ms/1000)}s`;
+      }
+
+      function startHints(){
+        if (!hasSecret()) {
+          setHintBox("🔒 Configure o crime (3 scans) antes de iniciar as dicas.", "sistema");
+          return;
+        }
+        if (hintTimer) return;
+
+        scheduleNextHint();
+        if ($("btnHintsStart")) $("btnHintsStart").disabled = true;
+        if ($("btnHintsStop")) $("btnHintsStop").disabled = false;
+        if ($("btnHintNow")) $("btnHintNow").disabled = false;
+
+        setHintBox("🎬 Dicas iniciadas. A narrativa vai aparecer em tempos aleatórios.", "sistema");
+      }
+
+      function stopHints(){
+        if (!hintTimer) return;
+        clearTimeout(hintTimer);
+        hintTimer = null;
+
+        if ($("btnHintsStart")) $("btnHintsStart").disabled = !hasSecret();
+        if ($("btnHintsStop")) $("btnHintsStop").disabled = true;
+
+        if ($("hintMeta")) $("hintMeta").textContent = "Dicas pausadas.";
+      }
+
+      function hintNow(){
+        if (!hasSecret()) return;
+        const { text, tag } = buildHint();
+        setHintBox(text, tag);
+        pushHistory(text);
+      }
+
+      function clearHintHistory(){
+        saveJSON(LS2.hintHistory, []);
+        setHintBox("Histórico limpo. As dicas não vão repetir por um tempo.", "sistema");
+      }
+
+      // botões
+      if ($("btnHintsStart")) $("btnHintsStart").addEventListener("click", startHints);
+      if ($("btnHintsStop")) $("btnHintsStop").addEventListener("click", stopHints);
+      if ($("btnHintNow")) $("btnHintNow").addEventListener("click", hintNow);
+      if ($("btnHintsClear")) $("btnHintsClear").addEventListener("click", clearHintHistory);
+
+      // habilita/desabilita no carregamento
+      setCrimeButtons();
+
+
       <h2>📝 Notas</h2>
       <textarea id="notes" rows="7" class="textarea" placeholder="Escreva suas anotações aqui..."></textarea>
       <div class="row">
@@ -108,5 +399,6 @@
   <!-- Scripts SEMPRE por último -->
   <script src="./data/cards.js"></script>
   <script src="./app.js"></script>
+
 </body>
 </html>
