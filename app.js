@@ -454,6 +454,11 @@ async function startCamera(){
         const id = normalizeCode(decodedText);
         if (!id) return;
 
+        if (onScanForCrime && onScanForCrime(id)) return;
+
+        // Se estiver configurando crime: NÃO mostra last, NÃO adiciona na mão, NÃO mostra carta
+        if (onScanForCrime(id)) return;
+
         if ($("last")) $("last").textContent = "—"; // não mostrar ID na UI do crime (opcional)
 
         // se estiver configurando crime, consome 3 scans e NÃO mostra nada da carta
