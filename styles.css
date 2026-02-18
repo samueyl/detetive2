@@ -1,27 +1,6 @@
-body{font-family:system-ui,Arial;margin:16px;max-width:1100px}
-.top h1{margin:0 0 6px}
-.muted{color:#666}
-.grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
-@media(min-width:980px){.grid{grid-template-columns:1.2fr .8fr}}
-.card{border:1px solid #ddd;border-radius:14px;padding:12px}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-button,input,select,textarea{font:inherit;padding:10px 12px;border:1px solid #ccc;border-radius:10px}
-button{cursor:pointer}
-.pill{display:inline-block;padding:4px 10px;border-radius:999px;border:1px solid #ddd}
-.block{margin-top:10px}
-.reader{margin-top:10px;max-width:360px}
-.img{width:100%;max-width:340px;border-radius:12px;border:1px solid #eee;margin-top:10px}
-.big{font-size:1.08rem}
-hr{border:none;border-top:1px solid #eee;margin:12px 0}
-.list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.item{border:1px solid #eee;border-radius:12px;padding:8px;display:flex;gap:8px;align-items:center}
-.thumb{width:54px;height:54px;object-fit:cover;border-radius:10px;border:1px solid #eee}
-.textarea{width:100%}
-.k{font-weight:700}
-.tag{font-size:.85rem}
-.item{border:1px solid #eee;border-radius:12px;padding:8px;display:flex;gap:8px;align-items:center}
-.thumb{width:54px;height:54px;object-fit:cover;border-radius:10px;border:1px solid #eee}
-/* ===== Tema / visual ===== */
+/* =========================
+   BASE
+   ========================= */
 :root{
   --bg:#0b0f17;
   --card:#121a28;
@@ -31,49 +10,130 @@ hr{border:none;border-top:1px solid #eee;margin:12px 0}
   --shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 
+*{ box-sizing:border-box; }
+
 body{
+  font-family: system-ui, Arial;
+  margin: 16px;
+  max-width: 1100px;
+
   background: radial-gradient(1200px 700px at 20% 0%, #16223a 0%, var(--bg) 55%);
   color: var(--text);
 }
 
+.top h1{ margin:0 0 6px; }
+.muted{ color: var(--muted); }
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  margin-top:12px;
+}
+@media(min-width:980px){
+  .grid{ grid-template-columns:1.2fr .8fr; }
+}
+
 .card{
-  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
   border:1px solid var(--border);
+  border-radius:14px;
+  padding:12px;
+
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
   box-shadow: var(--shadow);
 }
 
-.muted{ color: var(--muted); }
-hr{ border-top:1px solid var(--border); }
+.row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
 
-button, input, select, textarea{
-  background: rgba(255,255,255,.04);
+button,input,select,textarea{
+  font:inherit;
+  padding:10px 12px;
   border:1px solid var(--border);
+  border-radius:10px;
+  background: rgba(255,255,255,.04);
   color: var(--text);
 }
-
-button:hover{
-  background: rgba(255,255,255,.07);
-}
+button{ cursor:pointer; }
+button:hover{ background: rgba(255,255,255,.07); }
 
 .pill{
-  border: 1px solid var(--border);
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid var(--border);
   background: rgba(255,255,255,.03);
 }
 
-.reader{ border-radius: 14px; overflow: hidden; }
+.block{ margin-top:10px; }
 
-/* ===== Itens ===== */
+.reader{
+  margin-top:10px;
+  max-width:360px;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.img{
+  width:100%;
+  max-width:340px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  margin-top:10px;
+}
+
+.big{ font-size:1.08rem; }
+
+hr{
+  border:none;
+  border-top:1px solid var(--border);
+  margin:12px 0;
+}
+
+/* =========================
+   LISTAS (Tenho na mão)
+   ========================= */
+.list{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
 .item{
   border:1px solid var(--border);
   background: rgba(255,255,255,.02);
+  border-radius:12px;
+  padding:8px;
+  display:flex;
+  gap:8px;
+  align-items:center;
 }
-.thumb{ border:1px solid var(--border); }
 
-/* ===== Modais ===== */
-.hidden{ display:none; }
+.thumb{
+  width:54px;
+  height:54px;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid var(--border);
+}
+
+.textarea{ width:100%; }
+
+.k{ font-weight:800; }
+.tag{ font-size:.85rem; opacity:.85; }
+
+/* =========================
+   MODAIS
+   ========================= */
+.hidden{ display:none !important; }
 
 .modal{
-  position: fixed; inset:0;
+  position: fixed;
+  inset:0;
   background: rgba(0,0,0,.7);
   display:flex;
   align-items:center;
@@ -96,13 +156,15 @@ button:hover{
 
 .iconBtn{
   position:absolute;
-  right:10px; top:10px;
-  width:36px; height:36px;
+  right:10px;
+  top:10px;
+  width:36px;
+  height:36px;
   border-radius: 12px;
 }
 
 .modalTitle{
-  font-weight:800;
+  font-weight:900;
   margin: 6px 0 12px;
   font-size: 1.1rem;
 }
@@ -113,160 +175,22 @@ button:hover{
   border:1px solid var(--border);
 }
 
-/* ===== Caderno ===== */
-.legend{ display:flex; gap:8px; flex-wrap:wrap; margin: 8px 0 12px; }
-.gridCards{
-  display:grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 170px; /* largura de cada carta no caderno */
-  gap: 10px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-bottom: 10px;
-  scroll-snap-type: x mandatory;
-}
-
-.cardMini{
-  scroll-snap-align: start;
-}
-
-.cardMini:hover{ transform: translateY(-2px); }
-
-.cardMini img{
-  width:100%;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 12px;
-  border:1px solid var(--border);
-}
-
-.badge{
-  display:flex; align-items:center; justify-content:space-between;
-  margin-top:8px;
-  gap:8px;
-}
-.badge .name{ font-weight:700; font-size:.92rem; }
-.badge .mark{
-  width:34px; height:34px;
-  display:flex; align-items:center; justify-content:center;
-  border-radius: 12px;
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.03);
-  font-weight:900;
-}
-
-/* cores leves por marcação */
-.mark.x{ color:#ff6b6b; }
-.mark.q{ color:#ffd166; }
-.mark.v{ color:#7bd389; }
-.hidden{ display:none !important; }
 /* =========================
-   NOTEBOOK (modal) VERTICAL + GRID COM SCROLL
+   NOTEBOOK (CADERNO) — FIX FINAL
+   - vertical com scroll
+   - 4 colunas
+   - carta inteira (contain)
+   - nome completo (2 linhas)
    ========================= */
-
-/* deixa o modal do caderno bem alto e vertical */
-#notebook .modalCard.wide{
-  width: min(960px, 96vw);
-  height: min(92vh, 900px);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* importante p/ scroll ficar só no grid */
-}
-
-/* barra de busca + filtros sempre visíveis */
-#notebook .modalTitle{
-  flex: 0 0 auto;
-}
-
-#notebook .row{
-  flex: 0 0 auto;
-}
-
-/* grid das cartinhas: ocupa o restante e tem scroll */
-#notebookGrid{
-  flex: 1 1 auto;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
-  gap: 10px;
-
-  padding: 10px 2px 14px;
-}
-
-/* cartinha mini menor (pra caber todas) */
-.cardMini{
-  border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
-  user-select: none;
-}
-
-/* imagem pequena e padronizada */
-.cardMini img{
-  width: 100%;
-  height: 92px;
-  object-fit: cover;
-  display: block;
-}
-
-/* nome + marca compactos */
-.cardMini .badge{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 8px 2px;
-}
-
-.cardMini .name{
-  font-size: 12px;
-  line-height: 1.15;
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* marca X/?/✓ pequena */
-.cardMini .mark{
-  min-width: 18px;
-  height: 18px;
-  display: grid;
-  place-items: center;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-/* tipinho embaixo bem discreto */
-.cardMini .tag{
-  font-size: 11px;
-  opacity: .75;
-  padding: 0 8px 8px;
-}
-
-/* em telas muito pequenas, aumenta a densidade */
-@media (max-width: 420px){
-  #notebookGrid{
-    grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
-    gap: 8px;
-  }
-  .cardMini img{ height: 84px; }
-}
-/* =========================
-   NOTEBOOK: CARTA INTEIRA (MINI) + SCROLL VERTICAL
-   ========================= */
-
 #notebook .modalCard.wide{
   width: min(980px, 96vw);
-  height: min(92vh, 900px);
+  height: min(92vh, 920px);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: hidden; /* scroll só no grid */
 }
 
+/* grid ocupa o resto e rola pra baixo */
 #notebookGrid{
   flex: 1 1 auto;
   overflow-y: auto;
@@ -274,163 +198,89 @@ button:hover{
   -webkit-overflow-scrolling: touch;
 
   display: grid;
-  grid-auto-flow: row; /* evita virar carrossel */
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-auto-flow: row;
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 
-  padding: 10px 2px 14px;
+  padding: 12px 6px 16px;
 }
 
-/* card mini */
+/* cada mini-card */
 .cardMini{
-  width: 100%;
   border-radius: 14px;
   overflow: hidden;
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--border);
 }
 
-/* FRAME da imagem (altura fixa) */
+/* imagem mini mostrando a carta inteira */
 .cardMini img{
   width: 100%;
-  height: 74px;              /* <<< tamanho “mini” da carta */
-  object-fit: contain;       /* <<< mostra a carta inteira */
-  background: rgba(255,255,255,0.06); /* leve fundo pra não “sumir” */
+  height: 78px;            /* <<< ajuste aqui: 70~90 */
+  object-fit: contain;     /* <<< mostra inteira */
   display: block;
+  background: rgba(255,255,255,.06);
 }
 
-/* texto embaixo (nome completo) */
+/* linha nome + marca */
 .cardMini .badge{
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 8px 8px 2px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:6px;
+  padding: 6px 8px 0;
 }
 
 .cardMini .name{
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.15;
-  font-weight: 700;
+  font-weight: 800;
 
-  /* 2 linhas, sem ficar gigante */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 2;      /* 2 linhas */
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.cardMini .tag{
-  font-size: 11px;
-  opacity: .75;
-  padding: 0 8px 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* marca pequena */
 .cardMini .mark{
   flex: 0 0 auto;
   min-width: 20px;
   height: 20px;
-  display: grid;
-  place-items: center;
   border-radius: 7px;
+  display:grid;
+  place-items:center;
   font-size: 12px;
-  font-weight: 800;
-}
-
-/* mobile: mais colunas pequenas */
-@media (max-width: 420px){
-  #notebookGrid{
-    grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
-    gap: 8px;
-  }
-  .cardMini img{
-    height: 68px;
-  }
-}
-/* =========================
-   CADERNO = MESMO ESTILO "TENHO NA MÃO"
-   (lista vertical com scroll)
-   ========================= */
-
-#notebook .modalCard.wide{
-  width: min(980px, 96vw);
-  height: min(92vh, 900px);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-/* o container vira uma lista (igual haveList) */
-#notebookGrid{
-  flex: 1 1 auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* vertical */
-  gap: 10px;
-
-  padding: 10px 2px 14px;
-}
-
-/* cada carta do caderno reaproveita o "item" */
-#notebookGrid .item{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.02);
-  border-radius: 12px;
-}
-
-/* thumb pequeno e sem recorte estranho */
-#notebookGrid .thumb{
-  width: 54px;
-  height: 54px;
-  object-fit: cover;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
-
-/* nome completo (2 linhas) */
-#notebookGrid .k{
-  font-weight: 800;
-  font-size: 0.95rem;
-  line-height: 1.15;
-
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* legenda menor */
-#notebookGrid .tag{
-  font-size: 0.78rem;
-  opacity: .75;
-}
-
-/* botão/marca X ? ✓ na direita */
-#notebookGrid .markBtn{
-  margin-left: auto;
-  min-width: 36px;
-  height: 36px;
-  border-radius: 12px;
-
-  display: grid;
-  place-items: center;
+  font-weight: 900;
 
   border: 1px solid var(--border);
   background: rgba(255,255,255,.03);
-  font-weight: 900;
+}
+
+/* tipo menor */
+.cardMini .tag{
+  font-size: 10px;
+  opacity: 0.75;
+  padding: 0 8px 10px;
 }
 
 /* cores das marcações */
-#notebookGrid .markBtn.x{ color:#ff6b6b; }
-#notebookGrid .markBtn.q{ color:#ffd166; }
-#notebookGrid .markBtn.v{ color:#7bd389; }
+.mark.x{ color:#ff6b6b; }
+.mark.q{ color:#ffd166; }
+.mark.v{ color:#7bd389; }
+
+/* mobile: 3 colunas para ficar legível */
+@media (max-width: 520px){
+  #notebookGrid{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .cardMini img{ height: 72px; }
+}
+
+/* mobile pequeno: 2 colunas */
+@media (max-width: 380px){
+  #notebookGrid{
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cardMini img{ height: 70px; }
+}
