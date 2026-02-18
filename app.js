@@ -500,7 +500,7 @@ function getHintImageBySource(source){
 
 
 function scheduleNextHint(){
-  const ms = (150 + Math.random() * 300) * 1000;
+  const ms = (60 + Math.random() * 90) * 1000;
 
     hintTimer = setTimeout(() => {
     const { text } = buildHint();
