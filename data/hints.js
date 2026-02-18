@@ -1080,6 +1080,804 @@ addHints(window.HINTS_BY_LOCATION, "27", [
   "DETALHE: Aqui, o crime pode parecer só mais um acidente."
 ]);
 
+/* =========================================================
+   +270 DICAS (MAIS CLARAS) — 10 extras por carta (27 cartas)
+   Cole no FINAL do data/hints.js
+   ========================================================= */
+
+// ======================
+// SUSPEITOS (01–08)
+// ======================
+
+// 01 Advogado Sr Marinho
+window.HINTS_BY_SUSPECT["01"].push(...[
+  "TESTEMUNHA: Ele respondeu com termos difíceis, como se estivesse tentando confundir em vez de explicar.",
+  "RELATO: Quando alguém perguntou algo simples, ele transformou em um discurso grande.",
+  "BOATO: Dizem que ele tentou corrigir a fala dos outros o tempo todo, como se editasse a história.",
+  "DETALHE: Ele repetiu a mesma frase duas vezes, igual quem decorou uma resposta.",
+  "OBS.: Ele ficou mais preocupado com ‘o que vai dar’ do que com o que aconteceu.",
+  "ANOTAÇÃO: Quem controla a conversa controla o que as pessoas lembram.",
+  "RELATO: Ele evitou dizer ‘não sei’ — sempre tinha uma resposta pronta.",
+  "TESTEMUNHA: Quando alguém citou um horário, ele mudou o assunto rápido.",
+  "BOATO: Dizem que ele tentou convencer as pessoas antes mesmo de ouvirem tudo.",
+  "DETALHE: O jeito dele parecia mais de defesa do que de surpresa."
+]);
+
+// 02 Chef de Cozinha
+window.HINTS_BY_SUSPECT["02"].push(...[
+  "TESTEMUNHA: Ele sabia exatamente onde cada coisa ficava, como se o lugar fosse dele.",
+  "RELATO: Ele sumiu por pouco tempo e voltou como se nada tivesse acontecido.",
+  "BOATO: Dizem que ele ficou irritado quando alguém mexeu em objetos do ambiente.",
+  "DETALHE: Ele olhava muito para as mãos, como se lembrasse de ter usado algo.",
+  "OBS.: Ele falava em ‘rotina’ e ‘normal’ o tempo todo, como se quisesse que todos acreditassem nisso.",
+  "ANOTAÇÃO: Quem domina o movimento do lugar consegue criar ‘minutos cegos’.",
+  "RELATO: Ele reagiu rápido demais quando falaram sobre barulho ou bagunça.",
+  "TESTEMUNHA: Ele evitou um canto específico, como se não quisesse ser visto ali.",
+  "BOATO: Dizem que a história dele sempre tem uma desculpa pronta.",
+  "DETALHE: Parece alguém que faz tudo com precisão, sem deixar sobrar tempo."
+]);
+
+// 03 Coveiro Sérgio Soturno
+window.HINTS_BY_SUSPECT["03"].push(...[
+  "TESTEMUNHA: Ele não demonstrou susto — só ficou mais fechado.",
+  "RELATO: Enquanto todo mundo falava, ele observava em silêncio, como se já esperasse algo.",
+  "BOATO: Dizem que ele conhece lugares onde ninguém costuma ir.",
+  "DETALHE: Quando falaram em ‘sumir com algo’, ele não reagiu — como se fosse normal.",
+  "OBS.: Ele parecia confortável com o clima pesado, diferente dos outros.",
+  "ANOTAÇÃO: Quem não teme a cena, às vezes já imaginou essa cena antes.",
+  "RELATO: Ele respondeu com frases curtas, sem explicar nada.",
+  "TESTEMUNHA: Ele olhou pro chão como quem procura marca ou sinal.",
+  "BOATO: Dizem que ele sabe lidar com ‘fim’ como parte do dia.",
+  "DETALHE: O jeito dele parecia de quem já viu coisas demais e não se impressiona."
+]);
+
+// 04 Dançarina Srta Rosa
+window.HINTS_BY_SUSPECT["04"].push(...[
+  "TESTEMUNHA: Ela usava sorriso e charme para fugir de perguntas diretas.",
+  "RELATO: Quando a conversa ficava séria, ela fazia uma brincadeira e mudava o clima.",
+  "BOATO: Dizem que ela sabe distrair as pessoas sem esforço.",
+  "DETALHE: Ela se movimentava muito, como se nunca quisesse ficar parada no mesmo lugar.",
+  "OBS.: Ela tinha resposta bonita, mas pouca explicação real.",
+  "ANOTAÇÃO: Quem chama atenção para si mesmo afasta atenção do que importa.",
+  "RELATO: Ela ‘lembrava’ de detalhes só quando alguém insistia.",
+  "TESTEMUNHA: Quando perguntaram de horários, ela ficou vaga e deu volta.",
+  "BOATO: Dizem que ela some e reaparece sempre no momento certo.",
+  "DETALHE: Ela parecia mais preocupada em parecer inocente do que em entender o crime."
+]);
+
+// 05 Florista Dona Branca
+window.HINTS_BY_SUSPECT["05"].push(...[
+  "TESTEMUNHA: Um cheiro doce ficou forte perto dela e depois foi difícil lembrar detalhes.",
+  "RELATO: Ela falava com calma, mas segurava informações como quem segura segredo.",
+  "BOATO: Dizem que ela sabe disfarçar tensão com gentileza.",
+  "DETALHE: Ela evitou olhar para um ponto específico, como se tivesse ligação com aquilo.",
+  "OBS.: Ela parecia ‘boa demais’ em manter a compostura.",
+  "ANOTAÇÃO: Coisas bonitas também podem esconder coisas ruins.",
+  "RELATO: Quando alguém apertou a pergunta, ela respondeu curto e mudou de assunto.",
+  "TESTEMUNHA: Ela ficou defensiva quando citaram objetos pequenos e fáceis de esconder.",
+  "BOATO: Dizem que ela estava preparada para ser acreditada.",
+  "DETALHE: A delicadeza dela parecia uma proteção, não só um jeito."
+]);
+
+// 06 Médica Dona Violeta
+window.HINTS_BY_SUSPECT["06"].push(...[
+  "TESTEMUNHA: Ela analisava tudo com olhar clínico, como se estivesse avaliando sinais.",
+  "RELATO: Ela falou de ‘causas possíveis’ sem ninguém pedir, como se já tivesse pensado nisso.",
+  "BOATO: Dizem que ela tentou fazer parecer algo natural rápido demais.",
+  "DETALHE: Ela se incomodou quando falaram sobre tempo e sequência dos fatos.",
+  "OBS.: Ela parecia calma por treino, não por tranquilidade.",
+  "ANOTAÇÃO: Quem entende o corpo sabe como algo pode parecer acidente.",
+  "RELATO: Ela evitou perguntas emocionais e ficou só no técnico.",
+  "TESTEMUNHA: Quando alguém passou mal, ela reagiu como se já esperasse.",
+  "BOATO: Dizem que ela sabe ‘explicar’ qualquer coisa com termos difíceis.",
+  "DETALHE: A postura dela parecia de quem já tinha um diagnóstico pronto."
+]);
+
+// 07 Mordomo James
+window.HINTS_BY_SUSPECT["07"].push(...[
+  "TESTEMUNHA: Ele sabia quem entrou e quem saiu, como se controlasse o movimento.",
+  "RELATO: Ele apareceu ‘para ajudar’ bem no momento em que a cena precisava de alguém.",
+  "BOATO: Dizem que ele conhece atalhos e portas que os outros nem percebem.",
+  "DETALHE: Ele estava perto demais das áreas de passagem, sempre.",
+  "OBS.: Ele parecia invisível — e isso é perigoso numa situação dessas.",
+  "ANOTAÇÃO: Quem circula sem chamar atenção pode fazer muita coisa sem ser notado.",
+  "RELATO: Quando perguntaram ‘você viu?’, ele respondeu com precisão demais.",
+  "TESTEMUNHA: Ele olhou para uma saída como quem calcula rota.",
+  "BOATO: Dizem que ele tem acesso a lugares fechados sem levantar suspeita.",
+  "DETALHE: A calma dele parecia de quem já resolveu o que precisava."
+]);
+
+// 08 Sargento Bigode
+window.HINTS_BY_SUSPECT["08"].push(...[
+  "TESTEMUNHA: Ele tentou mandar na conversa como se fosse o responsável pelo caso.",
+  "RELATO: Ele fez perguntas como interrogatório e muita gente ficou desconfortável.",
+  "BOATO: Dizem que ele queria concluir rápido, sem deixar dúvidas.",
+  "DETALHE: Quando alguém levantou hipótese diferente, ele cortou na hora.",
+  "OBS.: Ele se irritou mais com confusão do que com o crime.",
+  "ANOTAÇÃO: Quem controla o grupo controla o foco — e isso pode esconder coisas.",
+  "RELATO: Ele insistiu em ‘ordem’ e ‘regra’ como se isso resolvesse tudo.",
+  "TESTEMUNHA: Ele parecia saber quais perguntas não podiam ser feitas.",
+  "BOATO: Dizem que ele escolheu um ‘culpado’ cedo demais.",
+  "DETALHE: A pressa dele era para encerrar o assunto, não para entender."
+]);
+
+
+// ======================
+// ARMAS (09–16)
+// ======================
+
+// 09 Arma Química
+window.HINTS_BY_WEAPON["09"].push(...[
+  "TESTEMUNHA: Teve um incômodo no ar por um instante, como se alguém tivesse aberto algo rápido.",
+  "RELATO: Algumas pessoas ficaram com ardor ou tontura do nada, sem explicação clara.",
+  "BOATO: Dizem que o efeito veio antes de alguém entender o que estava acontecendo.",
+  "DETALHE: O que ataca os sentidos deixa todo mundo em dúvida sobre o que viu.",
+  "OBS.: Ninguém percebe um ‘golpe’ — só percebe a consequência.",
+  "ANOTAÇÃO: Se ninguém viu ação direta, pode ter sido algo invisível.",
+  "RELATO: O ambiente pareceu ficar “pesado” por um momento e depois normalizou.",
+  "TESTEMUNHA: Alguém tossiu/espirrou e isso virou distração perfeita.",
+  "BOATO: Dizem que o culpado contou com confusão e mal-estar para ninguém reagir.",
+  "DETALHE: Quando a pista está no ar, a prova pode ser quem estava perto no início."
+]);
+
+// 10 Espingarda
+window.HINTS_BY_WEAPON["10"].push(...[
+  "TESTEMUNHA: Teve um som muito alto e todo mundo travou por reflexo.",
+  "RELATO: Depois do impacto, o silêncio ficou estranho, como se a cena tivesse ‘acabado’ ali.",
+  "BOATO: Dizem que o culpado contou com o susto para ninguém pensar direito.",
+  "DETALHE: Um barulho grande cria muita dúvida: ‘foi aqui ou foi longe?’",
+  "OBS.: O método é rápido e deixa pouco espaço para reação.",
+  "ANOTAÇÃO: O pânico dura segundos — e nesses segundos alguém pode sumir.",
+  "RELATO: Quem fez isso queria finalizar rápido, sem discussão.",
+  "TESTEMUNHA: Todo mundo olhou para o lado errado por um instante.",
+  "BOATO: Dizem que o culpado escolheu um momento de barulho geral para confundir mais.",
+  "DETALHE: Se o som foi o principal, alguém usou isso para controlar a cena."
+]);
+
+// 11 Faca
+window.HINTS_BY_WEAPON["11"].push(...[
+  "TESTEMUNHA: Isso exige chegar bem perto — perto o suficiente para surpreender.",
+  "RELATO: Foi rápido e direto, sem muito barulho prolongado.",
+  "BOATO: Dizem que um gesto curto resolveu tudo em segundos.",
+  "DETALHE: Quem usa isso precisa de oportunidade e proximidade.",
+  "OBS.: O culpado teve que atravessar uma distância curta sem ser impedido.",
+  "ANOTAÇÃO: A pista pode estar em quem conseguiu ficar perto demais sem chamar atenção.",
+  "RELATO: Um objeto comum pode ter sido tirado e guardado rápido.",
+  "TESTEMUNHA: Vi alguém limpar a mão como se tivesse tocado em algo frio.",
+  "BOATO: Dizem que foi intenção, não acidente.",
+  "DETALHE: A verdade pode estar no “quem estava do lado”."
+]);
+
+// 12 Pá
+window.HINTS_BY_WEAPON["12"].push(...[
+  "TESTEMUNHA: Tinha sujeira/terra em lugar que não combinava com o ambiente.",
+  "RELATO: O peso disso sugere algo ‘de trabalho’, não algo de impulso.",
+  "BOATO: Dizem que alguém tentou disfarçar marcas no chão depois.",
+  "DETALHE: Um golpe assim precisa de espaço e oportunidade.",
+  "OBS.: Dá para confundir o barulho com movimentação normal dependendo do local.",
+  "ANOTAÇÃO: Se a ferramenta parece comum, o crime passa por ‘rotina’.",
+  "RELATO: O culpado pode ter precisado de força e tempo curto.",
+  "TESTEMUNHA: Vi marcas de solo em sapato/roupa de alguém.",
+  "BOATO: Dizem que tentaram limpar um rastro áspero no piso.",
+  "DETALHE: Procure onde o chão denuncia mais do que as pessoas."
+]);
+
+// 13 Pé de Cabra
+window.HINTS_BY_WEAPON["13"].push(...[
+  "TESTEMUNHA: Teve um estalo de metal curto, como algo sendo forçado uma vez.",
+  "RELATO: Isso não é só ataque — é abrir caminho: porta, trava ou acesso.",
+  "BOATO: Dizem que algo que estava fechado apareceu ‘aberto’ de repente.",
+  "DETALHE: Marcas em madeira/metal podem parecer antigas, mas nem sempre são.",
+  "OBS.: Quem não tem chave usa força — e força deixa sinal.",
+  "ANOTAÇÃO: Se alguém precisou entrar/pegar algo, esse tipo de ferramenta faz sentido.",
+  "RELATO: Um barulho seco é o tipo de som que muita gente ignora.",
+  "TESTEMUNHA: Vi alguém com a mão dolorida/tensa como quem fez esforço.",
+  "BOATO: Dizem que o culpado controlou a cena mudando o acesso de algum lugar.",
+  "DETALHE: Olhe para fechaduras, trincos e cantos “arrombáveis”."
+]);
+
+// 14 Soco Inglês
+window.HINTS_BY_WEAPON["14"].push(...[
+  "TESTEMUNHA: Foi contato rápido e muito perto, quase impossível de perceber na hora.",
+  "RELATO: A confusão do ambiente pode ter escondido um ataque curto.",
+  "BOATO: Dizem que o culpado se misturou logo depois, sem precisar correr.",
+  "DETALHE: Algo pequeno na mão pode causar grande efeito sem aparecer.",
+  "OBS.: Quem fez isso estava ao alcance de um braço.",
+  "ANOTAÇÃO: A pista é: quem esteve perto o tempo todo sem levantar suspeita?",
+  "RELATO: Um empurrão pode ter sido mais do que empurrão.",
+  "TESTEMUNHA: Vi alguém esconder a mão como se estivesse protegendo algo.",
+  "BOATO: Dizem que o culpado contou com esbarrões para virar ‘acidente’.",
+  "DETALHE: O suspeito pode ser quem sempre esteve “colado” na vítima."
+]);
+
+// 15 Tesoura
+window.HINTS_BY_WEAPON["15"].push(...[
+  "TESTEMUNHA: Um objeto pequeno e comum pode virar ameaça sem ninguém notar.",
+  "RELATO: Parece coisa do dia a dia — por isso passa fácil.",
+  "BOATO: Dizem que alguém carregava algo ‘inofensivo’ e ninguém desconfiou.",
+  "DETALHE: Isso pede gesto rápido e mão firme.",
+  "OBS.: O culpado não precisa parecer perigoso para ter isso por perto.",
+  "ANOTAÇÃO: A pista está em quem tinha acesso a ferramentas simples.",
+  "RELATO: Um corte pequeno pode acontecer antes de alguém reagir.",
+  "TESTEMUNHA: Vi alguém fazer movimento de ‘cortar’ sem perceber enquanto falava.",
+  "BOATO: Dizem que o culpado escolheu algo que não chama atenção.",
+  "DETALHE: Procure quem tinha motivo para carregar um objeto comum na mão."
+]);
+
+// 16 Veneno
+window.HINTS_BY_WEAPON["16"].push(...[
+  "TESTEMUNHA: Nada aconteceu na hora — a mudança veio depois, devagar.",
+  "RELATO: O intervalo entre ‘tava bem’ e ‘ficou mal’ confundiu todo mundo.",
+  "BOATO: Dizem que parecia algo natural, e isso atrasou a suspeita.",
+  "DETALHE: Quem usa isso não precisa ficar perto no final.",
+  "OBS.: Isso exige planejamento: escolher o momento certo antes.",
+  "ANOTAÇÃO: A pista pode estar em algo oferecido: bebida, comida, remédio…",
+  "RELATO: Alguém insistiu para outra pessoa aceitar algo “por educação”.",
+  "TESTEMUNHA: Vi alguém observando se a pessoa ia consumir ou não.",
+  "BOATO: Dizem que o culpado contou com o tempo para sair tranquilo.",
+  "DETALHE: Procure o começo da sequência, não o final."
+]);
+
+
+// ======================
+// LOCAIS (17–27)
+// ======================
+
+// 17 Banco
+window.HINTS_BY_LOCATION["17"].push(...[
+  "TESTEMUNHA: Todo mundo fica sério e quieto, então qualquer tensão parece ‘normal’.",
+  "RELATO: Tem câmeras, mas sempre existe um ângulo que não pega direito.",
+  "BOATO: Dizem que a movimentação de fila ajudou a esconder um gesto pequeno.",
+  "DETALHE: Um ponto de entrada controlado cria atraso para uns e liberdade para outros.",
+  "OBS.: Segurança forte dá sensação de controle, mas isso pode enganar.",
+  "ANOTAÇÃO: Lugar formal faz as pessoas evitarem confusão — perfeito para algo discreto.",
+  "RELATO: O culpado poderia parecer só mais um cliente.",
+  "TESTEMUNHA: Vi alguém olhando para cima, como quem confere câmera.",
+  "BOATO: Dizem que a distração foi alguém pedindo informação no momento certo.",
+  "DETALHE: A pista pode estar em quem entrou e saiu “sem pressa”, como se soubesse o caminho."
+]);
+
+// 18 Boate
+window.HINTS_BY_LOCATION["18"].push(...[
+  "TESTEMUNHA: O som alto fazia impossível ouvir qualquer coisa direito.",
+  "RELATO: Luzes e movimento deixavam difícil identificar rostos por muito tempo.",
+  "BOATO: Dizem que um esbarrão foi a desculpa perfeita.",
+  "DETALHE: Quando todo mundo está distraído, um gesto curto some no meio.",
+  "OBS.: Muita gente junto cria álibi instantâneo.",
+  "ANOTAÇÃO: Aqui, ninguém sabe exatamente quem estava onde a cada segundo.",
+  "RELATO: O culpado pode ter esperado a música ficar mais alta.",
+  "TESTEMUNHA: Vi alguém sumir no meio da multidão e reaparecer do outro lado.",
+  "BOATO: Dizem que o crime aconteceu quando todo mundo olhou para o mesmo ponto.",
+  "DETALHE: A pista pode ser quem estava confortável demais no caos."
+]);
+
+// 19 Cemitério
+window.HINTS_BY_LOCATION["19"].push(...[
+  "TESTEMUNHA: O silêncio era tão forte que qualquer passo parecia alto.",
+  "RELATO: Pouca gente por perto significa poucas versões para confirmar.",
+  "BOATO: Dizem que alguém sabia por onde andar sem ser visto.",
+  "DETALHE: Folhas e chão seco denunciam caminho de quem passa.",
+  "OBS.: É um lugar que já carrega peso — isso assusta uns e dá coragem a outros.",
+  "ANOTAÇÃO: Aqui, esconder algo é mais fácil do que em lugar movimentado.",
+  "RELATO: Um ponto escuro pode ser mais importante do que qualquer fala.",
+  "TESTEMUNHA: Vi alguém ficar parado como se estivesse esperando alguém chegar.",
+  "BOATO: Dizem que alguém escolheu um trecho onde não tem luz.",
+  "DETALHE: A pista pode estar em marcas no chão, não em testemunhas."
+]);
+
+// 20 Estação de Trem
+window.HINTS_BY_LOCATION["20"].push(...[
+  "TESTEMUNHA: Muita gente andando rápido torna qualquer pessoa “só mais uma”.",
+  "RELATO: Anúncios e apitos cobrem sons pequenos no momento certo.",
+  "BOATO: Dizem que alguém mudou de lado rapidamente para evitar ser seguido.",
+  "DETALHE: Escadas e plataformas criam sumiços rápidos.",
+  "OBS.: Aqui, todo mundo tem pressa — e pressa reduz atenção.",
+  "ANOTAÇÃO: O culpado pode ter usado fluxo de pessoas como escudo.",
+  "RELATO: Um empurrão pode ter sido confundido com correria.",
+  "TESTEMUNHA: Vi alguém olhar o painel/horário como se estivesse esperando um minuto específico.",
+  "BOATO: Dizem que o crime foi perto de uma passagem onde ninguém para.",
+  "DETALHE: A pista pode ser a direção que alguém escolheu depois."
+]);
+
+// 21 Floricultura
+window.HINTS_BY_LOCATION["21"].push(...[
+  "TESTEMUNHA: O cheiro forte do ambiente mascara outros cheiros facilmente.",
+  "RELATO: Objetos de cortar e arrumar são comuns, então ninguém estranha.",
+  "BOATO: Dizem que alguém deixou “rastro” leve no chão sem perceber.",
+  "DETALHE: Vitrines chamam atenção — e desviam do que está no canto.",
+  "OBS.: A beleza do lugar faz as pessoas baixarem a guarda.",
+  "ANOTAÇÃO: Perfume e cor confundem memória: ‘eu acho que vi…’",
+  "RELATO: Um fundo mais fechado pode esconder movimentação.",
+  "TESTEMUNHA: Vi alguém mexer em embalagem/caixa como se escondesse algo dentro.",
+  "BOATO: Dizem que alguém saiu apressado e tentou parecer normal.",
+  "DETALHE: A pista pode estar em pequenos pedaços no chão ou numa embalagem fora do lugar."
+]);
+
+// 22 Hospital
+window.HINTS_BY_LOCATION["22"].push(...[
+  "TESTEMUNHA: Máscaras e luvas dificultam reconhecer as pessoas direito.",
+  "RELATO: Corredores longos permitem virar a esquina e sumir em segundos.",
+  "BOATO: Dizem que um ‘procedimento’ virou desculpa perfeita para não levantar suspeita.",
+  "DETALHE: Aqui, um mal-estar parece comum — e isso atrasa a desconfiança.",
+  "OBS.: Muita gente em rotina rápida faz ninguém reparar em detalhe.",
+  "ANOTAÇÃO: O culpado poderia se misturar como alguém trabalhando ou aguardando.",
+  "RELATO: Um carrinho passando pode esconder um gesto curto.",
+  "TESTEMUNHA: Vi alguém calmo demais no meio da pressa geral.",
+  "BOATO: Dizem que alguém usou a confusão de portas e salas para trocar de direção.",
+  "DETALHE: A pista pode ser quem tinha ‘motivo’ para circular sem ser questionado."
+]);
+
+// 23 Hotel
+window.HINTS_BY_LOCATION["23"].push(...[
+  "TESTEMUNHA: Portas iguais deixam difícil lembrar qual foi qual.",
+  "RELATO: Tapete abafava passos — dava para andar sem fazer barulho.",
+  "BOATO: Dizem que alguém trocou de andar para quebrar rastro.",
+  "DETALHE: Cartões de acesso fazem abrir porta sem chamar atenção.",
+  "OBS.: ‘Hospede’ é identidade fácil de fingir aqui.",
+  "ANOTAÇÃO: Corredor vazio é oportunidade perfeita para agir sem testemunha.",
+  "RELATO: Elevador cria encontros rápidos e separações rápidas.",
+  "TESTEMUNHA: Vi alguém parar numa porta, hesitar, e depois seguir como se tivesse “errado”.",
+  "BOATO: Dizem que alguém esperou um corredor ficar totalmente vazio.",
+  "DETALHE: A pista pode ser quem tinha acesso sem precisar pedir."
+]);
+
+// 24 Mansão
+window.HINTS_BY_LOCATION["24"].push(...[
+  "TESTEMUNHA: O lugar é grande e silencioso — dá para acontecer algo longe e ninguém ouvir.",
+  "RELATO: Existem muitos cantos e corredores onde ninguém costuma ficar.",
+  "BOATO: Dizem que portas pesadas fecham sem fazer barulho se você souber puxar certo.",
+  "DETALHE: A distância entre salas cria ‘tempo’ para alguém fazer algo e voltar.",
+  "OBS.: Quem parece ‘pertencer’ ao lugar anda sem ser questionado.",
+  "ANOTAÇÃO: Quanto maior o lugar, mais fácil se perder uma pessoa.",
+  "RELATO: Um corredor vazio por poucos segundos já resolve tudo.",
+  "TESTEMUNHA: Vi alguém usar uma passagem lateral como se já conhecesse.",
+  "BOATO: Dizem que a melhor parte do plano foi escolher um canto escondido.",
+  "DETALHE: A pista pode estar em portas que ninguém usa normalmente."
+]);
+
+// 25 Praça Central
+window.HINTS_BY_LOCATION["25"].push(...[
+  "TESTEMUNHA: Tinha gente demais, então ninguém consegue dizer com certeza quem fez o quê.",
+  "RELATO: Barulho aberto e passos confundem qualquer movimento pequeno.",
+  "BOATO: Dizem que o culpado se misturou como se fosse só mais um.",
+  "DETALHE: Em lugar público, um gesto rápido vira “nada demais”.",
+  "OBS.: Saídas por todos os lados facilitam fugir sem parecer fuga.",
+  "ANOTAÇÃO: Aqui, o melhor disfarce é agir como turista/normal.",
+  "RELATO: Um empurrão pode virar desculpa imediata.",
+  "TESTEMUNHA: Vi alguém olhando as rotas antes, como quem planeja.",
+  "BOATO: Dizem que o culpado contou com a rotina do lugar para ninguém estranhar.",
+  "DETALHE: A pista pode ser quem ficou perto das saídas o tempo todo."
+]);
+
+// 26 Prefeitura
+window.HINTS_BY_LOCATION["26"].push(...[
+  "TESTEMUNHA: Gente passando com papel na mão faz ninguém reparar em nada.",
+  "RELATO: Salas fechadas deixam coisas acontecerem sem testemunha.",
+  "BOATO: Dizem que alguém usou ‘autoridade’ para cortar perguntas.",
+  "DETALHE: Portas e corredores criam caminhos rápidos para sumir.",
+  "OBS.: Aqui, muita coisa é ‘burocracia’ — ótimo disfarce.",
+  "ANOTAÇÃO: Um ‘estava resolvendo assunto’ vira álibi fácil.",
+  "RELATO: Alguém pode entrar numa sala e ninguém pergunta o porquê.",
+  "TESTEMUNHA: Vi alguém segurando algo junto ao corpo, como escondendo.",
+  "BOATO: Dizem que o culpado sabia exatamente qual porta abrir.",
+  "DETALHE: A pista pode ser quem circulava como se mandasse ali."
+]);
+
+// 27 Restaurante
+window.HINTS_BY_LOCATION["27"].push(...[
+  "TESTEMUNHA: Barulho de pratos e conversa alta escondem sons curtos.",
+  "RELATO: Muita gente ocupada faz ninguém prestar atenção no detalhe.",
+  "BOATO: Dizem que alguém entrou e saiu rápido ‘só pra pegar algo’.",
+  "DETALHE: Copos e comida criam oportunidade sem levantar suspeita.",
+  "OBS.: Quem está ‘trabalhando’ tem desculpa para circular por todo lado.",
+  "ANOTAÇÃO: O momento perfeito é quando o salão está mais cheio.",
+  "RELATO: A área de serviço pode ser rota escondida.",
+  "TESTEMUNHA: Vi alguém olhar para a cozinha como se esperasse sinal.",
+  "BOATO: Dizem que o culpado aproveitou o pico de barulho.",
+  "DETALHE: A pista pode ser quem tinha acesso fácil às áreas de passagem."
+]);
+
+/* (opcional) Atualiza a doc do topo do arquivo se você quiser:
+   Agora são 540 dicas (20 por carta).
+*/
+/* =========================================================
+   +270 DICAS (MUITO FÁCEIS / QUEBRA-CABEÇA)
+   10 extras por carta (27 cartas)
+   Cole no FINAL do data/hints.js
+   ========================================================= */
+
+// ======================
+// SUSPEITOS (01–08)
+// ======================
+
+// 01 Advogado Sr Marinho
+window.HINTS_BY_SUSPECT["01"].push(...[
+  "TESTEMUNHA: Ele disse a palavra “procedimento” e logo em seguida olhou para o celular como se conferisse tempo.",
+  "RELATO: Quando perguntaram “quem viu primeiro?”, ele respondeu com outra pergunta e fez um gesto de ‘calma’ com a mão.",
+  "BOATO: Ele repetiu o mesmo trecho da história com as mesmas palavras, duas vezes, sem mudar nada.",
+  "DETALHE: No momento em que citaram um horário, ele corrigiu o minuto exato — mas disse que “nem estava olhando relógio”.",
+  "OBS.: Ele ajeitou papéis/objetos na mesa enquanto respondia, como se precisasse ‘organizar’ a cena.",
+  "ANOTAÇÃO: Ele disse “isso não é prova” antes mesmo de alguém falar em prova.",
+  "RELATO: Quando alguém falou “foi rápido”, ele completou “rápido mesmo” — como se já soubesse a duração.",
+  "TESTEMUNHA: Ele pediu para alguém “anotar direito” uma frase específica.",
+  "BOATO: Quando a conversa apertou, ele soltou um elogio (“você tá indo bem”) pra quebrar o clima.",
+  "DETALHE: Ele ficou mais irritado com uma contradição pequena do que com a notícia do crime."
+]);
+
+// 02 Chef de Cozinha
+window.HINTS_BY_SUSPECT["02"].push(...[
+  "TESTEMUNHA: Ele tinha um pano/guardanapo dobrado no bolso e mexia nele quando falavam do momento do crime.",
+  "RELATO: Quando citaram um canto do lugar, ele disse “ali é apertado” sem ninguém ter descrito o espaço.",
+  "BOATO: Ele voltou com cheiro forte (tempero/sabonete) e disse que “foi só lavar a mão rapidinho”.",
+  "DETALHE: Ele apontou a posição de um objeto com precisão demais: “tava bem aqui, dois dedos pra esquerda”.",
+  "OBS.: Quando alguém levantou voz, ele falou “não grita, dá pra ouvir” como se soubesse que tinha gente perto.",
+  "ANOTAÇÃO: Ele ficou incomodado quando alguém mudou um item de lugar — tipo ‘não mexe nisso’.",
+  "RELATO: Ele respondeu “eu tava na correria” e logo citou uma sequência exata de tarefas.",
+  "TESTEMUNHA: Ele olhou para a saída de serviço/porta lateral antes de responder.",
+  "BOATO: Disseram que ele sabia qual hora o barulho do ambiente fica maior.",
+  "DETALHE: No fim, ele perguntou “já limparam aquilo?” — e ninguém tinha falado em limpar nada."
+]);
+
+// 03 Coveiro Sérgio Soturno
+window.HINTS_BY_SUSPECT["03"].push(...[
+  "TESTEMUNHA: Ele ficou olhando pro chão como se procurasse marca de passos, e não pro que as pessoas falavam.",
+  "RELATO: Quando falaram “alguém sumiu”, ele disse “sumir é fácil” e ficou quieto depois.",
+  "BOATO: Ele reconheceu um caminho de sombras sem ninguém apontar direção.",
+  "DETALHE: Tinha pó/terra na barra da calça dele, mesmo sem ele ter tocado no chão.",
+  "OBS.: Ele evitou ficar perto da luz; sempre escolhia o canto mais escuro da conversa.",
+  "ANOTAÇÃO: Quando perguntaram “por quê?”, ele respondeu “tem coisa que é só…” e não terminou a frase.",
+  "RELATO: Ele sabia onde o som não chega (um ponto mais isolado) e comentou isso como se fosse óbvio.",
+  "TESTEMUNHA: Ele tocou no bolso como se conferisse se algo ainda estava ali.",
+  "BOATO: Disseram que ele ficou calmo demais quando alguém mencionou “esconder”.",
+  "DETALHE: Ele não reagiu à notícia — reagiu quando citaram ‘tempo’ e ‘rastro’."
+]);
+
+// 04 Dançarina Srta Rosa
+window.HINTS_BY_SUSPECT["04"].push(...[
+  "TESTEMUNHA: Ela mudou o assunto com uma piada exatamente quando fizeram uma pergunta direta.",
+  "RELATO: Ela disse “ninguém lembra direito porque tava tudo rápido” e sorriu como se isso resolvesse tudo.",
+  "BOATO: Ela apareceu do outro lado do lugar sem ninguém ver ela atravessando.",
+  "DETALHE: Quando citaram o ponto do crime, ela já estava com o corpo virado pra direção oposta.",
+  "OBS.: Ela tocava no cabelo/roupa repetidamente quando falavam de ‘perto’ e ‘contato’.",
+  "ANOTAÇÃO: Ela respondeu com “eu acho” e depois falou com certeza total no minuto seguinte.",
+  "RELATO: Ela descreveu uma distração (“todo mundo olhou pra…”) com detalhes bem vivos.",
+  "TESTEMUNHA: Ela sugeriu que outra pessoa “tava estranha” antes mesmo de alguém suspeitar.",
+  "BOATO: Disseram que ela sabe exatamente quando todo mundo olha pro mesmo lugar.",
+  "DETALHE: Ela ficou nervosa quando pediram pra repetir a história no mesmo ordem."
+]);
+
+// 05 Florista Dona Branca
+window.HINTS_BY_SUSPECT["05"].push(...[
+  "TESTEMUNHA: O cheiro dela ficou mais forte exatamente quando o assunto chegou perto do crime.",
+  "RELATO: Ela segurava um saquinho/caixinha como se fosse algo importante demais.",
+  "BOATO: Ela disse “que horror” sem mudar a expressão; a voz parecia ensaiada.",
+  "DETALHE: Tinha um pedacinho pequeno (pétala/folha) grudado nela como rastro recente.",
+  "OBS.: Quando perguntaram “você viu?”, ela respondeu “eu sinto” e desviou do fato.",
+  "ANOTAÇÃO: Ela ficou defensiva quando alguém falou “objeto pequeno”.",
+  "RELATO: Ela insistiu em arrumar uma coisa (mexer numa mesa/objeto) em vez de responder.",
+  "TESTEMUNHA: Ela evitou olhar pra um canto específico, mas olhou rápido duas vezes.",
+  "BOATO: Disseram que ela queria que todo mundo aceitasse a versão dela “por educação”.",
+  "DETALHE: Ela tentou encerrar o assunto com “vamos ter calma” logo após uma pergunta chave."
+]);
+
+// 06 Médica Dona Violeta
+window.HINTS_BY_SUSPECT["06"].push(...[
+  "TESTEMUNHA: Ela disse “pressão” e “pulso” sem ninguém pedir avaliação de saúde.",
+  "RELATO: Ela fez perguntas técnicas (“quanto tempo?”, “qual sintoma primeiro?”) antes de ouvir o relato completo.",
+  "BOATO: Ela falou “pode ser natural” e logo olhou ao redor pra ver quem concordava.",
+  "DETALHE: Ela ficou tensa quando citaram algo consumido (bebida/comida/remédio).",
+  "OBS.: Ela corrigiu alguém: “isso não é assim” — como se precisasse controlar a explicação.",
+  "ANOTAÇÃO: Ela se animou demais ao falar de hipóteses, como se fosse um caso interessante.",
+  "RELATO: Ela disse “isso acontece” como se estivesse acostumada com o resultado.",
+  "TESTEMUNHA: Ela lavou as mãos ou pediu álcool logo após um comentário sobre contato.",
+  "BOATO: Disseram que ela sabia o ‘tempo certo’ pra um efeito aparecer.",
+  "DETALHE: Ela evitou falar do que fez nos últimos minutos antes do ocorrido."
+]);
+
+// 07 Mordomo James
+window.HINTS_BY_SUSPECT["07"].push(...[
+  "TESTEMUNHA: Ele citou uma porta/corredor específico como se fosse óbvio, mas ninguém tinha mencionado.",
+  "RELATO: Ele falou “aquela porta não costuma ficar aberta” — e ficou nervoso quando perguntaram ‘por quê’.",
+  "BOATO: Ele apareceu com um molho/chave/cartão na mão e guardou rápido quando notaram.",
+  "DETALHE: Ele sabia exatamente a hora que a área ficou vazia.",
+  "OBS.: Quando todos discutiam, ele se posicionou perto da saída sem perceber.",
+  "ANOTAÇÃO: Ele ofereceu “ajuda” para recolher coisas (e assim mexer na cena).",
+  "RELATO: Ele descreveu quem estava onde como se tivesse vigiado o tempo todo.",
+  "TESTEMUNHA: Ele olhou para as câmeras/alto das paredes como quem confere se gravou.",
+  "BOATO: Disseram que ele conhece passagem lateral que poucos usam.",
+  "DETALHE: Ele ficou calmo demais quando falaram em ‘acesso’ e ‘porta’."
+]);
+
+// 08 Sargento Bigode
+window.HINTS_BY_SUSPECT["08"].push(...[
+  "TESTEMUNHA: Ele disse “todo mundo em fila” antes de qualquer pessoa pedir organização.",
+  "RELATO: Ele anotou mentalmente nomes e depois repetiu como se fosse lista pronta.",
+  "BOATO: Ele escolheu quem fala primeiro e quem fala por último, sem perceber.",
+  "DETALHE: Ele cortou uma pergunta com “isso é irrelevante” — e era exatamente a pergunta certa.",
+  "OBS.: Ele ficou irritado quando alguém duvidou da versão oficial dele.",
+  "ANOTAÇÃO: Ele falou “vamos fechar isso” cedo demais.",
+  "RELATO: Ele perguntou “quem estava perto” e olhou direto para uma pessoa específica.",
+  "TESTEMUNHA: Ele se acalmou quando percebeu que todos estavam confusos.",
+  "BOATO: Disseram que ele tentou decidir o culpado por ‘perfil’ e não por fato.",
+  "DETALHE: Ele evitou falar onde ele mesmo estava no minuto exato."
+]);
+
+
+// ======================
+// ARMAS (09–16)
+// ======================
+
+// 09 Arma Química
+window.HINTS_BY_WEAPON["09"].push(...[
+  "TESTEMUNHA: Por 2 segundos o ar ‘arranhou’ a garganta e depois sumiu.",
+  "RELATO: Alguém abriu algo pequeno perto do rosto e fechou rápido.",
+  "BOATO: Teve gente esfregando os olhos como se algo irritasse.",
+  "DETALHE: O cheiro apareceu e desapareceu rápido, como ‘puff’.",
+  "OBS.: Ninguém viu golpe; só viram gente ficando estranha de repente.",
+  "ANOTAÇÃO: A pista é quem estava com algo pequeno na mão antes do mal-estar.",
+  "RELATO: Ventilador/janela mudou o ar e ‘levou’ o sinal embora.",
+  "TESTEMUNHA: Um lenço foi usado no nariz/boca de alguém como reação.",
+  "BOATO: Disseram que o culpado ficou longe logo após o ar mudar.",
+  "DETALHE: Procure quem ficou melhor rápido demais… como quem já sabia."
+]);
+
+// 10 Espingarda
+window.HINTS_BY_WEAPON["10"].push(...[
+  "TESTEMUNHA: O som foi tão alto que muita gente tapou o ouvido sem pensar.",
+  "RELATO: Depois do barulho, teve uma pausa total: ninguém falava por 1–2 segundos.",
+  "BOATO: Alguns disseram “foi aqui”, outros “foi lá” — confusão perfeita.",
+  "DETALHE: Um eco curto bateu e voltou, como em espaço aberto/alto.",
+  "OBS.: O culpado só precisava de 1 instante de pânico para sumir.",
+  "ANOTAÇÃO: A pista é quem já estava com rota de saída antes do susto.",
+  "RELATO: Alguém olhou pro teto/lado como se previsse o som.",
+  "TESTEMUNHA: Um reflexo: todo mundo virou o corpo na mesma direção.",
+  "BOATO: Disseram que a história virou “o barulho” e ninguém lembra do resto.",
+  "DETALHE: O momento-chave foi o susto — não o depois."
+]);
+
+// 11 Faca
+window.HINTS_BY_WEAPON["11"].push(...[
+  "TESTEMUNHA: Foi um movimento curto de braço, tipo ‘puxa e some’.",
+  "RELATO: Um objeto pequeno brilhou por um instante e já não estava mais.",
+  "BOATO: Alguém esbarrou e isso virou distração de 1 segundo.",
+  "DETALHE: A pista é: quem conseguiu chegar perto sem ninguém impedir?",
+  "OBS.: O culpado podia esconder o objeto na roupa em segundos.",
+  "ANOTAÇÃO: Procure quem estava com a mão dentro do bolso antes.",
+  "RELATO: O ataque parecia ‘silencioso’, sem grande barulho.",
+  "TESTEMUNHA: Depois, alguém limpou algo com pressa (pano/roupa).",
+  "BOATO: Disseram que o culpado saiu andando, não correndo.",
+  "DETALHE: O sinal mais forte é proximidade + rapidez."
+]);
+
+// 12 Pá
+window.HINTS_BY_WEAPON["12"].push(...[
+  "TESTEMUNHA: Teve marca de pó/terra em um canto que não deveria ter.",
+  "RELATO: Um som ‘seco e pesado’ aconteceu e foi confundido com algo caindo.",
+  "BOATO: Disseram que alguém limpou o chão mais do que o normal.",
+  "DETALHE: A pista é quem tinha força e espaço para levantar algo pesado.",
+  "OBS.: Um objeto grande precisa de esconderijo momentâneo (canto/parede/atrás).",
+  "ANOTAÇÃO: Procure o rastro no piso: arrasto curto, risco, poeira.",
+  "RELATO: O culpado pode ter usado a desculpa de ‘mexer com coisa no chão’.",
+  "TESTEMUNHA: Vi sujeira na sola do sapato de alguém e ela tentou raspar.",
+  "BOATO: Disseram que um canto ficou ‘mais limpo’ do que antes.",
+  "DETALHE: Chão e sapato contam mais que palavras."
+]);
+
+// 13 Pé de Cabra
+window.HINTS_BY_WEAPON["13"].push(...[
+  "TESTEMUNHA: Um ‘clac’ metálico único aconteceu, como alavanca fazendo força.",
+  "RELATO: Uma porta/trava que era dura ficou fácil de repente.",
+  "BOATO: Disseram que algo que estava fechado ‘misteriosamente’ apareceu aberto.",
+  "DETALHE: A pista é marca nova em canto de metal/madeira.",
+  "OBS.: Quem usou isso pode ter escondido rápido por ser comprido (atrás/embaixo).",
+  "ANOTAÇÃO: Procure lasca, arranhão, marca de pressão perto de fechadura.",
+  "RELATO: O culpado não precisava de chave — só de 2 segundos e força.",
+  "TESTEMUNHA: Alguém ficou massageando a mão/punho depois.",
+  "BOATO: Disseram que o culpado criou o próprio caminho.",
+  "DETALHE: Se tem acesso forçado, tem ferramenta de alavanca."
+]);
+
+// 14 Soco Inglês
+window.HINTS_BY_WEAPON["14"].push(...[
+  "TESTEMUNHA: Um ‘toque’ rápido perto demais, e depois alguém caiu sem entender.",
+  "RELATO: A mão do agressor ficou fechada o tempo todo, como escondendo algo.",
+  "BOATO: Disseram que foi no meio de empurrão/esbarrão.",
+  "DETALHE: A pista é quem estava colado na vítima sem motivo.",
+  "OBS.: O objeto some fácil: bolso rápido e pronto.",
+  "ANOTAÇÃO: Procure quem protegeu a mão, como se não quisesse mostrar.",
+  "RELATO: Foi tão rápido que pareceu acidente.",
+  "TESTEMUNHA: Vi alguém ajeitar a manga como se escondesse pulso/mão.",
+  "BOATO: Disseram que o culpado ficou perto o suficiente para ‘um golpe’ e saiu normal.",
+  "DETALHE: Proximidade + mão escondida = sinal forte."
+]);
+
+// 15 Tesoura
+window.HINTS_BY_WEAPON["15"].push(...[
+  "TESTEMUNHA: Um objeto comum apareceu na mão e desapareceu em segundos.",
+  "RELATO: Teve um som pequeno de ‘clique’ ou metal encostando.",
+  "BOATO: Disseram que alguém carregava ferramenta ‘de trabalho’ sem suspeita.",
+  "DETALHE: A pista é quem tinha motivo normal pra carregar isso (ou fingir que tinha).",
+  "OBS.: É fácil esconder dentro de bolsa/bolso grande.",
+  "ANOTAÇÃO: Procure quem mexeu em embalagem, fita, papel… como desculpa.",
+  "RELATO: Um corte pode acontecer sem ninguém ver se todos olham pra cima/fora.",
+  "TESTEMUNHA: Vi alguém abrir/fechar algo com a mão como se testasse.",
+  "BOATO: Disseram que o culpado usou algo “inofensivo” para ninguém desconfiar.",
+  "DETALHE: Ferramenta comum + gesto rápido = pista forte."
+]);
+
+// 16 Veneno
+window.HINTS_BY_WEAPON["16"].push(...[
+  "TESTEMUNHA: Alguém ofereceu algo e ficou olhando até a pessoa aceitar.",
+  "RELATO: A pessoa ficou mal depois de um intervalo — não imediatamente.",
+  "BOATO: Disseram que o culpado insistiu: “só um pouco, vai”.",
+  "DETALHE: A pista é o copo/recipiente que ficou ‘só’ com uma pessoa por instantes.",
+  "OBS.: Quem fez isso não precisava estar perto no final.",
+  "ANOTAÇÃO: Procure quem tocou em bebida/comida e depois se afastou.",
+  "RELATO: Teve troca rápida de copos/objetos e ninguém percebeu.",
+  "TESTEMUNHA: Vi alguém mexendo no bolso e depois tocando no copo discretamente.",
+  "BOATO: Disseram que o culpado ficou calmo porque sabia que demoraria.",
+  "DETALHE: O sinal é: oferta + insistência + tempo de efeito."
+]);
+
+
+// ======================
+// LOCAIS (17–27)
+// ======================
+
+// 17 Banco
+window.HINTS_BY_LOCATION["17"].push(...[
+  "TESTEMUNHA: A porta giratória prendeu alguém por segundos — e alguém passou livre no mesmo instante.",
+  "RELATO: Um canto perto do caixa/guichê ficou sem câmera (ou com ângulo ruim).",
+  "BOATO: A fila avançou e isso cobriu um gesto pequeno de mão.",
+  "DETALHE: A pista é quem ficou perto de um ponto “de espera” tempo demais.",
+  "OBS.: Todo mundo evita escândalo ali — perfeito para algo discreto.",
+  "ANOTAÇÃO: Procure quem olhou para o alto (câmera) antes de agir.",
+  "RELATO: Um ‘pedido de informação’ distraiu por 2 segundos.",
+  "TESTEMUNHA: Vi alguém escolher a posição exata na fila (não foi aleatório).",
+  "BOATO: Disseram que o culpado tinha certeza do caminho de entrada e saída.",
+  "DETALHE: Lugar controlado + brecha curta = plano."
+]);
+
+// 18 Boate
+window.HINTS_BY_LOCATION["18"].push(...[
+  "TESTEMUNHA: A batida aumentou e ninguém ouvia nada por alguns segundos — momento perfeito.",
+  "RELATO: Uma luz piscou e por 1 segundo ficou impossível reconhecer rosto.",
+  "BOATO: Um empurrão virou desculpa, e ninguém sabe de onde veio.",
+  "DETALHE: A pista é quem ficou perto demais quando a música ‘dropou’.",
+  "OBS.: Multidão cria ‘sumiço’ sem corrida.",
+  "ANOTAÇÃO: Procure quem escolheu ficar perto da saída, mas fingindo dançar.",
+  "RELATO: Todo mundo olhou pro DJ/palco e o resto sumiu da memória.",
+  "TESTEMUNHA: Vi alguém mudar de lugar no exato momento da luz forte.",
+  "BOATO: Disseram que o culpado esperou a parte mais barulhenta da música.",
+  "DETALHE: Som alto + luz piscando = álibi perfeito."
+]);
+
+// 19 Cemitério
+window.HINTS_BY_LOCATION["19"].push(...[
+  "TESTEMUNHA: Folhas secas estalaram e depois parou — como alguém ficando imóvel.",
+  "RELATO: Um caminho mais escondido tinha marcas recentes de sapato.",
+  "BOATO: Disseram que alguém escolheu o ponto sem poste/luz por perto.",
+  "DETALHE: A pista é poeira/terra em roupa de quem diz que não saiu do caminho.",
+  "OBS.: Silêncio deixa qualquer passo evidente — então alguém deve ter ido bem devagar.",
+  "ANOTAÇÃO: Procure o trecho onde a grama/solo parece pisado recente.",
+  "RELATO: Um objeto ficou meio enterrado ou coberto por folhas.",
+  "TESTEMUNHA: Vi alguém olhando nomes/pedras como se procurasse um ponto exato.",
+  "BOATO: Disseram que o culpado já sabia a rota de saída entre túmulos/cantos.",
+  "DETALHE: Aqui, o chão é a testemunha principal."
+]);
+
+// 20 Estação de Trem
+window.HINTS_BY_LOCATION["20"].push(...[
+  "TESTEMUNHA: Um anúncio tocou e todo mundo virou o rosto ao mesmo tempo.",
+  "RELATO: A pessoa subiu/desceu escada e sumiu do campo de visão em segundos.",
+  "BOATO: Disseram que alguém trocou de plataforma sem motivo aparente.",
+  "DETALHE: A pista é quem estava ‘esperando’ e de repente começou a andar rápido.",
+  "OBS.: Multidão cria cobertura perfeita para gesto pequeno.",
+  "ANOTAÇÃO: Procure quem consultou o relógio logo antes do anúncio.",
+  "RELATO: Um esbarrão parece normal ali — e pode ter sido de propósito.",
+  "TESTEMUNHA: Vi alguém parar atrás de uma coluna/placa por um instante.",
+  "BOATO: Disseram que o culpado escolheu um minuto de troca de fluxo de pessoas.",
+  "DETALHE: Anúncio + correria = janela de ação."
+]);
+
+// 21 Floricultura
+window.HINTS_BY_LOCATION["21"].push(...[
+  "TESTEMUNHA: Um cheiro específico ficou mais forte num canto e depois desapareceu.",
+  "RELATO: Tesoura/fitas/embalagem fizeram barulhinhos que mascaram outro gesto.",
+  "BOATO: Disseram que alguém mexeu em uma caixa/embalagem e fechou rápido.",
+  "DETALHE: A pista é pétala/folha fora do lugar formando trilha.",
+  "OBS.: A vitrine distrai; o canto de trás esconde.",
+  "ANOTAÇÃO: Procure o canto com menos luz e mais objetos empilhados.",
+  "RELATO: Um pano foi usado para limpar algo que não era sujeira de planta.",
+  "TESTEMUNHA: Vi alguém pegar algo ‘pequeno’ e guardar sem mostrar.",
+  "BOATO: Disseram que o culpado se aproveitou do perfume para confundir lembranças.",
+  "DETALHE: Beleza + cheiro = distração forte."
+]);
+
+// 22 Hospital
+window.HINTS_BY_LOCATION["22"].push(...[
+  "TESTEMUNHA: Máscara/luva fez impossível ver expressão e mão de alguém.",
+  "RELATO: Um carrinho passou e bloqueou a visão por 2 segundos.",
+  "BOATO: Disseram que alguém entrou numa sala e saiu por outra porta.",
+  "DETALHE: A pista é quem circulava sem ser perguntado (como se fosse rotina).",
+  "OBS.: Qualquer mal-estar parece comum ali — perfeito para disfarçar causa.",
+  "ANOTAÇÃO: Procure quem sabia o caminho sem olhar placas.",
+  "RELATO: Um aviso de “silêncio” fez todo mundo abaixar a voz (ótima distração).",
+  "TESTEMUNHA: Vi alguém calmo demais em momento de correria.",
+  "BOATO: Disseram que o culpado usou o corredor para sumir na curva.",
+  "DETALHE: Curva + porta + carrinho = janela de ação."
+]);
+
+// 23 Hotel
+window.HINTS_BY_LOCATION["23"].push(...[
+  "TESTEMUNHA: Tapete abafou passos — dava pra andar sem ninguém ouvir.",
+  "RELATO: Uma porta abriu sem barulho com cartão, e fechou logo em seguida.",
+  "BOATO: Disseram que alguém apertou botão do elevador e saiu no andar errado ‘de propósito’.",
+  "DETALHE: A pista é quem ficou parado perto de uma porta fingindo esperar.",
+  "OBS.: Corredor vazio por 5 segundos já resolve tudo.",
+  "ANOTAÇÃO: Procure quem sabia exatamente qual quarto/porta era, sem hesitar.",
+  "RELATO: Uma câmera no corredor não pegava o canto perto da curva.",
+  "TESTEMUNHA: Vi alguém com cartão na mão e guardando rápido.",
+  "BOATO: Disseram que o culpado esperou a faxina/passagem para agir.",
+  "DETALHE: Cartão + corredor + silêncio = cenário perfeito."
+]);
+
+// 24 Mansão
+window.HINTS_BY_LOCATION["24"].push(...[
+  "TESTEMUNHA: Uma porta pesada fechou devagar demais, quase sem som.",
+  "RELATO: Um corredor lateral ficou vazio e ninguém percebeu por causa do tamanho da casa.",
+  "BOATO: Disseram que alguém conhecia uma passagem interna (tipo ‘atalho’).",
+  "DETALHE: A pista é quem se moveu sem perguntar ‘onde fica’.",
+  "OBS.: Tapetes abafam; distância confunde horário.",
+  "ANOTAÇÃO: Procure o canto onde a luz não alcança bem (atrás de escada/coluna).",
+  "RELATO: Alguém ficou tempo demais fora da sala principal sem motivo.",
+  "TESTEMUNHA: Vi alguém abrir uma porta “decorativa” como se fosse normal.",
+  "BOATO: Disseram que o culpado sabia quais salas ficam sempre vazias.",
+  "DETALHE: Grandeza + canto cego = oportunidade."
+]);
+
+// 25 Praça Central
+window.HINTS_BY_LOCATION["25"].push(...[
+  "TESTEMUNHA: Um poste piscou/apagou por instante e isso atrapalhou ver direito.",
+  "RELATO: Um grupo passou falando alto e cobriu qualquer som pequeno.",
+  "BOATO: Disseram que alguém ficou perto da saída/rua lateral desde o início.",
+  "DETALHE: A pista é quem olhou 2 vezes para a mesma rota de fuga.",
+  "OBS.: Um empurrão vira ‘acidente’ fácil em lugar cheio.",
+  "ANOTAÇÃO: Procure quem ficou sempre na beirada, nunca no meio.",
+  "RELATO: Alguém mudou de direção do nada quando percebeu atenção nele.",
+  "TESTEMUNHA: Vi alguém ajustando capuz/boné/roupa como disfarce.",
+  "BOATO: Disseram que o culpado esperou o barulho do trânsito aumentar.",
+  "DETALHE: Poste + multidão + saída = janela perfeita."
+]);
+
+// 26 Prefeitura
+window.HINTS_BY_LOCATION["26"].push(...[
+  "TESTEMUNHA: Uma porta de sala fechada abriu e fechou rápido, e ninguém comentou.",
+  "RELATO: Alguém segurava papel/pasta junto ao corpo como se escondesse algo.",
+  "BOATO: Disseram que alguém usou “tô resolvendo um assunto” pra circular livre.",
+  "DETALHE: A pista é quem sabia exatamente qual sala era, sem olhar placa.",
+  "OBS.: Corredor frio e pouca conversa = dá pra ouvir passo… então alguém andou bem leve.",
+  "ANOTAÇÃO: Procure a sala com menos gente e mais ‘entra e sai’.",
+  "RELATO: Um carimbo/assinatura virou desculpa perfeita pra tempo fora.",
+  "TESTEMUNHA: Vi alguém sair de sala e olhar pros lados antes de andar.",
+  "BOATO: Disseram que o culpado aproveitou troca de turno/horário de movimento.",
+  "DETALHE: Sala fechada + papel/pasta = pista forte."
+]);
+
+// 27 Restaurante
+window.HINTS_BY_LOCATION["27"].push(...[
+  "TESTEMUNHA: Um prato caiu/bateu e todo mundo olhou — distração instantânea.",
+  "RELATO: O pico de barulho do salão cobriu qualquer som pequeno.",
+  "BOATO: Disseram que alguém entrou na cozinha e saiu por outra porta.",
+  "DETALHE: A pista é quem ficou com um copo/objeto de outra pessoa por segundos.",
+  "OBS.: “Tava trabalhando” é desculpa pra circular onde quiser.",
+  "ANOTAÇÃO: Procure quem esperou exatamente a hora do movimento maior.",
+  "RELATO: Um guardanapo/pano foi usado para limpar algo rápido.",
+  "TESTEMUNHA: Vi alguém olhando pro relógio antes do salão lotar.",
+  "BOATO: Disseram que o culpado aproveitou o vai-e-vem dos garçons.",
+  "DETALHE: Barulho + cozinha + passagem = janela perfeita."
+]);
+
 
 // Conveniência: lista de tipos disponíveis (usado pelo app)
 window.HINT_TYPES = ["weapon","suspect","location"];
