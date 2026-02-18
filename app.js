@@ -259,43 +259,133 @@ function pickNonRepeating(list){
   return list[Math.floor(Math.random()*list.length)];
 }
 
-// coerência leve sem spoiler
-function secretSignals(){
+function computeTraits() {
   const s = getSecret();
   if (!s) return null;
 
   const ids = [s.a, s.b, s.c].filter(Boolean);
-  const types = ids.map(id => CARDS[id]?.tipo).filter(Boolean);
-
-  const hasSus = types.includes("Suspeito");
-  const hasArm = types.includes("Arma");
-  const hasLoc = types.includes("Local");
-  if (!hasSus || !hasArm || !hasLoc) return { clue: "Há um método aqui. Nada foi por acaso." };
-
   const locId = ids.find(id => CARDS[id]?.tipo === "Local");
   const armId = ids.find(id => CARDS[id]?.tipo === "Arma");
+  const susId = ids.find(id => CARDS[id]?.tipo === "Suspeito");
 
-  const locName = (CARDS[locId]?.nome || "").toLowerCase();
-  const armName = (CARDS[armId]?.nome || "").toLowerCase();
+  const loc = (CARDS[locId]?.nome || "").toLowerCase();
+  const arm = (CARDS[armId]?.nome || "").toLowerCase();
+  const sus = (CARDS[susId]?.nome || "").toLowerCase();
 
-  const isSilentWeapon = /(veneno|corda|faca|punhal|tesoura|travesseiro)/i.test(armName);
-  const isLoudWeapon   = /(rev[oó]lver|tiro|machado|marreta)/i.test(armName);
-  const isPublicPlace  = /(pra(ç|c)a|rua|hall|recep|mercado|bar|clube|sala)/i.test(locName);
-  const isClosedPlace  = /(quarto|escrit[oó]rio|banheiro|cozinha|dep[oó]sito|por[aã]o)/i.test(locName);
+  // LOCAL (genérico, sem citar nome)
+  const locTrait =
+    /(bar|clube|festa|pra(ç|c)a|rua|hall|recep|mercado)/i.test(loc) ? "um lugar público e barulhento" :
+    /(quarto|banheiro|escrit[oó]rio|dep[oó]sito|por[aã]o|cozinha)/i.test(loc) ? "um lugar fechado, íntimo e fácil de controlar" :
+    "um lugar de rotina, onde o movimento vira disfarce";
 
-  const bank = [];
-  if (isSilentWeapon) bank.push("Não foi o barulho que denunciou… foi a ausência dele. Tudo pareceu quieto demais.");
-  else if (isLoudWeapon) bank.push("O impacto parece ter sido pensado para terminar rápido. E rápido é sempre suspeito.");
-  else bank.push("A ferramenta do crime combina com controle, não com caos.");
+  // ARMA
+  const armTrait =
+    /(veneno|corda|travesseiro|faca|punhal|tesoura)/i.test(arm) ? "um método silencioso, que deixa dúvida" :
+    /(rev[oó]lver|pistola|tiro|marreta|machado)/i.test(arm) ? "um método de impacto, rápido e intimidante" :
+    "um método prático, escolhido para reduzir risco";
 
-  if (isPublicPlace) bank.push("Um lugar cheio de gente é perfeito para álibis. E para mentiras bonitas.");
-  else if (isClosedPlace) bank.push("Um lugar fechado favorece emboscada: confiança, poucos olhos e pouco tempo.");
-  else bank.push("O ambiente ajudou alguém a desaparecer sem correr, como parte da rotina.");
+  // SUSPEITO (perfil psicológico genérico)
+  const susTrait =
+    /(doutor|delegado|advogado|ju[ií]z|cientista)/i.test(sus) ? "alguém frio, lógico e convincente" :
+    /(artista|cantor|ator|influencer)/i.test(sus) ? "alguém carismático, que distrai com facilidade" :
+    /(seguran(ç|c)a|policial|militar)/i.test(sus) ? "alguém disciplinado, que pensa em rotas e controle" :
+    "alguém discreto, que prefere passar como ‘normal’";
 
-  bank.push("O culpado prefere parecer normal — quase indispensável — enquanto empurra a narrativa.");
+  // TEMPO (só “sabor”, não depende do nome)
+  const timeTrait = Math.random() < 0.5 ? "um intervalo curto, escolhido a dedo" : "um momento de distração coletiva";
 
-  return { clue: bank[Math.floor(Math.random()*bank.length)] };
+  return { locTrait, armTrait, susTrait, timeTrait };
 }
+
+function applyTraits(text) {
+  const t = computeTraits();
+  if (!t) return text;
+
+  return String(text)
+    .replaceAll("{LOC_TRAIT}", t.locTrait)
+    .replaceAll("{ARM_TRAIT}", t.armTrait)
+    .replaceAll("{SUS_TRAIT}", t.susTrait)
+    .replaceAll("{TIME_TRAIT}", t.timeTrait);
+}
+
+
+// coerência leve sem spoiler
+// ======================
+// COERÊNCIA 100% ALINHADA AO SEU BARALHO (SEM SPOILER)
+// - usa as 3 cartas secretas reais escaneadas
+// - fala de características do suspeito/local/arma sem citar nomes/IDs
+// ======================
+const TRAITS = {
+  suspects: {
+    "01": { vibe:["fala ensaiada","argumento afiado","sangue-frio"], tell:["arruma papéis sem necessidade","mede palavras antes de soltar","vira a história a favor dele"] }, // Advogado Sr Marinho
+    "04": { vibe:["presença cênica","charme calculado","olhar que distrai"], tell:["some e volta no tempo certo","sorri no momento errado","usa o palco como álibi"] }, // Dançarina Srta Rosa
+    "08": { vibe:["postura rígida","controle","autoridade"], tell:["observa o grupo como patrulha","quer organizar o caos","faz perguntas como interrogatório"] }, // Sargento Bigode
+    "02": { vibe:["rotina impecável","mãos habilidosas","precisão"], tell:["repara em detalhes pequenos","lava as mãos cedo demais","conhece atalhos do lugar"] }, // Chef de cozinha
+    "05": { vibe:["perfume marcante","gentileza suspeita","calma ornamental"], tell:["protege um detalhe como se fosse flor rara","desvia assunto com delicadeza","deixa rastros aromáticos"] }, // Florista Dona Branca
+    "03": { vibe:["silêncio pesado","intimidade com a terra","paciência sombria"], tell:["não se assusta com o final","fala baixo sobre coisas graves","sabe onde ninguém procura"] }, // Coveiro Sergio Soturno
+    "06": { vibe:["frieza clínica","conhecimento técnico","mão firme"], tell:["explica demais o que ‘poderia’ acontecer","nota sintomas alheios","parece calma por treino"] }, // Médica Dona Violeta
+    "07": { vibe:["rotina e chaves","presença invisível","observador"], tell:["conhece horários e portas","some em corredores","age como se ‘pertencesse’ a tudo"] }  // Mordomo James
+  },
+
+  locations: {
+    "20": { vibe:["ecos e apitos","gente passando","horários certos"], details:["passos apressados","anúncios distantes","porta batendo sem vento"] }, // Estação de trem
+    "21": { vibe:["cheiro doce","folhas e vidro","umidade"], details:["tesoura de poda","pétalas no chão","vitrines silenciosas"] }, // Floricultura
+    "24": { vibe:["luxo e silêncio","cantos cegos","tapetes que engolem som"], details:["escadas longas","portas pesadas","quadros observando"] }, // Mansão
+    "27": { vibe:["talheres e vozes","cozinha nervosa","luz quente"], details:["pratos batendo","sussurros entre mesas","movimento encenado"] }, // Restaurante
+    "18": { vibe:["grave do som","luzes cortando","confusão conveniente"], details:["música alta","corpos se esbarrando","olhares que somem"] }, // Boate
+    "26": { vibe:["papéis e poder","corredores frios","autoridade"], details:["carimbos","salas fechadas","gente que finge não ver"] }, // Prefeitura
+    "25": { vibe:["olhos por toda parte","barulho aberto","ninguém é de ninguém"], details:["bancos de praça","luzes de poste","passos ecoando"] }, // Praça Central
+    "22": { vibe:["cheiro de álcool","pressa contida","silêncio de corredor"], details:["luvas e máscaras","portas batendo leve","respiração presa"] }, // Hospital
+    "23": { vibe:["tapetes e chaves","corredores longos","portas iguais"], details:["cartões de acesso","câmeras","passos no carpete"] }, // Hotel
+    "17": { vibe:["câmeras e cofres","tensão educada","segurança aparente"], details:["fila falsa calma","porta giratória","sussurros sobre dinheiro"] }, // Banco
+    "19": { vibe:["frio e pedra","silêncio que acusa","som de terra"], details:["folhas secas","passos lentos","nomes gravados"] }  // Cemitério
+  },
+
+  weapons: {
+    "16": { vibe:["silêncio químico","efeito atrasado","nenhum barulho"], tell:["não deixa cena óbvia","parece acidente","chega depois"] }, // Veneno
+    "13": { vibe:["metal bruto","força rápida","arrombamento"], tell:["marca impacto","abre caminho","faz barulho curto"] }, // Pé de cabra
+    "10": { vibe:["estrondo e pânico","um segundo de decisão","eco"], tell:["chama atenção","termina rápido","deixa a sala muda"] }, // Espingarda
+    "14": { vibe:["mão fechada","proximidade","covardia corajosa"], tell:["precisa chegar perto","é rápido","some no meio da multidão"] }, // Soco Inglês
+    "15": { vibe:["corte pequeno","gesto preciso","frieza"], tell:["não exige força","exige coragem","pede silêncio"] }, // Tesoura
+    "12": { vibe:["peso e terra","improviso pesado","marca no chão"], tell:["deixa sinais de solo","pede espaço","parece ‘trabalho’"] }, // Pá
+    "11": { vibe:["corte limpo","ritual","controle"], tell:["aparece e some","não precisa de barulho","pede intenção"] }, // Faca
+    "09": { vibe:["cheiro estranho","irritação no ar","invisível"], tell:["confunde sentidos","faz o corpo trair","parece ‘acidente’"] }  // Arma química
+  }
+};
+
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+function buildCoherentOverlay(){
+  const s = getSecret();
+  if (!s) return null;
+
+  const ids = [s.a, s.b, s.c].filter(Boolean);
+  const susId = ids.find(id => CARDS[id]?.tipo === "Suspeito");
+  const armId = ids.find(id => CARDS[id]?.tipo === "Arma");
+  const locId = ids.find(id => CARDS[id]?.tipo === "Local");
+
+  if (!susId || !armId || !locId) {
+    return "Há um método aqui. Nada foi por acaso — só parece.";
+  }
+
+  // ✅ 1) Se o hints.js novo estiver carregado, usa o overlay 100% alinhado ao baralho
+  if (window.HINTS_PACK && typeof window.HINTS_PACK.coherentOverlay === "function") {
+    return window.HINTS_PACK.coherentOverlay({ susId, armId, locId });
+  }
+
+  // ✅ 2) Fallback: usa seu TRAITS local (o que você já tinha)
+  const S = TRAITS.suspects[susId] || { vibe:["normal demais"], tell:["fala pouco"] };
+  const A = TRAITS.weapons[armId]   || { vibe:["um instrumento frio"], tell:["deixa pouco rastro"] };
+  const L = TRAITS.locations[locId] || { vibe:["um lugar com sombras"], details:["ponto cego"] };
+
+  const p1 = `O cenário tinha ${pick(L.vibe)} — ${pick(L.details)} parecia parte de uma rotina falsa.`;
+  const p2 = `O método sugere ${pick(A.vibe)}: ${pick(A.tell)}… e por isso ninguém percebeu na hora.`;
+  const p3 = `E o culpado? Perfil de ${pick(S.vibe)} — ${pick(S.tell)}.`;
+
+  return (Math.random() < 0.55) ? `${p1}\n${p2}` : `${p1}\n${p2}\n${p3}`;
+}
+
+
 
 function buildHint(){
   const baseList = (HINTS_PACK.mix && HINTS_PACK.mix.length)
@@ -304,10 +394,11 @@ function buildHint(){
 
   let text = pickNonRepeating(baseList);
 
-  const sig = secretSignals();
-  if (sig && Math.random() < 0.75) {
-    text = `${text}\n\n${sig.clue}`;
+  const overlay = buildCoherentOverlay();
+  if (overlay && Math.random() < 0.90) {
+    text = `${text}\n\n${overlay}`;
   }
+
 
   const endings = [
     "Não confie no óbvio. O óbvio é o abrigo do culpado.",

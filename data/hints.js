@@ -1,584 +1,233 @@
-// data/hints.js
-// 200+ dicas/narrativas sem spoiler (variadas por estilo)
+// data/hints.js — 200 dicas MISTURADAS alinhadas às cartas do Detetive 2
+// - As 200 são GERADAS ao carregar (sem precisar escrever 200 na mão)
+// - Todas mencionam (direta ou indiretamente) cartas reais do baralho
+// - Sem spoiler: não monta "suspeito + arma + local" na mesma frase como acusação
+// - Inclui também um gerador de "coerência" para o app.js usar com o trio secreto
 
-window.HINTS_PACK = {
-  testemunha: [
-    "Eu vi uma sombra atravessando o corredor — não dava pra distinguir o rosto, mas a pressa denunciava culpa.",
-    "Ouvi um estalo seco e, logo depois, passos tentando parecer calmos. Quem anda calmo depois de um susto?",
-    "Tinha cheiro de algo forte no ar… não sei dizer o quê, só sei que todo mundo começou a desconfiar de todo mundo.",
-    "Vi alguém limpando as mãos como se tivesse mexido em algo sujo. Não era poeira.",
-    "Uma conversa cortada no meio: ‘não aqui…’ e depois silêncio. Silêncio demais.",
-    "Alguém deixou cair uma coisa metálica pequena — não vi o que era, mas fez um som inconfundível no chão.",
-    "A luz piscou e, na escuridão, ouvi o arrastar de algo sendo empurrado para longe.",
-    "Uma risada nervosa, curta. Gente nervosa ri quando não devia.",
-    "Eu juraria que alguém estava tentando disfarçar um ferimento… mas parecia pequeno.",
-    "Vi alguém encarando uma porta fechada, como se esperasse que ela abrisse sozinha.",
-    "A pessoa passou por mim com o olhar fixo no nada, como se ensaiasse uma desculpa.",
-    "Ouvi o som de algo sendo guardado às pressas — como quem esconde um segredo no bolso.",
-    "Vi alguém trocando de lugar um objeto e fingindo que não fez nada.",
-    "Uma porta bateu sem vento. Depois, passos que pararam de repente.",
-    "Eu estava de costas, mas senti quando alguém passou bem perto, rápido demais.",
-    "Uma voz sussurrou meu nome… e logo negou que estivesse ali.",
-    "Vi alguém ajeitando a roupa como se tivesse acabado de correr.",
-    "Ouvi um ‘shhh’ insistente, como se alguém mandasse o silêncio ficar em pé.",
-    "Tinha uma tensão no ar, como se o lugar inteiro soubesse e ninguém quisesse falar.",
-    "Um olhar atravessado. Um pedido de desculpas que não foi dito."
-  ],
-  relatorio: [
-    "RELATÓRIO: Sinais de desordem mínima. O agressor parecia conhecer o lugar e evitar barulho desnecessário.",
-    "RELATÓRIO: Há indícios de pressa controlada — não é um crime impulsivo, é um crime com plano.",
-    "RELATÓRIO: Testemunhas divergentes. Um detalhe se repete: ‘parecia alguém à vontade ali’.",
-    "RELATÓRIO: Nenhuma janela arrombada. Isso sugere acesso fácil — ou confiança demais.",
-    "RELATÓRIO: Marcas leves no chão. Algo foi movido, mas com cuidado.",
-    "RELATÓRIO: O ambiente não indica luta longa. Pode ter sido rápido, ou a vítima foi surpreendida.",
-    "RELATÓRIO: Objetos pessoais intactos. Motivo parece ser outro, não roubo.",
-    "RELATÓRIO: Dois pontos chamam atenção: silêncio após o ocorrido e alguém tentando ‘organizar’ a cena.",
-    "RELATÓRIO: Há sinais de que alguém tentou ‘normalizar’ o local — como se o caos fosse suspeito demais.",
-    "RELATÓRIO: O culpado pode ter contado com distrações do ambiente para agir sem chamar atenção.",
-    "RELATÓRIO: A rota de fuga parece planejada. Quem improvisa, tropeça — e aqui ninguém tropeçou.",
-    "RELATÓRIO: Notou-se um intervalo curto entre o início e o fim do evento. Crime rápido, cabeça fria.",
-    "RELATÓRIO: Alguns relatos apontam para um ‘ruído pequeno’ antes do silêncio total.",
-    "RELATÓRIO: Um detalhe recorrente: alguém não se surpreendeu quando a notícia chegou.",
-    "RELATÓRIO: Sinais de presença recente em área pouco movimentada.",
-    "RELATÓRIO: Há indício de conversa anterior ao fato — o crime pode ter sido ‘anunciado’ sem palavras.",
-    "RELATÓRIO: Falta de marcas fortes sugere controle. Quem perde o controle deixa rastros.",
-    "RELATÓRIO: A vítima não parece ter tido tempo de reagir.",
-    "RELATÓRIO: O cenário aponta para intencionalidade, não acaso.",
-    "RELATÓRIO: Atenção às contradições simples: horário, direção, e quem “não viu nada”."
-  ],
-  boato: [
-    "Dizem que o culpado não queria ferir — queria apenas calar alguém que sabia demais.",
-    "Ouvi por aí que foi um ‘acerto de contas’… mas quem conta essas histórias geralmente esconde algo.",
-    "Falam que a vítima recebeu um recado antes. Recado curto. Sem assinatura.",
-    "Tem gente dizendo que foi acidente. Acidente é a desculpa perfeita quando ninguém quer olhar de perto.",
-    "Comentaram que alguém andou fazendo perguntas demais nos últimos dias… perguntas perigosas.",
-    "Dizem que o criminoso voltou ao local depois. Quem volta, volta porque se importa — ou porque esqueceu algo.",
-    "Boato corre solto: alguém estava com medo de perder algo… e fez o que fez para manter.",
-    "Dizem que o culpado é educado demais. Gentileza também pode ser máscara.",
-    "Falam que um objeto “sumiu” e depois apareceu no lugar errado.",
-    "Ouvi que alguém tentou convencer os outros de uma história antes de ser perguntado.",
-    "Dizem que houve uma discussão baixa, quase sussurrada, e logo depois… silêncio.",
-    "Boato: a vítima viu algo que não devia e pagou com a curiosidade.",
-    "Falam que o culpado sabe usar o ambiente como álibi.",
-    "Dizem que a culpa mora nos detalhes e que hoje os detalhes estão mentindo.",
-    "Ouvi que alguém estava ‘calmo demais’ na hora errada.",
-    "Dizem que o criminoso não contava com uma testemunha… mas contou com o medo dela.",
-    "Comentaram que havia pressa sem motivo. Pressa sempre tem motivo.",
-    "Boato: houve uma troca de mensagens e depois ninguém quer admitir.",
-    "Falam que o culpado tinha acesso fácil a tudo… e isso é perigoso.",
-    "Dizem que alguém tem um hábito que entrega seus passos."
-  ],
-  bilhete: [
-    "BILHETE amassado: ‘Não confie no óbvio. O óbvio é a isca.’",
-    "BILHETE rasgado: ‘Se eu não voltar, procure onde ninguém procura.’",
-    "BILHETE sem assinatura: ‘Você está seguindo a pista certa… mas pelo motivo errado.’",
-    "BILHETE: ‘O silêncio do culpado é mais alto do que qualquer confissão.’",
-    "BILHETE: ‘Três detalhes importam. Um deles é mentira.’",
-    "BILHETE: ‘Olhe para quem tenta ajudar rápido demais.’",
-    "BILHETE: ‘Se alguém mudar de assunto, pergunte duas vezes.’",
-    "BILHETE: ‘A verdade é simples — o que complicam é o medo.’",
-    "BILHETE: ‘Quem sabia a rotina sabia também quando agir.’",
-    "BILHETE: ‘Não siga pegadas. Siga intenções.’",
-    "BILHETE: ‘A pressa é irmã da culpa.’",
-    "BILHETE: ‘Se estiver em dúvida, observe quem observa você.’",
-    "BILHETE: ‘Os objetos contam histórias. As pessoas tentam apagar.’",
-    "BILHETE: ‘Há um gesto repetido que entrega o nervosismo.’",
-    "BILHETE: ‘O culpado gosta de parecer indispensável.’",
-    "BILHETE: ‘Todo mundo tem um motivo. Alguns têm coragem demais.’",
-    "BILHETE: ‘Cuidado com a pista perfeita.’",
-    "BILHETE: ‘A mentira mais segura é a que parece verdade.’",
-    "BILHETE: ‘Ouça o que não foi dito.’",
-    "BILHETE: ‘A cena foi “arrumada”. Pergunte: por quê?’"
-  ],
-  radio: [
-    "RÁDIO (chiado): ‘Movimentação estranha hoje… a cidade inteira parece prender a respiração.’",
-    "RÁDIO: ‘A noite caiu cedo — ou foi só impressão de quem tem culpa?’",
-    "RÁDIO: ‘Atenção: evitem circular sozinhos. Um criminoso pode estar entre nós.’",
-    "RÁDIO: ‘Dizem que a verdade está num detalhe… e que detalhe pode enganar.’",
-    "RÁDIO: ‘Se você ouviu algo, fale. O silêncio ajuda o culpado.’",
-    "RÁDIO: ‘Há relatos de passos apressados em horários improváveis.’",
-    "RÁDIO: ‘A cidade comenta: alguém sabe mais do que diz.’",
-    "RÁDIO: ‘Procurem contradições pequenas: é assim que grandes mentiras caem.’",
-    "RÁDIO: ‘Alerta geral: cuidado com conclusões fáceis.’",
-    "RÁDIO: ‘A melhor pista pode ser a ausência de pista.’",
-    "RÁDIO: ‘As pessoas lembram diferente quando estão com medo.’",
-    "RÁDIO: ‘Uma testemunha diz: “o culpado parecia confortável”.’",
-    "RÁDIO: ‘Se a história veio pronta, desconfie.’",
-    "RÁDIO: ‘Há sinais de encenação. Nem tudo ali aconteceu por acaso.’",
-    "RÁDIO: ‘Fiquem atentos a quem tenta liderar a narrativa.’",
-    "RÁDIO: ‘Uma voz foi ouvida, mas ninguém assume que era sua.’",
-    "RÁDIO: ‘Um barulho curto precedeu o silêncio. Repitam: curto.’",
-    "RÁDIO: ‘A noite não perdoa distrações.’",
-    "RÁDIO: ‘O culpado pode estar mais perto do que você quer admitir.’",
-    "RÁDIO: ‘Fim do boletim. E cuidado com as “boas intenções”.’"
-  ],
-  extras: [
-    // 100+ “extras” (gerais, clima e estratégia) — somam pra passar de 200 no total
-    "DICA: Quando alguém elimina rápido demais, pergunte: com base em quê?",
-    "DICA: Se dois suspeitos parecem iguais, o culpado é o que ninguém quer encarar.",
-    "DICA: Compare quem fala muito com quem fala o necessário.",
-    "DICA: Uma acusação forte nasce de três fatos pequenos, não de uma impressão grande.",
-    "DICA: Se a pista é perfeita, pode ser plantada.",
-    "DICA: O culpado costuma proteger um detalhe, não uma história inteira.",
-    "DICA: Olhe o que as pessoas evitam tocar no assunto.",
-    "DICA: Pergunte: quem ganha tempo com confusão?",
-    "DICA: O lugar do crime pode ser só cenário. O motivo é o coração.",
-    "DICA: Quem tem álibi muito ensaiado às vezes ensaiou demais.",
-    "DICA: Faça perguntas simples. A mentira tropeça nelas.",
-    "DICA: Quando todos concordam rápido, alguém está conduzindo.",
-    "DICA: O culpado pode parecer ‘prestativo’ para controlar a conversa.",
-    "DICA: Não persiga o barulho — persiga o silêncio.",
-    "DICA: Observe reações à palavra “prova”.",
-    "DICA: Quem muda o tom de voz ao falar do assunto sabe mais do que diz.",
-    "DICA: Às vezes, a melhor pergunta é: por que agora?",
-    "DICA: Desconfie de quem tenta encerrar o assunto.",
-    "DICA: Se o crime foi rápido, o culpado não improvisou.",
-    "DICA: Se foi lento, alguém teve tempo e segurança.",
-    "NARRATIVA: Um relógio marcou a hora, mas ninguém concorda que era aquela.",
-    "NARRATIVA: A cidade inteira pareceu ouvir o mesmo silêncio.",
-    "NARRATIVA: Um objeto comum virou suspeito só por estar no lugar errado.",
-    "NARRATIVA: Um perfume forte ficou no ar por minutos… e depois sumiu.",
-    "NARRATIVA: Um som pequeno — quase nada — foi o começo de tudo.",
-    "NARRATIVA: A conversa parou quando a pessoa certa entrou.",
-    "NARRATIVA: Um sorriso apareceu no momento errado. Pequeno, mas real.",
-    "NARRATIVA: A luz oscilou como se o próprio lugar piscasse para não ver.",
-    "NARRATIVA: A porta rangeu como quem denuncia.",
-    "NARRATIVA: Alguém segurou o fôlego. E o ambiente segurou junto.",
-    "NARRATIVA: A verdade ficou escondida num detalhe banal.",
-    "NARRATIVA: Uma cadeira fora do lugar contou mais do que uma fala inteira.",
-    "NARRATIVA: Um bilhete sumiu. Alguém quer que ele suma da memória também.",
-    "NARRATIVA: O culpado não correu — caminhou como quem pertence.",
-    "NARRATIVA: Um olhar cruzou o corredor e fugiu antes de ser notado.",
-    "NARRATIVA: Ninguém viu a mão, mas todos ouviram o efeito.",
-    "NARRATIVA: O vento não justificava aquele barulho.",
-    "NARRATIVA: Um detalhe repetiu em duas histórias diferentes. Isso nunca é acidente.",
-    "NARRATIVA: A pressa tentou parecer rotina.",
-    "NARRATIVA: O medo começou antes do crime.",
-    "TESTE: Faça cada jogador dizer o que eliminou e por quê. Contradições aparecem.",
-    "TESTE: Peça a alguém repetir a própria história com outros detalhes. Mentira falha.",
-    "TESTE: Quem fica defensivo com perguntas simples pode estar protegendo algo.",
-    "TESTE: Pergunte o que cada um estava fazendo cinco minutos antes. O “buraco” aparece.",
-    "TESTE: Se alguém não lembra nada, talvez lembre demais.",
-    "TESTE: Faça o palpite em voz alta. Observe reações.",
-    "TESTE: Troque o foco: pergunte sobre o lugar, não sobre a pessoa. Veja quem muda.",
-    "TESTE: Se alguém tenta te convencer sem você pedir, anote.",
-    "TESTE: Compare os horários. A mentira odeia relógio.",
-    "TESTE: Repare quem quer “resolver rápido”.",
-    "DICA: Use o caderno: marque ? quando não tiver certeza. Não tenha pressa de X.",
-    "DICA: Se você tem uma carta na mão, isso elimina MUITO. Use como base.",
-    "DICA: Evite palpite “bonito”. Prefira palpite “coerente”.",
-    "DICA: Quem tem motivo forte pode não ser o culpado — pode ser a distração.",
-    "DICA: O culpado pode se esconder atrás de uma reputação.",
-    "DICA: Quando o ambiente é público, o culpado usa isso como capa.",
-    "DICA: Quando o ambiente é íntimo, o culpado usa confiança como arma.",
-    "DICA: Não esqueça: o crime tem três partes. Acertar duas não é ganhar.",
-    "DICA: Se você suspeita de alguém, teste com duas perguntas neutras.",
-    "DICA: Quando alguém diz ‘eu jamais’, anote. É frase perigosa.",
-    "DICA: ‘Eu nem estava lá’ é diferente de ‘eu estava em outro lugar’.",
-    "DICA: Não confunda medo com culpa — mas observe o medo que aparece do nada.",
-    "DICA: Atenção a hábitos: quem sempre carrega algo? quem sempre some por minutos?",
-    "DICA: Uma boa dica é uma boa dúvida.",
-    "DICA: Elimine por evidência, não por vibe.",
-    "DICA: Se a história muda um detalhe pequeno, ela pode mudar o grande também.",
-    "DICA: Ninguém é suspeito só por ser suspeito. Suspeito é quem tem chance + motivo.",
-    "DICA: Não busque o ‘mais provável’. Busque o ‘mais consistente’.",
-    "DICA: O culpado pode tentar parecer vítima.",
-    "DICA: Quem aponta dedos cedo pode querer desviar.",
-    "DICA: Repare quem fica irritado com o andamento do jogo.",
-    "DICA: Um crime sem bagunça pode ter sido planejado.",
-    "DICA: Um crime bagunçado pode ser encenação.",
-    "NARRATIVA: Um copo ficou na mesa, intacto. Mas alguém o tocou depois.",
-    "NARRATIVA: Uma chave apareceu no bolso errado.",
-    "NARRATIVA: Um som de metal beijando pedra ecoou por segundos.",
-    "NARRATIVA: Um cheiro sumiu rápido demais — como se alguém quisesse apagar o ar.",
-    "NARRATIVA: O lugar parecia normal… normal demais.",
-    "NARRATIVA: A verdade ficou presa entre duas versões quase iguais.",
-    "NARRATIVA: Uma testemunha viu o fim, mas não viu o começo.",
-    "NARRATIVA: Um detalhe “bobo” virou o fio que puxa tudo.",
-    "NARRATIVA: A vítima parecia esperar alguém.",
-    "NARRATIVA: Um recado foi dito com os olhos.",
-    "NARRATIVA: Um objeto comum virou prova só por estar limpo demais.",
-    "NARRATIVA: A cena tinha silêncio de teatro.",
-    "NARRATIVA: O culpado saiu antes que a culpa chegasse.",
-    "NARRATIVA: Um passo hesitou. Hesitação denuncia.",
-    "NARRATIVA: Um ‘boa noite’ soou como adeus.",
-    "NARRATIVA: Uma risada fora de hora cortou o ar.",
-    "NARRATIVA: Um casaco escondia mais do que frio.",
-    "NARRATIVA: Uma sombra parou na porta e decidiu entrar.",
-    "NARRATIVA: Um olhar procurou testemunhas antes de agir.",
-    "NARRATIVA: O lugar guardou um segredo que ninguém quer carregar.",
-    "DICA: Se você está em dúvida entre dois locais, foque em quem teria acesso fácil a um deles.",
-    "DICA: Se duas armas parecem possíveis, pergunte: qual exige menos barulho?",
-    "DICA: Se dois suspeitos poderiam estar no lugar, pergunte: quem não seria notado?",
-    "DICA: A melhor dedução é a que resiste a perguntas chatas.",
-    "DICA: Anote quem estava “ocupado demais” para ver algo.",
-    "DICA: Toda história tem buraco. Ache o buraco.",
-    "DICA: Se alguém sempre chega depois, talvez esteja criando distância.",
-    "DICA: Evite “achismos”. Use eliminação e consistência.",
-    "DICA: Aponte sua dúvida, não sua certeza.",
-    "DICA: Se você acertar o local por eliminação, o resto fica mais fácil.",
-    "DICA: Se o jogo estagnar, faça um palpite ousado só para testar reações.",
-    "DICA: Quem está confortável com o caos pode ter criado o caos.",
-    "DICA: Observe quem tenta “ensinar o jogo”. Às vezes é controle.",
-    "DICA: A verdade não precisa de volume.",
-    "DICA: Culpado inteligente parece normal.",
-    "DICA: Normalidade pode ser disfarce.",
-    "DICA: Suspeite de coincidências convenientes.",
-    "DICA: Se todo mundo “não viu”, alguém viu.",
-    "DICA: Se alguém viu, alguém mente.",
-    "DICA: Quem mente, simplifica.",
-    "DICA: Quem fala verdade lembra detalhes inúteis.",
-    "DICA: O culpado pode evitar palavras específicas.",
-    "DICA: Compare histórias: o que some em todas?",
-    "DICA: A ausência de emoção também é emoção.",
-    "DICA: Quando o culpado fala, ele mede a reação.",
-    "DICA: Quem mede reação teme descoberta.",
-    "DICA: A calma pode ser treino.",
-    "DICA: O nervosismo pode ser culpa — ou medo de errar.",
-    "DICA: Não confunda. Observe padrões."
-  ]
-};
+(function () {
+  // ======= BARALHO (conforme sua lista) =======
+  const SUS = [
+    { id: "01", nome: "Advogado Sr. Marinho", arqu: "elegante", traços: ["fala mansa", "argumento", "controle", "álibi bonito"] },
+    { id: "02", nome: "Chef de Cozinha", arqu: "preciso", traços: ["rotina", "lâmina", "mão firme", "hora certa"] },
+    { id: "03", nome: "Coveiro Sergio Soturno", arqu: "sombrio", traços: ["silêncio", "terra", "paciência", "olhar frio"] },
+    { id: "04", nome: "Dançarina Srta. Rosa", arqu: "carismática", traços: ["encena", "distração", "ritmo", "sorriso fácil"] },
+    { id: "05", nome: "Florista Dona Branca", arqu: "delicada", traços: ["perfume", "luvas", "espinhos", "gentileza afiada"] },
+    { id: "06", nome: "Medica Dona Violeta", arqu: "autoridade", traços: ["calma", "diagnóstico", "protocolo", "frieza clínica"] },
+    { id: "07", nome: "Mordomo James", arqu: "discreto", traços: ["chaves", "corredores", "rotina alheia", "presença invisível"] },
+    { id: "08", nome: "Sargento Bigode", arqu: "força", traços: ["postura", "ordem", "voz alta", "intimidação"] },
+  ];
 
-// ===============================
-// PACOTE EXTRA (+300) — mesmo estilo “manual” das 200
-// Cole este bloco no FINAL do seu data/hints.js
-// ===============================
+  const LOC = [
+    { id: "17", nome: "Banco", tipo: "público", traços: ["câmeras", "fila", "tensão", "sussurros"] },
+    { id: "18", nome: "Boate", tipo: "barulhento", traços: ["música", "luz baixa", "gente", "desvio de atenção"] },
+    { id: "19", nome: "Cemitério", tipo: "silencioso", traços: ["neblina", "terra", "passos", "eco"] },
+    { id: "20", nome: "Estação de trem", tipo: "público", traços: ["apito", "pressa", "multidão", "partidas"] },
+    { id: "21", nome: "Floricultura", tipo: "fechado", traços: ["perfume", "vasos", "tesoura", "espinhos"] },
+    { id: "22", nome: "Hospital", tipo: "público", traços: ["corredor", "plantão", "silêncio branco", "luvas"] },
+    { id: "23", nome: "Hotel", tipo: "público", traços: ["chaves", "quartos", "sussurros", "corredor longo"] },
+    { id: "24", nome: "Mansão", tipo: "fechado", traços: ["luxo", "escadas", "portas", "segredos"] },
+    { id: "25", nome: "Praça Central", tipo: "público", traços: ["bancos", "luzes", "testemunhas", "ruído"] },
+    { id: "26", nome: "Prefeitura", tipo: "público", traços: ["papéis", "carimbos", "salas", "poder"] },
+    { id: "27", nome: "Restaurante", tipo: "barulhento", traços: ["cozinha", "pratos", "cheiro", "movimento"] },
+  ];
 
-window.HINTS_PACK = window.HINTS_PACK || {};
-window.HINTS_PACK.testemunha = window.HINTS_PACK.testemunha || [];
-window.HINTS_PACK.relatorio  = window.HINTS_PACK.relatorio  || [];
-window.HINTS_PACK.boato      = window.HINTS_PACK.boato      || [];
-window.HINTS_PACK.bilhete    = window.HINTS_PACK.bilhete    || [];
-window.HINTS_PACK.radio      = window.HINTS_PACK.radio      || [];
-window.HINTS_PACK.extras     = window.HINTS_PACK.extras     || [];
+  const ARM = [
+    { id: "09", nome: "Arma química", classe: "silenciosa", traços: ["odor sutil", "dose", "tempo", "sintomas"] },
+    { id: "10", nome: "Espingarda", classe: "barulhenta", traços: ["estrondo", "pânico", "impacto", "fim rápido"] },
+    { id: "11", nome: "Faca", classe: "silenciosa", traços: ["precisão", "curto alcance", "mão firme", "sombra"] },
+    { id: "12", nome: "Pá", classe: "pesada", traços: ["terra", "força", "marca", "pressa"] },
+    { id: "13", nome: "Pé de cabra", classe: "pesada", traços: ["metal", "alavanca", "porta", "impacto seco"] },
+    { id: "14", nome: "Soco Inglês", classe: "discreta", traços: ["curto", "próximo", "raiva contida", "surpresa"] },
+    { id: "15", nome: "Tesoura", classe: "silenciosa", traços: ["corte", "oficina", "perto", "brilho rápido"] },
+    { id: "16", nome: "Veneno", classe: "silenciosa", traços: ["calma", "espera", "copos", "tempo"] },
+  ];
 
-// ---- +60 Testemunha
-window.HINTS_PACK.testemunha.push(
-  "Vi alguém parar perto da entrada e voltar como se tivesse esquecido o próprio motivo.",
-  "Ouvi um ‘calma’ dito rápido demais — como quem tenta apagar um susto.",
-  "A mão de alguém tremia um pouco, mas o sorriso tentava convencer o contrário.",
-  "Uma pessoa ficou olhando para o chão, como se o chão pudesse entregar algo.",
-  "Vi um olhar procurando testemunhas antes de qualquer ação.",
-  "Ouvi passos e depois… nada. A pausa foi mais estranha que o barulho.",
-  "Vi alguém ajeitar a manga, escondendo o pulso por um segundo.",
-  "Uma conversa virou cochicho quando alguém se aproximou.",
-  "Vi alguém guardando algo no bolso com cuidado exagerado.",
-  "Ouvi um metal tocar em superfície dura — curto, seco, final.",
-  "A luz oscilou e alguém não pareceu se incomodar. Como se já esperasse.",
-  "Vi alguém limpar a sola do sapato discretamente.",
-  "Um ‘bom dia’ soou como desculpa pronta.",
-  "Ouvi uma respiração presa, como se o ar fosse perigoso.",
-  "Vi alguém passar as mãos no cabelo, repetindo o gesto.",
-  "Uma pessoa ficou parada demais, tentando parecer normal.",
-  "Ouvi um ‘não foi nada’ antes mesmo de perguntarem.",
-  "Vi um objeto ser empurrado alguns centímetros e ninguém comentar.",
-  "Uma risada curta apareceu e morreu rápido — nervosa.",
-  "Vi alguém evitar olhar para um canto específico.",
-  "Ouvi o som de algo sendo aberto e fechado rápido.",
-  "Vi uma pessoa dar dois passos e desistir, como se lembrasse de algo.",
-  "Uma voz falhou na palavra mais simples.",
-  "Vi alguém pedir água sem estar com sede. Só para ter o que fazer.",
-  "Ouvi um pedido de desculpas que não combinava com a situação.",
-  "Vi alguém entrar e sair como se conferisse se estava tudo ‘certo’.",
-  "Uma sombra ficou na porta tempo demais.",
-  "Ouvi ‘eu não vi’ dito com pressa demais.",
-  "Vi alguém puxar assunto aleatório, fugindo do tema.",
-  "Ouvi um estalo pequeno, seguido de silêncio calculado.",
-  "Vi alguém tocar em algo e tirar a mão como se queimasse.",
-  "Uma pessoa olhou para os lados antes de responder coisa simples.",
-  "Vi um olhar que pediu permissão para mentir.",
-  "Ouvi um ‘shhh’ que não era para o barulho — era para a verdade.",
-  "Vi alguém esconder as mãos atrás do corpo.",
-  "Um ‘tá tudo bem’ veio com olhos assustados.",
-  "Vi alguém ficar defensivo com uma pergunta neutra.",
-  "Ouvi o nome de alguém e um silêncio imediatamente depois.",
-  "Vi alguém observar a reação dos outros antes de reagir.",
-  "Ouvi o som de tecido sendo sacudido, como quem limpa marcas.",
-  "Vi alguém mudar de posição para bloquear a visão de um canto.",
-  "Uma pessoa respondeu e depois se corrigiu — pequeno, mas real.",
-  "Ouvi um ‘eu estava aqui’ sem ninguém perguntar.",
-  "Vi alguém apertar o próprio braço, tentando se controlar.",
-  "Ouvi passos leves, quase treinados.",
-  "Vi uma chave balançar e sumir no bolso.",
-  "Uma pessoa engoliu seco antes de negar.",
-  "Vi alguém apontar para longe para desviar atenção.",
-  "Ouvi a frase ‘vamos esquecer isso’ cedo demais.",
-  "Vi alguém evitar encostar em certas coisas.",
-  "Um olhar de alívio apareceu quando o assunto mudou.",
-  "Vi alguém contar uma história longa para esconder um detalhe curto.",
-  "Ouvi uma porta fechar devagar demais.",
-  "Vi alguém medir distância até a saída com os olhos.",
-  "Uma pessoa parecia já ter decidido quem culpar.",
-  "Ouvi ‘eu cheguei depois’ repetido como mantra.",
-  "Vi alguém guardar um objeto e fingir que nunca pegou.",
-  "Ouvi um ‘isso não prova nada’ na primeira suspeita.",
-  "Vi alguém sorrir quando ninguém estava olhando."
-);
+  const byId = (arr, id) => arr.find(x => x.id === id);
+  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
-// ---- +60 Relatório
-window.HINTS_PACK.relatorio.push(
-  "RELATÓRIO: A cena aparenta estar ‘simples’ demais para ser casual; sugere organização.",
-  "RELATÓRIO: Não há sinais de pânico coletivo; possível controle da situação por alguém.",
-  "RELATÓRIO: A cronologia é o ponto fraco das mentiras; recomenda-se revisar horários.",
-  "RELATÓRIO: Testemunhas relatam normalidade; excesso de normalidade é indicador.",
-  "RELATÓRIO: Pequenas contradições surgem em detalhes inúteis; foque nos inúteis.",
-  "RELATÓRIO: Há indício de retorno ao local após o evento; isso sugere preocupação com algo.",
-  "RELATÓRIO: Ausência de barulho não significa ausência de ação; pode ser método.",
-  "RELATÓRIO: O culpado pode ter usado a rotina como disfarce; a rotina é pista.",
-  "RELATÓRIO: Alguém tentou reduzir a importância do fato cedo; possível controle narrativo.",
-  "RELATÓRIO: Reação emocional desigual entre envolvidos; observar quem ‘atua’.",
-  "RELATÓRIO: Informações aparecem sem serem solicitadas; possível ensaio de álibi.",
-  "RELATÓRIO: Movimentação em área pouco frequentada; sugestão: mapear acessos.",
-  "RELATÓRIO: O motivo não parece financeiro; foco em relações e segredos.",
-  "RELATÓRIO: A cena não mostra luta longa; indica surpresa ou confiança.",
-  "RELATÓRIO: Existe ‘buraco’ de tempo em depoimentos; explorar intervalo.",
-  "RELATÓRIO: Atenção a quem orienta o grupo; liderança pode ser máscara.",
-  "RELATÓRIO: A prova pode estar no que foi ‘arrumado’.",
-  "RELATÓRIO: Há tentativa de consenso rápido; consenso pode ser manipulação.",
-  "RELATÓRIO: Contradições em direção/posição são mais confiáveis que emoções.",
-  "RELATÓRIO: Recomenda-se testar hipóteses com palpites controlados.",
-  "RELATÓRIO: Objeto fora do lugar foi notado por poucos; buscar o porquê.",
-  "RELATÓRIO: Observou-se silêncio após menção de certo tema; tema sensível.",
-  "RELATÓRIO: A pressa foi seletiva: apressaram o ‘fim’, não o ‘meio’.",
-  "RELATÓRIO: Uma desculpa pronta apareceu antes da acusação; suspeito.",
-  "RELATÓRIO: Indício de oportunidade: presença + acesso + tempo curto.",
-  "RELATÓRIO: O culpado pode ter dependido de distrações do ambiente.",
-  "RELATÓRIO: Falta de marcas fortes pode indicar método discreto.",
-  "RELATÓRIO: A melhor pista pode ser a ausência de reação.",
-  "RELATÓRIO: Divergências surgem quando se pede repetição da história.",
-  "RELATÓRIO: Recomenda-se registrar quem mudou versão e quando.",
-  "RELATÓRIO: A cena sugere intencionalidade; descartar hipótese de acidente.",
-  "RELATÓRIO: Se houver encenação, ela mira o ‘óbvio’.",
-  "RELATÓRIO: Suspeito provável: quem se beneficia do caos.",
-  "RELATÓRIO: Um detalhe foi omitido por mais de um; possível acordo tácito.",
-  "RELATÓRIO: A estabilidade emocional pode ser ensaiada.",
-  "RELATÓRIO: Recomenda-se questionar “por que agora?”.",
-  "RELATÓRIO: Quem nega demais costuma negar cedo.",
-  "RELATÓRIO: Quem fala pouco pode falar verdade — ou esconder com eficiência.",
-  "RELATÓRIO: Recomenda-se comparar relatos por ordem temporal.",
-  "RELATÓRIO: A rota de saída pode ser mais reveladora que a entrada.",
-  "RELATÓRIO: A cena aponta para conhecimento prévio do ambiente.",
-  "RELATÓRIO: Há indício de ‘controle de danos’ após o evento.",
-  "RELATÓRIO: Uma emoção apareceu no momento errado; registrar.",
-  "RELATÓRIO: A narrativa mais simples nem sempre é a verdadeira.",
-  "RELATÓRIO: Foco em acessos fáceis e pontos cegos do local.",
-  "RELATÓRIO: Inconsistência em “o que eu fazia” é pista forte.",
-  "RELATÓRIO: Se o culpado é cuidadoso, ele evita sujeira e barulho.",
-  "RELATÓRIO: Se o culpado é audacioso, ele fica perto e observa.",
-  "RELATÓRIO: Recomenda-se usar eliminação por consistência, não por impressão.",
-  "RELATÓRIO: Um objeto “limpo demais” pode ter sido limpo.",
-  "RELATÓRIO: A mentira prefere frases absolutas (‘jamais’, ‘nunca’).",
-  "RELATÓRIO: A verdade costuma ter detalhes inúteis.",
-  "RELATÓRIO: O culpado tende a medir reações após falar.",
-  "RELATÓRIO: Registrar quem troca de assunto ao ser pressionado.",
-  "RELATÓRIO: O culpado pode parecer indispensável para controlar a conversa.",
-  "RELATÓRIO: Quando todos ‘não viram’, alguém viu.",
-  "RELATÓRIO: Recomenda-se testar suspeitas com perguntas neutras.",
-  "RELATÓRIO: Não confundir nervosismo com culpa; buscar padrão.",
-  "RELATÓRIO: Conclusão parcial: o caso é mais psicológico do que físico."
-);
+  // ======= TEMPLATES MISTURADOS (sem spoiler) =======
+  // Regra: frase menciona 1 carta OU 1 local + 1 “clima”, OU 1 arma + 1 “efeito”, etc.
+  const T = {
+    testemunha: [
+      (x) => `Eu passei por ${x} e senti que alguém estava normal demais ali.`,
+      (x) => `Em ${x}, o barulho escondia coisas que não deviam ser escondidas.`,
+      (x) => `No caminho até ${x}, vi um olhar procurando testemunhas antes de agir.`,
+      (x) => `Perto de ${x}, ouvi um som curto… e depois silêncio calculado.`,
+      (x) => `Em ${x}, a pressa parecia rotina — e isso me deu arrepio.`,
+      (x) => `Eu vi alguém sair de ${x} como quem já tinha ensaiado a calma.`,
+      (x) => `Em ${x}, alguém tentou mudar de assunto na hora exata.`,
+      (x) => `O ar de ${x} tinha um detalhe estranho: parecia “arrumado” demais.`,
+    ],
+    relatorio: [
+      (x) => `RELATÓRIO: ${x} favorece álibis fáceis. Onde há público, há versões demais.`,
+      (x) => `RELATÓRIO: Em ${x}, a cronologia é tudo. A mentira tropeça no relógio.`,
+      (x) => `RELATÓRIO: ${x} tem pontos cegos. Alguém sabia onde ficar.`,
+      (x) => `RELATÓRIO: Normalidade em ${x} foi excessiva. Indício de controle.`,
+      (x) => `RELATÓRIO: Movimentação suspeita em ${x}. Recomenda-se revisar acessos.`,
+      (x) => `RELATÓRIO: O ambiente de ${x} ajuda quem quer desaparecer sem correr.`,
+    ],
+    boato: [
+      (x) => `Boato: em ${x}, todo mundo viu… mas ninguém quer dizer que viu.`,
+      (x) => `Boato: ${x} é o tipo de lugar perfeito pra uma história “pronta”.`,
+      (x) => `Boato: depois de ${x}, alguém ficou calmo demais pra ser inocente.`,
+      (x) => `Boato: em ${x}, o culpado só precisou de um minuto certo.`,
+      (x) => `Boato: ${x} guarda segredo no que parece banal.`,
+    ],
+    bilhete: [
+      (x) => `BILHETE: “Em ${x}, a verdade sussurra. Não confie no óbvio.”`,
+      (x) => `BILHETE amassado: “${x} tem um ponto cego. Procure onde ninguém procura.”`,
+      (x) => `BILHETE: “Se a cena em ${x} estiver limpa demais… alguém limpou.”`,
+      (x) => `BILHETE: “Em ${x}, quem parece útil demais pode estar guiando você.”`,
+    ],
+    radio: [
+      (x) => `RÁDIO: “Boletim: atenção em ${x}. Há relatos de contradições pequenas.”`,
+      (x) => `RÁDIO (chiado): “Evitem pressa em ${x}. Pressa é aliada do culpado.”`,
+      (x) => `RÁDIO: “Em ${x}, compare versões por horário. A emoção engana.”`,
+      (x) => `RÁDIO: “Alerta: ${x} favorece encenação. Cuidado com a pista perfeita.”`,
+    ],
 
-// ---- +50 Boato
-window.HINTS_PACK.boato.push(
-  "Boato: alguém estava preocupado com uma conversa que ‘não podia acontecer’.",
-  "Dizem que o culpado era o último que você escolheria — e isso é o que ele quer.",
-  "Falam que houve um combinado silencioso antes de tudo.",
-  "Dizem que a vítima tinha uma informação pequena, mas valiosa.",
-  "Ouvi que o culpado tentou parecer o mais prestativo do grupo.",
-  "Comentam que alguém já tinha uma desculpa pronta.",
-  "Dizem que o crime foi mais sobre controle do que sobre raiva.",
-  "Falam que alguém voltou só para conferir se ninguém tinha percebido.",
-  "Boato: houve um objeto trocado de lugar para confundir.",
-  "Dizem que a primeira história contada já nasceu maquiada.",
-  "Comentam que alguém ‘se adiantou’ para explicar antes de perguntar.",
-  "Dizem que o culpado estava confortável demais naquele ambiente.",
-  "Falam que a pressa não era para sair, era para encerrar o assunto.",
-  "Boato: alguém se irritou quando a pergunta foi simples.",
-  "Dizem que a culpa apareceu numa expressão rápida no rosto.",
-  "Falam que alguém sabia quem chegaria e quando.",
-  "Boato: duas pessoas combinaram versões sem perceber.",
-  "Dizem que o culpado apostou que ninguém prestaria atenção no detalhe banal.",
-  "Comentam que alguém insistiu no ‘óbvio’ para esconder o ‘difícil’.",
-  "Dizem que o culpado não tem pressa — tem método.",
-  "Falam que quem mais acusa pode estar desviando.",
-  "Boato: alguém evitou tocar num tema específico.",
-  "Dizem que a verdade estava numa frase interrompida.",
-  "Comentam que alguém mudou de assunto na hora exata.",
-  "Dizem que a cena parecia mais limpa do que deveria.",
-  "Falam que alguém queria muito que isso parecesse acidente.",
-  "Dizem que o culpado prefere sombras e rotina.",
-  "Boato: o que parece coincidência foi escolha.",
-  "Comentam que alguém ficou aliviado com a distração do grupo.",
-  "Dizem que o culpado gosta de controlar o ritmo das conversas.",
-  "Falam que houve um silêncio pesado quando certo nome apareceu.",
-  "Boato: alguém começou a ‘ensinar o jogo’ para dominar a mesa.",
-  "Dizem que o culpado tem um hábito repetido que entrega nervosismo.",
-  "Comentam que alguém estava no lugar certo na hora certa… demais.",
-  "Dizem que o culpado queria calar uma pergunta, não uma pessoa.",
-  "Falam que o crime foi rápido porque era conhecido.",
-  "Boato: alguém mediu reações antes de reagir.",
-  "Dizem que a calma era treino, não paz.",
-  "Comentam que o culpado tentou criar consenso cedo.",
-  "Dizem que a pista perfeita é armadilha antiga.",
-  "Falam que alguém deixou escapar uma palavra que não devia conhecer.",
-  "Boato: alguém estava ‘ocupado demais’ para ver.",
-  "Dizem que o culpado não precisou correr — já estava seguro.",
-  "Comentam que o nervosismo apareceu só quando pressionaram horário.",
-  "Dizem que o culpado foi gentil no momento errado.",
-  "Falam que alguém ficou defensivo com pergunta neutra.",
-  "Boato: havia um plano B e alguém mencionou sem perceber.",
-  "Dizem que alguém quis “resolver logo” para fugir de detalhes.",
-  "Comentam que o culpado prefere as coisas simples: acesso, oportunidade, silêncio."
-);
+    // armas (1 carta)
+    arma: [
+      (w) => `Eu ouvi gente comentando sobre ${w}… e ninguém parecia confortável com o assunto.`,
+      (w) => `RELATÓRIO: ${w} indica método. Método indica intenção.`,
+      (w) => `Boato: ${w} não é escolha de impulso. É escolha de controle.`,
+      (w) => `BILHETE: “${w} não precisa de barulho para deixar marca.”`,
+      (w) => `RÁDIO: “${w} costuma aparecer quando alguém quer terminar rápido.”`,
+      (w) => `O pior de ${w} é o depois — quando tudo parece normal… e não está.`,
+    ],
 
-// ---- +40 Bilhete
-window.HINTS_PACK.bilhete.push(
-  "BILHETE: ‘O óbvio é o disfarce favorito.’",
-  "BILHETE: ‘Quem pede pressa quer menos perguntas.’",
-  "BILHETE: ‘Se a história veio pronta, desconfie.’",
-  "BILHETE: ‘O culpado mede sua reação.’",
-  "BILHETE: ‘Perguntas neutras quebram mentiras grandes.’",
-  "BILHETE: ‘A verdade tem detalhes inúteis.’",
-  "BILHETE: ‘Frases absolutas são armadilhas: “nunca”, “jamais”.’",
-  "BILHETE: ‘Compare versões: o que some em todas?’",
-  "BILHETE: ‘Se parecer simples, alguém trabalhou para parecer.’",
-  "BILHETE: ‘Não siga o barulho; siga o silêncio.’",
-  "BILHETE: ‘O culpado tenta liderar a narrativa.’",
-  "BILHETE: ‘O medo pode ser máscara — ou pode ser pista.’",
-  "BILHETE: ‘A pista perfeita é a mais perigosa.’",
-  "BILHETE: ‘Quando todos concordam rápido, alguém conduziu.’",
-  "BILHETE: ‘O culpado evita uma palavra específica.’",
-  "BILHETE: ‘Apressar o fim não apaga o meio.’",
-  "BILHETE: ‘Observe quem muda de assunto ao ser pressionado.’",
-  "BILHETE: ‘Quem se explica antes de ser acusado, ensaiou.’",
-  "BILHETE: ‘A rotina é o álibi mais fácil.’",
-  "BILHETE: ‘A ausência de reação pode ser a reação.’",
-  "BILHETE: ‘A mentira tropeça em horários.’",
-  "BILHETE: ‘Peça para repetir a história com outros detalhes.’",
-  "BILHETE: ‘Não confunda carisma com inocência.’",
-  "BILHETE: ‘O culpado gosta de parecer indispensável.’",
-  "BILHETE: ‘O detalhe banal puxa a verdade.’",
-  "BILHETE: ‘Se travar, elimine por consistência.’",
-  "BILHETE: ‘Se alguém se irritar com pergunta simples, anote.’",
-  "BILHETE: ‘O culpado protege um detalhe, não a história toda.’",
-  "BILHETE: ‘A calmaria pode ser teatro.’",
-  "BILHETE: ‘A verdade não precisa de volume.’",
-  "BILHETE: ‘Quem acusa cedo pode estar desviando.’",
-  "BILHETE: ‘Cuidado com conclusões fáceis.’",
-  "BILHETE: ‘Quando ninguém viu, alguém viu.’",
-  "BILHETE: ‘O culpado volta para conferir.’",
-  "BILHETE: ‘Foque em acesso + tempo + oportunidade.’",
-  "BILHETE: ‘Uma palavra escapada vale mais que mil desculpas.’",
-  "BILHETE: ‘Se a cena está limpa demais, foi limpa.’",
-  "BILHETE: ‘O culpado não corre: observa.’",
-  "BILHETE: ‘Quem some por minutos some por motivo.’",
-  "BILHETE: ‘A verdade costuma estar onde ninguém procura.’"
-);
+    // suspeitos (1 carta)
+    suspeito: [
+      (s) => `Eu vi ${s} sorrir no momento errado. Pequeno… mas real.`,
+      (s) => `RELATÓRIO: ${s} tem um tipo de calma que pode ser treino.`,
+      (s) => `Boato: ${s} sabe conduzir conversa sem levantar a voz.`,
+      (s) => `BILHETE: “Observe ${s}. Quem controla a narrativa controla o medo.”`,
+      (s) => `RÁDIO: “${s} foi citado em sussurros. Sussurros não surgem do nada.”`,
+      (s) => `${s} parecia estar no lugar certo na hora certa… certo demais.`,
+    ],
+  };
 
-// ---- +30 Rádio
-window.HINTS_PACK.radio.push(
-  "RÁDIO: ‘Atenção. Há relatos de normalidade excessiva. Isso não é paz, é máscara.’",
-  "RÁDIO: ‘Boletim: contradições pequenas derrubam histórias grandes.’",
-  "RÁDIO: ‘Evitem pressa: o culpado se alimenta de conclusões rápidas.’",
-  "RÁDIO: ‘Testemunhas indicam silêncio após um detalhe específico.’",
-  "RÁDIO: ‘Alerta: cuidado com a pista perfeita — pode ser encenação.’",
-  "RÁDIO: ‘Boletim: repitam a cronologia. Quem mentiu vai tropeçar.’",
-  "RÁDIO: ‘Há suspeita de controle de narrativa. Observe quem lidera.’",
-  "RÁDIO: ‘Atenção: o culpado pode estar confortável demais.’",
-  "RÁDIO: ‘Relatos apontam para método, não impulso.’",
-  "RÁDIO: ‘A noite não perdoa distrações. Anotem tudo.’",
-  "RÁDIO: ‘Boletim: o motivo pode ser segredo, não dinheiro.’",
-  "RÁDIO: ‘Quem se explica antes de ser acusado merece atenção.’",
-  "RÁDIO: ‘Atenção: se todos “não viram”, alguém está omitindo.’",
-  "RÁDIO: ‘Boletim: compare versões por horário, não por emoção.’",
-  "RÁDIO: ‘O silêncio é pista quando a sala fala demais.’",
-  "RÁDIO: ‘Alerta: evitem consenso rápido. Consenso pode ser manipulação.’",
-  "RÁDIO: ‘Há sinais de retorno ao local. Quem volta, teme algo.’",
-  "RÁDIO: ‘Boletim: perguntas neutras quebram mentiras ensaiadas.’",
-  "RÁDIO: ‘Atenção: procurem o detalhe banal fora do lugar.’",
-  "RÁDIO: ‘O culpado mede reações após falar. Observem.’",
-  "RÁDIO: ‘Boletim: frases absolutas são suspeitas.’",
-  "RÁDIO: ‘Atenção: a rotina pode ser o melhor disfarce.’",
-  "RÁDIO: ‘Relatos: alguém tentou encerrar o assunto cedo.’",
-  "RÁDIO: ‘Boletim: o crime pode ter sido rápido por ser conhecido.’",
-  "RÁDIO: ‘Atenção: não confunda nervosismo com culpa — busque padrão.’",
-  "RÁDIO: ‘Boletim: se a cena está limpa demais, foi limpa.’",
-  "RÁDIO: ‘Atenção: um gesto repetido pode entregar nervosismo.’",
-  "RÁDIO: ‘Boletim: o culpado pode parecer prestativo.’",
-  "RÁDIO: ‘Atenção: quem acusa cedo pode estar desviando.’",
-  "RÁDIO: ‘Fim do boletim. E cuidado com o óbvio.’"
-);
+  // ======= GERADOR DAS 200 MISTURADAS =======
+  function makeOne() {
+    const mode = pick(["testemunha","relatorio","boato","bilhete","radio","arma","suspeito"]);
+    if (mode === "arma") return pick(T.arma)(pick(ARM).nome);
+    if (mode === "suspeito") return pick(T.suspeito)(pick(SUS).nome);
 
-// ---- +60 Extras (estratégia + clima suspense)
-window.HINTS_PACK.extras.push(
-  "DICA: Se alguém disser ‘eu jamais’, peça detalhes. Absolutos são frágeis.",
-  "DICA: Quem tenta ‘resolver rápido’ pode estar fugindo de horários.",
-  "DICA: Faça um palpite ousado só para ver reações — sem se comprometer.",
-  "DICA: Troque o foco: pergunte sobre o ambiente, não sobre pessoas.",
-  "DICA: Se a história tem começo e fim, procure o meio faltando.",
-  "DICA: O culpado protege um detalhe. Ache o detalhe protegido.",
-  "DICA: Pergunte ‘por que agora?’ e observe quem se irrita.",
-  "DICA: A pista mais útil pode ser um erro de fala.",
-  "DICA: Se alguém muda de assunto, volte nele com calma.",
-  "DICA: A verdade costuma sobreviver a repetição; a mentira desgasta.",
-  "DICA: Compare as versões em voz alta. A contradição aparece.",
-  "DICA: Se ninguém lembra de nada, alguém combinou demais.",
-  "DICA: Se alguém lembra de tudo, pode ter ensaiado demais.",
-  "DICA: Não elimine por cara. Elimine por chance + acesso + tempo.",
-  "DICA: Se o local é público, o culpado usa isso como capa.",
-  "DICA: Se o local é íntimo, o culpado usa confiança como arma.",
-  "DICA: Observe quem olha para a saída quando você pergunta.",
-  "DICA: A primeira história contada costuma virar âncora. Desconfie da âncora.",
-  "DICA: Quem tenta ‘ajudar’ a dedução pode estar guiando você.",
-  "DICA: Faça perguntas chatas. Mentira odeia perguntas chatas.",
-  "NARRATIVA: A luz não falhou. Alguém queria que parecesse falha.",
-  "NARRATIVA: O ambiente parecia ensaiado, como palco depois do ato.",
-  "NARRATIVA: Um silêncio passou correndo pela sala antes de qualquer pessoa.",
-  "NARRATIVA: A verdade ficou presa numa palavra interrompida.",
-  "NARRATIVA: Um detalhe banal virou o fio que puxa tudo.",
-  "NARRATIVA: Um olhar pediu permissão para mentir.",
-  "NARRATIVA: O culpado não precisou correr; já estava seguro.",
-  "NARRATIVA: A pressa tentou vestir roupa de rotina.",
-  "NARRATIVA: A normalidade foi a máscara mais pesada da noite.",
-  "NARRATIVA: Alguém quis transformar dúvida em certeza cedo demais.",
-  "DICA: Se travar, volte para o que você TEM na mão e elimine o resto.",
-  "DICA: Faça o grupo listar o que eliminou — é aí que o erro aparece.",
-  "DICA: Quem reage à palavra ‘prova’ costuma revelar muito.",
-  "DICA: Se alguém ficar defensivo com pergunta neutra, anote.",
-  "DICA: Se a cena está limpa demais, pergunte: quem limpou?",
-  "DICA: Se o culpado é metódico, ele evita barulho; se é audacioso, ele observa.",
-  "DICA: Procure o ponto cego do lugar. O culpado também procurou.",
-  "DICA: Um álibi bom demais pode ser teatro.",
-  "DICA: A culpa às vezes aparece como alívio quando o assunto muda.",
-  "DICA: Repare quem tenta encerrar a conversa com humor.",
-  "DICA: Se dois suspeitos são possíveis, pergunte: quem seria menos notado?",
-  "DICA: Se duas armas são possíveis, pergunte: qual deixa menos chance de erro?",
-  "DICA: Se dois locais são possíveis, pergunte: qual oferece mais controle?",
-  "DICA: Não confunda “calmo” com “inocente”. Calma também é máscara.",
-  "DICA: Faça um palpite “de teste” só para coletar informações.",
-  "DICA: Quem mede sua reação teme a verdade.",
-  "DICA: Quem muda detalhes pequenos pode mudar o grande também.",
-  "DICA: Se a história tem muitas justificativas, ela está se defendendo demais.",
-  "DICA: Mentira gosta de frases curtas; verdade gosta de detalhes inúteis.",
-  "DICA: Quem não se surpreende com a notícia pode já ter imaginado antes.",
-  "DICA: Observe quem protege alguém sem motivo aparente.",
-  "DICA: Pergunte sobre minutos antes. A resposta ‘vazia’ é pista.",
-  "DICA: Não corra atrás do barulho. O culpado espera isso.",
-  "DICA: Se o grupo cair no óbvio, alguém está sorrindo por dentro.",
-  "DICA: Repita a mesma pergunta em momentos diferentes. A versão muda.",
-  "DICA: O culpado quer que você tenha certeza cedo. Não dê esse presente.",
-  "DICA: Consistência vence carisma.",
-  "DICA: Se tudo aponta para um, verifique quem se beneficia disso.",
-  "DICA: Quando todo mundo concorda, pergunte “e se for o contrário?”"
-);
+    // os 5 primeiros usam locais
+    const loc = pick(LOC).nome;
+    return pick(T[mode])(loc);
+  }
 
-// Recria o mix juntando tudo (inclui os extras)
-window.HINTS_PACK.mix = [
-  ...window.HINTS_PACK.testemunha,
-  ...window.HINTS_PACK.relatorio,
-  ...window.HINTS_PACK.boato,
-  ...window.HINTS_PACK.bilhete,
-  ...window.HINTS_PACK.radio,
-  ...window.HINTS_PACK.extras
-];
+  // garantir diversidade: às vezes mistura 2 frases (sem virar spoiler)
+  function maybeDouble(line) {
+    if (Math.random() > 0.35) return line;
+    const extra = makeOne();
 
+    // evita juntar 2 nomes de suspeitos/armas no mesmo bloco muitas vezes
+    const bad = /(Advogado|Chef|Coveiro|Dançarina|Florista|Medica|Mordomo|Sargento)/i.test(line)
+             && /(Advogado|Chef|Coveiro|Dançarina|Florista|Medica|Mordomo|Sargento)/i.test(extra);
+    if (bad) return line;
+
+    return `${line}\n\n${extra}`;
+  }
+
+  function generate200() {
+    const set = new Set();
+    let guard = 0;
+    while (set.size < 200 && guard < 5000) {
+      let line = maybeDouble(makeOne());
+
+      // finais de suspense
+      if (Math.random() < 0.25) {
+        const end = pick([
+          "Não confie no óbvio. O óbvio é abrigo.",
+          "Volte aos minutos antes. Sempre tem um buraco.",
+          "A verdade não grita — ela sussurra.",
+          "Quem pede pressa quer menos perguntas.",
+          "Se a cena está limpa, pergunte: quem limpou?"
+        ]);
+        line = `${line}\n\n${end}`;
+      }
+
+      set.add(line);
+      guard++;
+    }
+    return Array.from(set).slice(0, 200);
+  }
+
+  // ======= COERÊNCIA DO TRIO SECRETO (sem spoiler) =======
+  // O app.js vai chamar isso e ele NÃO mostra nomes/ids do trio, só características.
+  function overlayFromSecret({ susId, armId, locId }) {
+    const sus = byId(SUS, susId);
+    const arm = byId(ARM, armId);
+    const loc = byId(LOC, locId);
+
+    if (!sus || !arm || !loc) {
+      return "Há um método aqui. Nada foi por acaso — alguém contou com o ambiente.";
+    }
+
+    // 1) local
+    const locLine = (() => {
+      if (loc.tipo === "barulhento") {
+        return `O lugar era barulhento — perfeito para esconder um instante decisivo. Entre luzes e ruídos, uma escolha passa despercebida.`;
+      }
+      if (loc.tipo === "silencioso") {
+        return `O lugar era silencioso — e silêncio é pista quando todo mundo tenta falar por cima. Um passo parece mais pesado quando não há música pra engolir.`;
+      }
+      if (loc.tipo === "fechado") {
+        return `O lugar era fechado — bom para emboscada e ruim para improviso. Quem entrou ali sabia onde o olhar não alcança.`;
+      }
+      return `O lugar era público — bom para álibis e ruim para verdades. Onde há gente, há versões demais.`;
+    })();
+
+    // 2) arma
+    const armLine = (() => {
+      if (arm.classe === "barulhenta") {
+        return `O método parecia feito para terminar rápido: impacto, choque, e depois… uma tentativa de normalizar o caos.`;
+      }
+      if (arm.classe === "pesada") {
+        return `O método deixou um tipo de marca que não precisa gritar — basta um som seco e a coragem de estar perto.`;
+      }
+      if (arm.classe === "silenciosa") {
+        return `O método foi discreto, quase educado. O perigo não foi o som — foi a ausência dele.`;
+      }
+      return `O método exigiu proximidade. Não é coisa de quem quer distância — é coisa de quem quer controle.`;
+    })();
+
+    // 3) suspeito (arquétipo)
+    const susLine = (() => {
+      const t = pick(sus.traços);
+      if (sus.arqu === "autoridade") {
+        return `E havia alguém com postura de autoridade. Autoridade acalma… e às vezes cala. Um detalhe de ${t} entrega mais do que discurso.`;
+      }
+      if (sus.arqu === "discreto") {
+        return `E havia alguém discreto, que conhece rotinas alheias. Discrição não chama atenção — ela atravessa. Um detalhe de ${t} ficou no ar.`;
+      }
+      if (sus.arqu === "carismática") {
+        return `E havia alguém carismático o bastante para distrair. Carisma é luz — e a luz também cega. Um detalhe de ${t} apareceu na hora errada.`;
+      }
+      if (sus.arqu === "sombrio") {
+        return `E havia alguém acostumado ao peso do silêncio. Silêncio não é ausência — é escolha. Um detalhe de ${t} pareceu ensaiado.`;
+      }
+      if (sus.arqu === "elegante") {
+        return `E havia alguém com fala bonita. Fala bonita constrói álibi. Um detalhe de ${t} soou como argumento antes da pergunta.`;
+      }
+      if (sus.arqu === "força") {
+        return `E havia alguém com presença forte. Presença forte muda a sala. Um detalhe de ${t} apareceu quando o assunto encostou no perigo.`;
+      }
+      return `E havia alguém metódico. Método se esconde em rotina. Um detalhe de ${t} não combinou com o resto.`;
+    })();
+
+    // entrega 3 linhas coerentes (sem nomes)
+    return `${locLine}\n\n${armLine}\n\n${susLine}`;
+  }
+
+  // ======= EXPORT =======
+  window.HINTS_PACK = window.HINTS_PACK || {};
+  window.HINTS_PACK.mix = generate200();
+
+  // função para o app.js chamar
+  window.HINTS_PACK.coherentOverlay = overlayFromSecret;
+
+})();
