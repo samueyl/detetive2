@@ -248,7 +248,7 @@ function setCrimePill(){
 
 function setHintBox(text, tag="pista"){
   if ($("hintBox")) $("hintBox").textContent = text;
-  if ($("hintMeta")) $("hintMeta").textContent = `(${tag}) ${new Date().toLocaleTimeString()}`;
+  if ($("hintMeta")) $("hintMeta").textContent = "";
 }
 function getHistory(){ return loadJSON(LS.hintHistory, []); }
 function pushHistory(text){
