@@ -436,6 +436,12 @@ function stopHintsAuto(){
 // ======================
 // Scanner — agora com CRIME SETUP no botão, sem precisar apertar “iniciar”
 // ======================
+// anti-repetição / lock
+let scanLockUntil = 0;
+let lastScanId = null;
+let lastScanAt = 0;
+
+
 let qr = null;
 
 async function startCamera(){
@@ -451,29 +457,52 @@ async function startCamera(){
       { facingMode:"environment" },
       { fps:10, qrbox:250 },
       (decodedText)=>{
+        const now = Date.now();
+
+        // ===== Anti-repetição do mesmo QR (html5-qrcode lê várias vezes) =====
+        if (now < scanLockUntil) return;
+
         const id = normalizeCode(decodedText);
         if (!id) return;
 
-        if (onScanForCrime && onScanForCrime(id)) return;
+        // trava leituras repetidas do MESMO id por 1.2s
+        if (id === lastScanId && (now - lastScanAt) < 1200) return;
+        lastScanId = id;
+        lastScanAt = now;
 
-        // Se estiver configurando crime: NÃO mostra last, NÃO adiciona na mão, NÃO mostra carta
-        if (onScanForCrime(id)) return;
+        // ===== Se estiver configurando o crime: NÃO REVELA NADA =====
+        if (crimeSetup.active) {
+          // NÃO mostra o ID na UI enquanto configura
+          if ($("last")) $("last").textContent = "—";
 
-        if ($("last")) $("last").textContent = "—"; // não mostrar ID na UI do crime (opcional)
+          // opcional: limpa a carta exibida (evita “piscar” imagem/nome)
+          if ($("cardBox")) $("cardBox").textContent = "Escaneie uma carta…";
+          if ($("cardImg")) $("cardImg").style.display = "none";
 
-        // se estiver configurando crime, consome 3 scans e NÃO mostra nada da carta
-        if (handleCrimeScan(id)) return;
+          const consumed = handleCrimeScan(id);
 
-        // fluxo normal do jogador (sua carta na mão)
+          // trava um pouco toda vez que registra, pra não pegar repetido
+          scanLockUntil = now + 1400;
+
+          // se acabou de finalizar (3/3), trava mais ainda
+          if (!crimeSetup.active && consumed) {
+            scanLockUntil = now + 3000;
+          }
+          return; // 🔥 garante que nunca vai cair no showCard
+        }
+
+        // ===== Fluxo normal do jogador =====
+        if ($("last")) $("last").textContent = id;
+
         if (CARDS[id]) {
           have.add(id);
           if (!marks[id]) marks[id] = "q";
           refresh();
         }
 
-        // mostra carta normal (aqui pode mostrar nome/imagem porque é carta do jogador)
         showCard(id);
       }
+
     );
 
     if ($("status")) $("status").textContent = "rodando";
