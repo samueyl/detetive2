@@ -45,6 +45,9 @@ function setUIMode(isOnline, roomCode=""){
 
   // opcional: se quiser esconder a seção inteira "Scanner" no online:
   // se seu HTML tiver um container com id, dá pra fazer também.
+  const r = $("btnRevealCrime");
+  if (r) r.style.display = isOnline ? "" : "none";
+
 }
 
 
@@ -64,6 +67,14 @@ const ONLINE_LS = {
   roomId: "det2_online_room_id",
   seat: "det2_online_seat"
 };
+
+function getOnlineRoomId(){
+  return localStorage.getItem(ONLINE_LS.roomId) || "";
+}
+function getOnlineSeat(){
+  return localStorage.getItem(ONLINE_LS.seat) || "";
+}
+
 
 function getPlayerId(){
   let id = localStorage.getItem(ONLINE_LS.playerId);
@@ -256,11 +267,39 @@ async function joinRoomOnline(){
   saveJSON(LS.secret, { a: room.secret.sus, b: room.secret.arm, c: room.secret.loc });
   setCrimePill();
   setHandFromOnline(players[freeSeat].hand || []);
+  startHintsAuto();
   listenRoom(code);
 }
 
+// ======================
+// REVELAR CRIME (ONLINE) - dispara evento para todos
+// ======================
+async function revealCrimeOnline(){
+  const code = localStorage.getItem(ONLINE_LS.roomId) || "";
+  const seat = localStorage.getItem(ONLINE_LS.seat) || "";
+
+  if (!code) {
+    setOnlineStatus("Você não está em uma sala online.");
+    return;
+  }
+
+  const { doc, updateDoc, serverTimestamp } = await fb();
+  const db = window._db;
+  const roomRef = doc(db, "rooms", code);
+
+  await updateDoc(roomRef, {
+    revealEvent: {
+      bySeat: seat,
+      at: serverTimestamp()
+    }
+  });
+}
+
+
 // escuta mudanças na sala (se alguém cair/voltar etc.)
 let unSubRoom = null;
+let lastRevealKey = null;
+
 
 async function listenRoom(code){
   const { doc, onSnapshot } = await fb();
@@ -273,6 +312,29 @@ async function listenRoom(code){
     if (!snap.exists()) return;
 
     const room = snap.data();
+    // --- Evento: alguém revelou o crime (notificar todos) ---
+    if (room.revealEvent?.at) {
+      const t = room.revealEvent.at;
+
+      // cria uma "chave" para não repetir a notificação em todo snapshot
+      const key = (t && typeof t === "object" && "seconds" in t)
+        ? `${t.seconds}-${t.nanoseconds}`
+        : String(t);
+
+      if (key !== lastRevealKey) {
+        lastRevealKey = key;
+
+        const whoSeat = Number(room.revealEvent.bySeat || 0) + 1;
+        const msg = `Jogador ${whoSeat} revelou o crime.`;
+
+        setHintBox(msg, "sistema");
+        setOnlineStatus(msg);
+
+        // opcional: popup também
+        openHintModal({ title: "🔎 Crime revelado", text: msg, imgSrc: "", imgAlt: "" });
+      }
+    }
+
     const pid = getPlayerId();
     const players = room.players || {};
     const seat = Object.keys(players).find(s => players[s]?.pid === pid);
@@ -288,7 +350,9 @@ async function listenRoom(code){
     if (room.secret?.sus){
       saveJSON(LS.secret, { a: room.secret.sus, b: room.secret.arm, c: room.secret.loc });
       setCrimePill();
+      startHintsAuto(); // <<< garante que TODOS iniciem
     }
+
   });
 }
 
@@ -336,6 +400,21 @@ if (btnJoin) {
     }
   });
 }
+
+const btnReveal = $("btnRevealCrime");
+if (btnReveal){
+  btnReveal.addEventListener("click", async (e)=>{
+    e.preventDefault();
+    try{
+      await revealCrimeOnline();
+    }catch(err){
+      console.error("[ONLINE] erro revealCrime:", err);
+      setOnlineStatus("Erro ao revelar crime: " + (err?.message || String(err)));
+      alert("Erro ao revelar crime: " + (err?.message || err));
+    }
+  });
+}
+
 
 
 // ======================
