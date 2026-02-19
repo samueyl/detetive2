@@ -114,52 +114,62 @@ function setHandFromOnline(handIds){
 }
 
 async function createRoomOnline(){
-  console.log("[ONLINE] createRoomOnline() iniciou");
-  console.log("[ONLINE] window._db =", window._db);
-  const playerCount = Number($("onlinePlayers")?.value || 3);
-  const pid = getPlayerId();
+  try {
+    console.log("[ONLINE] createRoomOnline() iniciou");
+    setOnlineStatus("Criando sala...");
 
-  const secret = pickSecretFromDeck();
-  const hands = dealHands(playerCount, secret);
+    const playerCount = Number($("onlinePlayers")?.value || 3);
+    const pid = getPlayerId();
 
-  const code = roomCode();
+    const secret = pickSecretFromDeck();
+    const hands = dealHands(playerCount, secret);
 
-  const { doc, setDoc, collection, serverTimestamp } = await fb();
-  const db = window._db;
+    const code = roomCode();
 
-  const roomRef = doc(collection(db, "rooms"), code);
+    const { doc, setDoc, collection, serverTimestamp } = await fb();
+    const db = window._db;
 
-  // seat 0 fica com o criador
-  const players = {};
-  for (let i=0;i<playerCount;i++){
-    players[String(i)] = { pid: null, connected: false, hand: hands[i] };
+    const roomRef = doc(collection(db, "rooms"), code);
+
+    const players = {};
+    for (let i=0;i<playerCount;i++){
+      players[String(i)] = { pid: null, connected: false, hand: hands[i] };
+    }
+    players["0"].pid = pid;
+    players["0"].connected = true;
+
+    console.log("[ONLINE] setDoc vai rodar", { code, playerCount });
+
+    await setDoc(roomRef, {
+      code,
+      status: "open",
+      maxPlayers: playerCount,
+      createdAt: serverTimestamp(),
+      secret,
+      players
+    });
+
+    console.log("[ONLINE] setDoc OK");
+
+    localStorage.setItem(ONLINE_LS.roomId, code);
+    localStorage.setItem(ONLINE_LS.seat, "0");
+
+    setOnlineStatus(`Sala criada: ${code}. Você é o jogador 1.`);
+
+    saveJSON(LS.secret, { a: secret.sus, b: secret.arm, c: secret.loc });
+    saveJSON(LS.hintHistory, []);
+    setCrimePill();
+    setHandFromOnline(hands[0]);
+    startHintsAuto();
+    listenRoom(code);
+
+  } catch (e) {
+    console.error("[ONLINE] ERRO createRoomOnline:", e);
+    setOnlineStatus("Erro: " + (e?.message || e));
+    alert("Erro ao criar sala: " + (e?.message || e));
   }
-  players["0"].pid = pid;
-  players["0"].connected = true;
-
-  await setDoc(roomRef, {
-    code,
-    status: "open",         // open | started
-    maxPlayers: playerCount,
-    createdAt: serverTimestamp(),
-    secret,                 // {sus, arm, loc}
-    players
-  });
-
-  localStorage.setItem(ONLINE_LS.roomId, code);
-  localStorage.setItem(ONLINE_LS.seat, "0");
-
-  setOnlineStatus(`Sala criada: ${code}. Você é o jogador 1.`);
-  // “crime” configurado localmente também (pra suas dicas offline funcionarem)
-  saveJSON(LS.secret, { a: secret.sus, b: secret.arm, c: secret.loc });
-  saveJSON(LS.hintHistory, []);
-  setCrimePill();
-  setHandFromOnline(hands[0]);
-  startHintsAuto();
-
-  // começa a escuta realtime
-  listenRoom(code);
 }
+
 
 async function joinRoomOnline(){
   const code = String($("roomCode")?.value || "").trim().toUpperCase();
