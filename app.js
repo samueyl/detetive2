@@ -13,6 +13,41 @@ const LS = {
 };
 
 const CARDS = window.CARDS;
+
+// ======================
+// MODO ONLINE (UI / estado)
+// ======================
+let ONLINE_MODE = false;
+
+function setUIMode(isOnline, roomCode=""){
+  ONLINE_MODE = !!isOnline;
+
+  // badge no topo
+  const pill = $("modePill");
+  if (pill){
+    pill.textContent = isOnline ? `modo: online (${roomCode || "—"})` : "modo: offline";
+  }
+
+  // esconder coisas que não quer no online
+  // (você pediu: sumir botões de scanear, etc.)
+  const hideWhenOnline = [
+    "btnCrimeSetup", // configurar crime com scan (fica só offline)
+    "btnStart",      // iniciar camera cartas
+    "btnStop",       // parar camera
+    "reader"         // o leitor de QR
+  ];
+
+  hideWhenOnline.forEach(id=>{
+    const el = $(id);
+    if (!el) return;
+    el.style.display = isOnline ? "none" : "";
+  });
+
+  // opcional: se quiser esconder a seção inteira "Scanner" no online:
+  // se seu HTML tiver um container com id, dá pra fazer também.
+}
+
+
 const HINTS_PACK = window.HINTS_PACK || {};
 const HINTS_BY_SUSPECT = window.HINTS_BY_SUSPECT || {};
 const HINTS_BY_WEAPON  = window.HINTS_BY_WEAPON  || {};
@@ -156,6 +191,8 @@ async function createRoomOnline(){
     localStorage.setItem(ONLINE_LS.seat, "0");
 
     setOnlineStatus(`Sala criada: ${code}. Você é o jogador 1.`);
+    setUIMode(true, code);
+
 
     saveJSON(LS.secret, { a: secret.sus, b: secret.arm, c: secret.loc });
     saveJSON(LS.hintHistory, []);
@@ -193,6 +230,7 @@ async function joinRoomOnline(){
     localStorage.setItem(ONLINE_LS.roomId, code);
     localStorage.setItem(ONLINE_LS.seat, existingSeat);
     setOnlineStatus(`Reconectado na sala ${code} (jogador ${Number(existingSeat)+1}).`);
+    setUIMode(true, code);
     saveJSON(LS.secret, { a: room.secret.sus, b: room.secret.arm, c: room.secret.loc });
     setCrimePill();
     setHandFromOnline(players[existingSeat].hand || []);
@@ -214,6 +252,7 @@ async function joinRoomOnline(){
   localStorage.setItem(ONLINE_LS.seat, freeSeat);
 
   setOnlineStatus(`Entrou na sala ${code} (jogador ${Number(freeSeat)+1}).`);
+  setUIMode(true, code);
   saveJSON(LS.secret, { a: room.secret.sus, b: room.secret.arm, c: room.secret.loc });
   setCrimePill();
   setHandFromOnline(players[freeSeat].hand || []);
@@ -931,12 +970,19 @@ async function startCrimeOneShot(){
 if ($("btnCrimeSetup")) {
   $("btnCrimeSetup").addEventListener("click", (e)=>{
     e.preventDefault();
-    // inicia wizard do zero sempre que clicar
+
+    if (ONLINE_MODE) {
+      setHintBox("No modo online o crime é sorteado automaticamente (sem escanear).", "sistema");
+      return;
+    }
+
+    // offline: continua com scan
     crimeWizard.step = 0;
     crimeWizard.picked = [];
     openCrimeModal();
   });
 }
+
 
 // Botões do modal crime
 if ($("crimeClose")) $("crimeClose").addEventListener("click", async ()=>{ await stopCrimeCamera(); closeCrimeModal(); });
