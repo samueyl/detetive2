@@ -1,11 +1,6 @@
 // app.js — Crime setup (3 telas: 1 scan e fecha), dicas automáticas offline, caderno, acusação
 
-const CARDS = window.CARDS;
-const HINTS_PACK = window.HINTS_PACK || {};
-const HINTS_BY_SUSPECT = window.HINTS_BY_SUSPECT || {};
-const HINTS_BY_WEAPON  = window.HINTS_BY_WEAPON  || {};
-const HINTS_BY_LOCATION= window.HINTS_BY_LOCATION|| {};
-
+const $ = (id) => document.getElementById(id);
 
 const LS = {
   have: "det2_have",
@@ -16,7 +11,237 @@ const LS = {
   hintHistory: "det2_hint_history" // array de strings
 };
 
-const $ = (id) => document.getElementById(id);
+const CARDS = window.CARDS;
+const HINTS_PACK = window.HINTS_PACK || {};
+const HINTS_BY_SUSPECT = window.HINTS_BY_SUSPECT || {};
+const HINTS_BY_WEAPON  = window.HINTS_BY_WEAPON  || {};
+const HINTS_BY_LOCATION= window.HINTS_BY_LOCATION|| {};
+
+
+// ======================
+// ONLINE MODE (Firebase Firestore)
+// ======================
+
+// Guarda jogador e sala no localStorage pra reconectar
+const ONLINE_LS = {
+  playerId: "det2_online_player_id",
+  roomId: "det2_online_room_id",
+  seat: "det2_online_seat"
+};
+
+function getPlayerId(){
+  let id = localStorage.getItem(ONLINE_LS.playerId);
+  if (!id){
+    // id simples com crypto
+    const bytes = crypto.getRandomValues(new Uint8Array(8));
+    id = Array.from(bytes).map(b=>b.toString(16).padStart(2,"0")).join("");
+    localStorage.setItem(ONLINE_LS.playerId, id);
+  }
+  return id;
+}
+
+function roomCode(){
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  let out = "";
+  for (let i=0;i<4;i++) out += chars[Math.floor(Math.random()*chars.length)];
+  return out;
+}
+
+function shuffle(arr){
+  const a = [...arr];
+  for (let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function setOnlineStatus(msg){
+  const el = $("onlineStatus");
+  if (el) el.textContent = msg;
+}
+
+function openOnline(){
+  $("online")?.classList.remove("hidden");
+}
+function closeOnline(){
+  $("online")?.classList.add("hidden");
+}
+
+if ($("btnOnline")) $("btnOnline").addEventListener("click", openOnline);
+if ($("onlineClose")) $("onlineClose").addEventListener("click", closeOnline);
+if ($("online")) $("online").addEventListener("click", (e)=>{ if (e.target.id==="online") closeOnline(); });
+
+async function fb(){
+  if (!window._db) throw new Error("Firebase não carregou (window._db vazio).");
+  const mod = await import("https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js");
+  return mod;
+}
+
+// cria crime secreto (1 sus + 1 arma + 1 local)
+function pickSecretFromDeck(){
+  const ids = Object.keys(CARDS);
+  const suspects = ids.filter(id => CARDS[id].tipo === "Suspeito");
+  const weapons  = ids.filter(id => CARDS[id].tipo === "Arma");
+  const locations= ids.filter(id => CARDS[id].tipo === "Local");
+
+  const sus = suspects[Math.floor(Math.random()*suspects.length)];
+  const arm = weapons[Math.floor(Math.random()*weapons.length)];
+  const loc = locations[Math.floor(Math.random()*locations.length)];
+  return { sus, arm, loc };
+}
+
+// distribui cartas (sem as 3 do crime) pros N players
+function dealHands(playerCount, secret){
+  const all = Object.keys(CARDS);
+  const remaining = all.filter(id => ![secret.sus, secret.arm, secret.loc].includes(id));
+  const deck = shuffle(remaining);
+
+  const hands = Array.from({length: playerCount}, ()=>[]);
+  deck.forEach((cardId, idx)=>{
+    hands[idx % playerCount].push(cardId);
+  });
+
+  return hands;
+}
+
+// Renderiza "minhas cartas" a partir do array (online)
+function setHandFromOnline(handIds){
+  have = new Set(handIds);
+  // opcional: marca ? automaticamente no caderno
+  handIds.forEach(id => { if (!marks[id]) marks[id] = "q"; });
+  refresh();
+}
+
+async function createRoomOnline(){
+  const playerCount = Number($("onlinePlayers")?.value || 3);
+  const pid = getPlayerId();
+
+  const secret = pickSecretFromDeck();
+  const hands = dealHands(playerCount, secret);
+
+  const code = roomCode();
+
+  const { doc, setDoc, collection, serverTimestamp } = await fb();
+  const db = window._db;
+
+  const roomRef = doc(collection(db, "rooms"), code);
+
+  // seat 0 fica com o criador
+  const players = {};
+  for (let i=0;i<playerCount;i++){
+    players[String(i)] = { pid: null, connected: false, hand: hands[i] };
+  }
+  players["0"].pid = pid;
+  players["0"].connected = true;
+
+  await setDoc(roomRef, {
+    code,
+    status: "open",         // open | started
+    maxPlayers: playerCount,
+    createdAt: serverTimestamp(),
+    secret,                 // {sus, arm, loc}
+    players
+  });
+
+  localStorage.setItem(ONLINE_LS.roomId, code);
+  localStorage.setItem(ONLINE_LS.seat, "0");
+
+  setOnlineStatus(`Sala criada: ${code}. Você é o jogador 1.`);
+  // “crime” configurado localmente também (pra suas dicas offline funcionarem)
+  saveJSON(LS.secret, { a: secret.sus, b: secret.arm, c: secret.loc });
+  saveJSON(LS.hintHistory, []);
+  setCrimePill();
+  setHandFromOnline(hands[0]);
+  startHintsAuto();
+
+  // começa a escuta realtime
+  listenRoom(code);
+}
+
+async function joinRoomOnline(){
+  const code = String($("roomCode")?.value || "").trim().toUpperCase();
+  if (!code) return setOnlineStatus("Digite o código da sala.");
+
+  const pid = getPlayerId();
+  const { doc, getDoc, updateDoc } = await fb();
+  const db = window._db;
+
+  const roomRef = doc(db, "rooms", code);
+  const snap = await getDoc(roomRef);
+  if (!snap.exists()) return setOnlineStatus("Sala não encontrada.");
+
+  const room = snap.data();
+  const players = room.players || {};
+
+  // se já estava na sala, reconecta no mesmo seat
+  const existingSeat = Object.keys(players).find(seat => players[seat]?.pid === pid);
+  if (existingSeat != null){
+    localStorage.setItem(ONLINE_LS.roomId, code);
+    localStorage.setItem(ONLINE_LS.seat, existingSeat);
+    setOnlineStatus(`Reconectado na sala ${code} (jogador ${Number(existingSeat)+1}).`);
+    saveJSON(LS.secret, { a: room.secret.sus, b: room.secret.arm, c: room.secret.loc });
+    setCrimePill();
+    setHandFromOnline(players[existingSeat].hand || []);
+    startHintsAuto();
+    listenRoom(code);
+    return;
+  }
+
+  // acha vaga livre
+  const freeSeat = Object.keys(players).find(seat => !players[seat]?.pid);
+  if (freeSeat == null) return setOnlineStatus("Sala cheia.");
+
+  players[freeSeat].pid = pid;
+  players[freeSeat].connected = true;
+
+  await updateDoc(roomRef, { players });
+
+  localStorage.setItem(ONLINE_LS.roomId, code);
+  localStorage.setItem(ONLINE_LS.seat, freeSeat);
+
+  setOnlineStatus(`Entrou na sala ${code} (jogador ${Number(freeSeat)+1}).`);
+  saveJSON(LS.secret, { a: room.secret.sus, b: room.secret.arm, c: room.secret.loc });
+  setCrimePill();
+  setHandFromOnline(players[freeSeat].hand || []);
+  listenRoom(code);
+}
+
+// escuta mudanças na sala (se alguém cair/voltar etc.)
+let unSubRoom = null;
+
+async function listenRoom(code){
+  const { doc, onSnapshot } = await fb();
+  const db = window._db;
+
+  if (unSubRoom) { try{ unSubRoom(); }catch{} unSubRoom=null; }
+
+  const roomRef = doc(db, "rooms", code);
+  unSubRoom = onSnapshot(roomRef, (snap)=>{
+    if (!snap.exists()) return;
+
+    const room = snap.data();
+    const pid = getPlayerId();
+    const players = room.players || {};
+    const seat = Object.keys(players).find(s => players[s]?.pid === pid);
+
+    // se por algum motivo perder seat, não faz nada
+    if (seat == null) return;
+
+    // atualiza mão se mudou
+    const hand = players[seat].hand || [];
+    setHandFromOnline(hand);
+
+    // mantém secret sincronizado
+    if (room.secret?.sus){
+      saveJSON(LS.secret, { a: room.secret.sus, b: room.secret.arm, c: room.secret.loc });
+      setCrimePill();
+    }
+  });
+}
+
+if ($("btnCreateRoom")) $("btnCreateRoom").addEventListener("click", createRoomOnline);
+if ($("btnJoinRoom")) $("btnJoinRoom").addEventListener("click", joinRoomOnline);
 
 // ======================
 // MODAL DE DICA (POPUP)

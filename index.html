@@ -15,6 +15,35 @@
   </header>
 
   <main class="grid">
+    
+    <!-- Modal: Online -->
+    <div id="online" class="modal hidden">
+      <div class="modalCard wide">
+        <button id="onlineClose" class="iconBtn" aria-label="Fechar" type="button">✕</button>
+        <div class="modalTitle">🌐 Modo online</div>
+
+        <div class="row">
+          <label class="muted">Jogadores (3–8)</label>
+          <select id="onlinePlayers">
+            <option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
+          </select>
+          <button id="btnCreateRoom" type="button">Criar sala</button>
+        </div>
+
+        <hr />
+
+        <div class="row">
+          <input id="roomCode" placeholder="Código da sala (ex: 8F2K)" />
+          <button id="btnJoinRoom" type="button">Entrar</button>
+        </div>
+
+        <div class="pill block" id="onlineStatus">—</div>
+        <p class="muted" style="margin-top:10px">
+          Dica: cada celular entra com o código e recebe as cartas automaticamente.
+        </p>
+      </div>
+    </div>
+
 
     <!-- COLUNA 1 -->
     <section class="card">
@@ -50,6 +79,7 @@
       <h2>📌 Minhas cartas</h2>
 
       <div class="row">
+        <button id="btnOnline" type="button">🌐 Modo online</button>
         <button id="btnNotebook" type="button">📒 Caderno</button>
         <button id="btnClearMarks" type="button">Limpar marcações</button>
       </div>
@@ -152,6 +182,26 @@
   <!-- Scripts SEMPRE por último (ordem correta) -->
   <script src="./data/cards.js"></script>
   <script src="./data/hints.js"></script>
+
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+    // ⚠️ COLE AQUI sua config do Firebase
+    const firebaseConfig = {
+      apiKey: "XXX",
+      authDomain: "XXX",
+      projectId: "XXX",
+      storageBucket: "XXX",
+      messagingSenderId: "XXX",
+      appId: "XXX"
+    };
+
+    window._fbApp = initializeApp(firebaseConfig);
+    window._db = getFirestore(window._fbApp);
+  </script>
+
+
   <script src="./app.js"></script>
 </body>
 </html>
