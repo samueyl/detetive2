@@ -50,6 +50,145 @@ function setUIMode(isOnline, roomCode=""){
 
 }
 
+// ======================
+// SISTEMA DE TURNOS + EVENTOS (OFFLINE/ONLINE)
+// ======================
+
+// chance do evento aparecer ao encerrar um turno (0.00 a 1.00)
+const EVENT_CHANCE = 0.35;
+
+// guarda anti-repetição do último evento visto
+const EVENT_LS = {
+  lastEventId: "det2_last_event_id",
+  offlineTurn: "det2_offline_turn"
+};
+
+function setTurnPill(n){
+  const el = $("turnPill");
+  if (el) el.textContent = `turno: ${Number(n||0)}`;
+}
+
+function rand(n){ return Math.floor(Math.random()*n); }
+function pick(arr){ return arr[rand(arr.length)]; }
+
+function cardsByType(tipo){
+  return Object.keys(CARDS).filter(id => CARDS[id]?.tipo === tipo);
+}
+function pickCardName(tipo){
+  const ids = cardsByType(tipo);
+  if (!ids.length) return tipo;
+  const id = pick(ids);
+  return CARDS[id]?.nome || tipo;
+}
+
+// === GERADORES DE EVENTO (30) ===
+// Regras: não mexe no caderno, não depende de tempo, só afeta “ação do turno/pergunta/acusação”
+function makeEventPayload({ turn, maxPlayers }){
+  // decide se é global ou individual
+  const isGlobal = Math.random() < 0.60; // 60% global, 40% individual
+
+  // escolhe seat alvo (0..maxPlayers-1) quando individual
+  const targetSeat = isGlobal ? null : String(rand(Math.max(1, Number(maxPlayers||3))));
+
+  // helpers de nomes
+  const L = () => pickCardName("Local");
+  const S = () => pickCardName("Suspeito");
+  const A = () => pickCardName("Arma");
+
+  const eventTextList = [
+    // Locais / caos urbano
+    () => `🚕 Você pegou o táxi errado e foi parar em ${L()}. Você perde sua PRÓXIMA pergunta.`,
+    () => `🎤 Evento lotado em ${L()}! Nessa rodada, perguntas devem ser só SIM/NÃO.`,
+    () => `🔒 Portas trancadas em ${L()}. Ninguém pode ACUSAR até a próxima rodada.`,
+    () => `🚨 Confusão em ${L()}. O jogador atual faz a pergunta, mas outro jogador (escolhido por ele) responde.`,
+    () => `🕯️ Apagão em ${L()}. Rodada muda: todo mundo pula a pergunta desta rodada.`,
+    () => `📢 Boato estourou em ${L()}. Nesta rodada, não pode perguntar sobre LOCAIS.`,
+    () => `🧾 Fiscalização em ${L()}. Nesta rodada, não pode perguntar sobre ARMAS.`,
+    () => `👀 Movimento suspeito em ${L()}. Nesta rodada, não pode perguntar sobre SUSPEITOS.`,
+    () => `🚌 Você desceu no ponto errado e perdeu tempo. Você vai para o FINAL da ordem da rodada.`,
+    () => `🚧 Rua bloqueada perto de ${L()}. A próxima pergunta que você fizer deve ser bem direta (SIM/NÃO).`,
+    () => `🗺️ Você achou um atalho passando por ${L()}. Você ganha +1 pergunta nesta rodada.`,
+
+    // Suspeitos
+    () => `🤒 ${S()} ficou doente. Não pode ser ACUSADO até a próxima rodada.`,
+    () => `⚖️ ${S()} acionou um advogado. Quem tentar acusar essa pessoa nesta rodada perde a acusação (não vale).`,
+    () => `🧠 ${S()} está inspirado hoje. O alvo da sua pergunta pode escolher entre responder você OU outro jogador.`,
+    () => `😶 ${S()} se recusou a falar. Nesta rodada, o alvo pode responder “não sei” UMA vez.`,
+    () => `🎭 ${S()} distraiu todo mundo. Nesta rodada, ninguém pode dizer nomes de cartas (só “suspeito/arma/local”).`,
+    () => `🧤 ${S()} está “controlando a cena”. O jogador atual escolhe quem será o PRÓXIMO a jogar.`,
+    () => `📌 ${S()} deixou um detalhe escapar. Se sua próxima resposta for “SIM”, você ganha +1 pergunta.`,
+    () => `🚪 ${S()} trancou uma porta. Escolha um jogador: ele não pode fazer pergunta nesta rodada (só responder).`,
+
+    // Armas
+    () => `🧪 Cheiro estranho no ar (${A()}). Nesta rodada, perguntas devem ser só SIM/NÃO.`,
+    () => `🔊 Um barulho de ${A()} assustou o grupo. Nesta rodada, ninguém pode ACUSAR.`,
+    () => `🩸 Sinal de ${A()} apareceu na cena. O jogador atual pode fazer uma PERGUNTA DUPLA (o alvo responde só uma parte).`,
+    () => `🧨 Clima tenso por causa de ${A()}. O alvo da pergunta pode devolver uma pergunta em vez de responder.`,
+    () => `🧰 Alguém achou ${A()} “fora do lugar”. O jogador atual escolhe 1 jogador para mostrar 1 carta (apenas para ele).`,
+    () => `🧊 ${A()} trouxe frieza ao jogo. Nesta rodada, só pode perguntar sobre SUSPEITOS.`,
+    () => `🧯 Pânico com ${A()}. Nesta rodada, só pode perguntar sobre ARMAS.`,
+    () => `🧭 Rumor sobre ${A()}. Nesta rodada, só pode perguntar sobre LOCAIS.`,
+
+    // Gerais
+    () => `🌧️ Chuva forte. Nesta rodada, perguntas devem ser SIM/NÃO e sem justificativas.`,
+    () => `📻 Notícia no rádio: “algo vai mudar”. Todos ganham +1 pergunta na PRÓXIMA rodada.`,
+    () => `☎️ Alguém te ligou bem na sua vez. Você faz a pergunta, mas outro jogador responde no seu lugar.`,
+    () => `🌀 Confusão geral. Troque sua vez com o PRÓXIMO jogador na ordem (uma vez).`,
+  ];
+
+  const text = pick(eventTextList)();
+
+  // id único do evento (pra não repetir)
+  const id = `ev_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+
+  return {
+    id,
+    turn: Number(turn || 0),
+    scope: isGlobal ? "all" : "seat",
+    targetSeat, // string "0","1","2"... ou null
+    text
+  };
+}
+
+// Mostra popup do evento (todo mundo vê)
+function showEventPopup(payload){
+  if (!payload?.id) return;
+
+  let title = "🎲 Evento inesperado";
+  let text = payload.text || "Algo aconteceu.";
+
+  if (payload.scope === "seat" && payload.targetSeat != null){
+    const who = Number(payload.targetSeat) + 1;
+    text = `🎯 Afetou o Jogador ${who}\n\n${text}`;
+  } else {
+    text = `🌐 Afetou TODOS\n\n${text}`;
+  }
+
+  openHintModal({
+    title,
+    text,
+    imgSrc: "",
+    imgAlt: "Evento"
+  });
+
+  // também joga no hintBox pra ficar registrado
+  setHintBox(text, "evento");
+}
+
+// OFFLINE: encerra turno e talvez gera evento local
+function endTurnOffline(){
+  const t = Number(localStorage.getItem(EVENT_LS.offlineTurn) || "0") + 1;
+  localStorage.setItem(EVENT_LS.offlineTurn, String(t));
+  setTurnPill(t);
+
+  // evento “do nada”
+  if (Math.random() < EVENT_CHANCE){
+    const payload = makeEventPayload({ turn: t, maxPlayers: 4 });
+    showEventPopup(payload);
+  }
+}
+
+
 
 const HINTS_PACK = window.HINTS_PACK || {};
 const HINTS_BY_SUSPECT = window.HINTS_BY_SUSPECT || {};
@@ -252,13 +391,17 @@ async function createRoomOnline(){
 
     setOnlineStatus(`Sala criada: ${code}. Você é o jogador 1.`);
     setUIMode(true, code);
+    setTurnPill(0); // até o snapshot chegar
+    ensureTokens();
+
 
 
     saveJSON(LS.secret, { a: secret.sus, b: secret.arm, c: secret.loc });
+    updateTokensUI();
     saveJSON(LS.hintHistory, []);
     setCrimePill();
     setHandFromOnline(hands[0]);
-    startHintsAuto();
+  
     listenRoom(code);
 
   } catch (e) {
@@ -291,10 +434,14 @@ async function joinRoomOnline(){
     localStorage.setItem(ONLINE_LS.seat, existingSeat);
     setOnlineStatus(`Reconectado na sala ${code} (jogador ${Number(existingSeat)+1}).`);
     setUIMode(true, code);
+    setTurnPill(0); // até o snapshot chegar
     saveJSON(LS.secret, { a: room.secret.sus, b: room.secret.arm, c: room.secret.loc });
+    ensureTokens();
+    updateTokensUI();
+
     setCrimePill();
     setHandFromOnline(players[existingSeat].hand || []);
-    startHintsAuto();
+    
     listenRoom(code);
     return;
   }
@@ -316,7 +463,7 @@ async function joinRoomOnline(){
   saveJSON(LS.secret, { a: room.secret.sus, b: room.secret.arm, c: room.secret.loc });
   setCrimePill();
   setHandFromOnline(players[freeSeat].hand || []);
-  startHintsAuto();
+  
   listenRoom(code);
 }
 
@@ -345,6 +492,44 @@ async function revealCrimeOnline(){
   await showCrimeToMeFromRoom();
   
 }
+
+// ONLINE: encerra turno (sincroniza e pode disparar evento)
+async function endTurnOnline(){
+  const code = getOnlineRoomId();
+  const mySeat = getOnlineSeat();
+
+  if (!code) {
+    alert("Você não está em uma sala online.");
+    return;
+  }
+
+  const { doc, runTransaction, serverTimestamp } = await fb();
+  const roomRef = doc(window._db, "rooms", code);
+
+  await runTransaction(window._db, async (tx) => {
+    const snap = await tx.get(roomRef);
+    if (!snap.exists()) throw new Error("Sala não existe.");
+
+    const room = snap.data();
+    const turn = Number(room.turn || 0) + 1;
+    const maxPlayers = Number(room.maxPlayers || 3);
+
+    const update = {
+      turn,
+      lastTurnBy: mySeat,
+      lastTurnAt: serverTimestamp()
+    };
+
+    // chance do evento aparecer “do nada”
+    if (Math.random() < EVENT_CHANCE){
+      const ev = makeEventPayload({ turn, maxPlayers });
+      update.event = { ...ev, at: serverTimestamp() };
+    }
+
+    tx.update(roomRef, update);
+  });
+}
+
 
 function showCrimeToMe(){
   const s = getSecret(); // usa seu LS.secret (já existe no seu app)
@@ -401,6 +586,22 @@ async function listenRoom(code){
     if (!snap.exists()) return;
 
     const room = snap.data();
+
+        // --- Evento aleatório (todos veem o popup) ---
+    if (room.event?.id){
+      const lastSeen = localStorage.getItem(EVENT_LS.lastEventId) || "";
+      if (room.event.id !== lastSeen){
+        localStorage.setItem(EVENT_LS.lastEventId, room.event.id);
+        showEventPopup(room.event);
+      }
+    }
+
+    // atualiza pill do turno
+    if (typeof room.turn !== "undefined"){
+      setTurnPill(room.turn);
+    }
+
+
     // --- Evento: alguém revelou o crime (notificar todos) ---
     // --- Evento: alguém revelou o crime (notificar todos) ---
     if (room.revealEvent?.at) {
@@ -505,6 +706,26 @@ if (btnJoin) {
 }
 
 const btnReveal = $("btnRevealCrime");
+
+const btnEndTurn = $("btnEndTurn");
+if (btnEndTurn){
+  btnEndTurn.addEventListener("click", async (e)=>{
+    e.preventDefault();
+
+    try{
+      if (ONLINE_MODE){
+        await endTurnOnline();
+      } else {
+        endTurnOffline();
+      }
+    }catch(err){
+      console.error("[TURN] erro:", err);
+      alert("Erro ao encerrar turno: " + (err?.message || err));
+    }
+  });
+}
+
+
 if (btnReveal){
   btnReveal.addEventListener("click", async (e)=>{
     e.preventDefault();
@@ -889,7 +1110,7 @@ const TRAITS = {
   }
 };
 
-function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
 
 function buildCoherentOverlay(){
   const s = getSecret();
@@ -1123,10 +1344,11 @@ async function startCrimeOneShot(){
           // salva embaralhado (a/b/c)
           const shuffled = [...crimeWizard.picked].sort(()=>Math.random()-0.5);
           saveJSON(LS.secret, { a: shuffled[0], b: shuffled[1], c: shuffled[2] });
+          updateTokensUI();
 
           setCrimePill();
-          setHintBox("✅ Crime configurado. As pistas vão começar a aparecer em tempos aleatórios…", "sistema");
-          startHintsAuto();
+          setHintBox("✅ Crime configurado.", "sistema");
+          
 
           // limpa wizard
           crimeWizard.step = 0;
@@ -1297,12 +1519,111 @@ document.addEventListener("keydown", async (e) => {
   }
 });
 
+// ======================
+// DICAS POR TOKEN (sem timer)
+// ======================
+const HINT_TOKENS = {
+  offlineKey: "det2_hint_tokens_offline",
+  onlinePrefix: "det2_hint_tokens_online_" // + roomCode
+};
+
+function getTokensKey(){
+  // online: separa por sala; offline: único
+  if (ONLINE_MODE) {
+    const code = localStorage.getItem(ONLINE_LS.roomId) || "no_room";
+    return HINT_TOKENS.onlinePrefix + code;
+  }
+  return HINT_TOKENS.offlineKey;
+}
+
+function loadTokens(){
+  const key = getTokensKey();
+  const v = Number(localStorage.getItem(key));
+  return Number.isFinite(v) ? v : 3;
+}
+
+function saveTokens(n){
+  const key = getTokensKey();
+  localStorage.setItem(key, String(Math.max(0, n)));
+}
+
+function updateTokensUI(){
+  const n = loadTokens();
+  const btn = $("btnUseHint");
+  const pill = $("hintTokensPill");
+
+  if (pill) pill.textContent = `dicas: ${n}`;
+  if (btn) {
+    btn.textContent = `💡 Usar dica (${n})`;
+    btn.disabled = (n <= 0) || !hasSecret(); // só habilita se crime existe
+  }
+}
+
+// garante tokens inicializados (3) quando entrar na sala / abrir app
+function ensureTokens(){
+  const key = getTokensKey();
+  if (localStorage.getItem(key) == null) {
+    localStorage.setItem(key, "3");
+  }
+  updateTokensUI();
+}
+
+// usa 1 token e gera 1 dica aleatória (igual offline)
+function useHintToken(){
+  if (!hasSecret()){
+    setHintBox("Configure o crime primeiro para receber dicas.", "sistema");
+    updateTokensUI();
+    return;
+  }
+
+  let n = loadTokens();
+  if (n <= 0){
+    setHintBox("Você está sem dicas restantes.", "sistema");
+    updateTokensUI();
+    return;
+  }
+
+  n -= 1;
+  saveTokens(n);
+  updateTokensUI();
+
+  // gera dica usando o mesmo motor que você já tem
+  const { text, tag } = buildHint();
+  setHintBox(text, tag);
+  pushHistory(text);
+
+  // abre popup com imagem (mesma lógica do seu sistema)
+  const source = pick(HINT_SOURCE_TYPES);
+  const imgInfo = getHintImageBySource(source);
+
+  openHintModal({
+    title: imgInfo.title,
+    text,
+    imgSrc: imgInfo.src,
+    imgAlt: source
+  });
+}
+
+// listener do botão
+const btnUseHint = $("btnUseHint");
+if (btnUseHint){
+  btnUseHint.addEventListener("click", (e)=>{
+    e.preventDefault();
+    useHintToken();
+  });
+}
+
+
 // boot
+// boot turno
+setTurnPill( ONLINE_MODE ? 0 : Number(localStorage.getItem(EVENT_LS.offlineTurn) || "0") );
 refresh();
 renderAccuseResult();
 setCrimePill();
+ensureTokens();
+
 
 if (hasSecret()) {
-  setHintBox("🔒 Crime já configurado neste celular. Pistas podem aparecer a qualquer momento…", "sistema");
-  startHintsAuto();
+  setHintBox("🔒 Crime já configurado neste celular.", "sistema");
+  
 }
