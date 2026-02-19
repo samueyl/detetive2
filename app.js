@@ -295,6 +295,44 @@ async function revealCrimeOnline(){
   });
 }
 
+function showCrimeToMe(){
+  const s = getSecret(); // usa seu LS.secret (já existe no seu app)
+  if (!s?.a || !s?.b || !s?.c) {
+    setOnlineStatus("Crime não encontrado neste aparelho.");
+    return;
+  }
+
+  const ids = [s.a, s.b, s.c];
+
+  // pega pelo tipo (não depende da ordem a/b/c)
+  const susId = ids.find(id => CARDS[id]?.tipo === "Suspeito");
+  const armId = ids.find(id => CARDS[id]?.tipo === "Arma");
+  const locId = ids.find(id => CARDS[id]?.tipo === "Local");
+
+  const sus = CARDS[susId];
+  const arm = CARDS[armId];
+  const loc = CARDS[locId];
+
+  if (!sus || !arm || !loc) {
+    setOnlineStatus("Crime incompleto neste aparelho.");
+    return;
+  }
+
+  const text =
+    `Suspeito: ${sus.nome}\n` +
+    `Arma: ${arm.nome}\n` +
+    `Local: ${loc.nome}`;
+
+  // mostra um popup só pra você (quem clicou)
+  openHintModal({
+    title: "🔎 Crime revelado",
+    text,
+    imgSrc: sus.img,     // imagem do suspeito (poderia ser qualquer uma)
+    imgAlt: "Crime"
+  });
+}
+
+
 
 // escuta mudanças na sala (se alguém cair/voltar etc.)
 let unSubRoom = null;
