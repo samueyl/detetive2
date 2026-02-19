@@ -293,6 +293,7 @@ async function revealCrimeOnline(){
       at: serverTimestamp()
     }
   });
+  showCrimeToMe();
 }
 
 function showCrimeToMe(){
