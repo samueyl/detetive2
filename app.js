@@ -1,4 +1,5 @@
 // app.js — Crime setup (3 telas: 1 scan e fecha), dicas automáticas offline, caderno, acusação
+console.log("APP.JS CARREGOU - build:", new Date().toISOString());
 
 const $ = (id) => document.getElementById(id);
 
