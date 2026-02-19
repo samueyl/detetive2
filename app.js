@@ -463,6 +463,9 @@ async function joinRoomOnline(){
   saveJSON(LS.secret, { a: room.secret.sus, b: room.secret.arm, c: room.secret.loc });
   setCrimePill();
   setHandFromOnline(players[freeSeat].hand || []);
+  ensureTokens();
+  updateTokensUI();
+
   
   listenRoom(code);
 }
@@ -654,8 +657,10 @@ async function listenRoom(code){
     if (room.secret?.sus){
       saveJSON(LS.secret, { a: room.secret.sus, b: room.secret.arm, c: room.secret.loc });
       setCrimePill();
-      startHintsAuto(); // <<< garante que TODOS iniciem
+      ensureTokens();
+      updateTokensUI();
     }
+
 
   });
 }
