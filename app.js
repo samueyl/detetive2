@@ -114,6 +114,8 @@ function setHandFromOnline(handIds){
 }
 
 async function createRoomOnline(){
+  console.log("[ONLINE] createRoomOnline() iniciou");
+  console.log("[ONLINE] window._db =", window._db);
   const playerCount = Number($("onlinePlayers")?.value || 3);
   const pid = getPlayerId();
 
@@ -240,8 +242,46 @@ async function listenRoom(code){
   });
 }
 
-if ($("btnCreateRoom")) $("btnCreateRoom").addEventListener("click", createRoomOnline);
-if ($("btnJoinRoom")) $("btnJoinRoom").addEventListener("click", joinRoomOnline);
+const btnCreate = $("btnCreateRoom");
+if (btnCreate) {
+  btnCreate.addEventListener("click", async (e) => {
+    e.preventDefault();
+    console.log("[ONLINE] click criar sala");
+    setOnlineStatus("Criando sala...");
+    btnCreate.disabled = true;
+
+    try {
+      await createRoomOnline();
+      console.log("[ONLINE] sala criada OK");
+    } catch (err) {
+      console.error("[ONLINE] erro ao criar sala:", err);
+      setOnlineStatus("Erro ao criar sala: " + (err?.message || String(err)));
+    } finally {
+      btnCreate.disabled = false;
+    }
+  });
+}
+
+const btnJoin = $("btnJoinRoom");
+if (btnJoin) {
+  btnJoin.addEventListener("click", async (e) => {
+    e.preventDefault();
+    console.log("[ONLINE] click entrar sala");
+    setOnlineStatus("Entrando na sala...");
+    btnJoin.disabled = true;
+
+    try {
+      await joinRoomOnline();
+      console.log("[ONLINE] entrou OK");
+    } catch (err) {
+      console.error("[ONLINE] erro ao entrar:", err);
+      setOnlineStatus("Erro ao entrar: " + (err?.message || String(err)));
+    } finally {
+      btnJoin.disabled = false;
+    }
+  });
+}
+
 
 // ======================
 // MODAL DE DICA (POPUP)
