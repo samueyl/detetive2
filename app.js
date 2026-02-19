@@ -254,6 +254,11 @@ async function listenRoom(code){
 }
 
 const btnCreate = $("btnCreateRoom");
+console.log("[ONLINE] btnCreateRoom existe?", !!btnCreate, btnCreate);
+window.addEventListener("load", () => {
+  console.log("[ONLINE] load ok - btnCreateRoom:", !!$("btnCreateRoom"));
+});
+
 if (btnCreate) {
   btnCreate.addEventListener("click", async (e) => {
     e.preventDefault();
