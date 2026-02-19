@@ -160,6 +160,55 @@ function setHandFromOnline(handIds){
   refresh();
 }
 
+async function showCrimeToMeFromRoom(){
+  try {
+    const code = localStorage.getItem(ONLINE_LS.roomId);
+    if (!code) {
+      alert("Você não está em uma sala online.");
+      return;
+    }
+
+    const { doc, getDoc } = await fb();
+    const roomRef = doc(window._db, "rooms", code);
+    const snap = await getDoc(roomRef);
+
+    if (!snap.exists()) {
+      alert("Sala não encontrada (foi apagada?).");
+      return;
+    }
+
+    const room = snap.data();
+    const secret = room.secret; // {sus, arm, loc}
+
+    if (!secret?.sus || !secret?.arm || !secret?.loc) {
+      alert("Crime ainda não está configurado nessa sala.");
+      return;
+    }
+
+    const sus = CARDS[secret.sus];
+    const arm = CARDS[secret.arm];
+    const loc = CARDS[secret.loc];
+
+    const text =
+      `Suspeito: ${sus?.nome || secret.sus}\n` +
+      `Arma: ${arm?.nome || secret.arm}\n` +
+      `Local: ${loc?.nome || secret.loc}`;
+
+    // Popup (usa o seu modal de dica)
+    openHintModal({
+      title: "🔎 Crime revelado",
+      text,
+      imgSrc: sus?.img || "",
+      imgAlt: "Crime"
+    });
+
+  } catch (e) {
+    console.error("[ONLINE] showCrimeToMeFromRoom erro:", e);
+    alert("Erro ao mostrar o crime: " + (e?.message || e));
+  }
+}
+
+
 async function createRoomOnline(){
   try {
     console.log("[ONLINE] createRoomOnline() iniciou");
@@ -293,6 +342,7 @@ async function revealCrimeOnline(){
       at: serverTimestamp()
     }
   });
+  await showCrimeToMeFromRoom();
   showCrimeToMe();
 }
 
