@@ -343,7 +343,7 @@ async function revealCrimeOnline(){
     }
   });
   await showCrimeToMeFromRoom();
-  showCrimeToMe();
+  
 }
 
 function showCrimeToMe(){
@@ -402,6 +402,7 @@ async function listenRoom(code){
 
     const room = snap.data();
     // --- Evento: alguém revelou o crime (notificar todos) ---
+    // --- Evento: alguém revelou o crime (notificar todos) ---
     if (room.revealEvent?.at) {
       const t = room.revealEvent.at;
 
@@ -413,16 +414,29 @@ async function listenRoom(code){
       if (key !== lastRevealKey) {
         lastRevealKey = key;
 
-        const whoSeat = Number(room.revealEvent.bySeat || 0) + 1;
-        const msg = `Jogador ${whoSeat} revelou o crime.`;
+        // ✅ quem revelou (seat do Firestore)
+        const revealerSeat = String(room.revealEvent.bySeat || "");
 
+        // ✅ meu seat (salvo no meu localStorage)
+        const mySeat = String(localStorage.getItem(ONLINE_LS.seat) || "");
+
+        // ✅ se EU fui quem clicou, NÃO mostra o popup de aviso
+        const iAmRevealer = (revealerSeat !== "" && mySeat !== "" && revealerSeat === mySeat);
+
+        const whoSeatHuman = Number(revealerSeat || 0) + 1;
+        const msg = `Jogador ${whoSeatHuman} revelou o crime.`;
+
+        // mensagem no hintBox/status pode aparecer pra todos (se você quiser)
         setHintBox(msg, "sistema");
         setOnlineStatus(msg);
 
-        // opcional: popup também
-        openHintModal({ title: "🔎 Crime revelado", text: msg, imgSrc: "", imgAlt: "" });
+        // ✅ popup SOMENTE para os OUTROS jogadores
+        if (!iAmRevealer) {
+          openHintModal({ title: "🔎 Crime revelado", text: msg, imgSrc: "", imgAlt: "" });
+        }
       }
     }
+
 
     const pid = getPlayerId();
     const players = room.players || {};
