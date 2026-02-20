@@ -97,9 +97,9 @@ function makeEventPayload({ turn, maxPlayers }){
 
   const eventTextList = [
     // Locais / caos urbano
-    () => `🚕 Você pegou o táxi errado e foi parar em ${L()}. Você perde sua PRÓXIMA pergunta.`,
+    () => `🚕 Você pegou o táxi errado e foi parar em ${L()}. Você perde SEU PALPITE.`,
     () => `🎤 Evento lotado em ${L()}! Nessa rodada, perguntas devem ser só SIM/NÃO.`,
-    () => `🔒 Portas trancadas em ${L()}. Ninguém pode ACUSAR até a próxima rodada.`,
+    () => `🔒 Portas trancadas em ${L()}. Ninguém pode dar o PALPITE FINAL até a próxima rodada.`,
     () => `🚨 Confusão em ${L()}. O jogador atual faz a pergunta, mas outro jogador (escolhido por ele) responde.`,
     () => `🕯️ Apagão em ${L()}. Rodada muda: todo mundo pula a pergunta desta rodada.`,
     () => `📢 Boato estourou em ${L()}. Nesta rodada, não pode perguntar sobre LOCAIS.`,
@@ -107,13 +107,13 @@ function makeEventPayload({ turn, maxPlayers }){
     () => `👀 Movimento suspeito em ${L()}. Nesta rodada, não pode perguntar sobre SUSPEITOS.`,
     () => `🚌 Você desceu no ponto errado e perdeu tempo. Você vai para o FINAL da ordem da rodada.`,
     () => `🚧 Rua bloqueada perto de ${L()}. A próxima pergunta que você fizer deve ser bem direta (SIM/NÃO).`,
-    () => `🗺️ Você achou um atalho passando por ${L()}. Você ganha +1 pergunta nesta rodada.`,
+    () => `🗺️ Você achou um atalho passando por ${L()}. Você ganha +1 palpite nesta rodada.`,
 
     // Suspeitos
     () => `🤒 ${S()} ficou doente. Não pode ser ACUSADO até a próxima rodada.`,
     () => `⚖️ ${S()} acionou um advogado. Quem tentar acusar essa pessoa nesta rodada perde a acusação (não vale).`,
     () => `🧠 ${S()} está inspirado hoje. O alvo da sua pergunta pode escolher entre responder você OU outro jogador.`,
-    () => `😶 ${S()} se recusou a falar. Nesta rodada, o alvo pode responder “não sei” UMA vez.`,
+    () => `😶 ${S()} se recusou a falar. Nesta rodada, o alvo pode responder “não sei” UMA vez e passa para o proximo responder.`,
     () => `🎭 ${S()} distraiu todo mundo. Nesta rodada, ninguém pode dizer nomes de cartas (só “suspeito/arma/local”).`,
     () => `🧤 ${S()} está “controlando a cena”. O jogador atual escolhe quem será o PRÓXIMO a jogar.`,
     () => `📌 ${S()} deixou um detalhe escapar. Se sua próxima resposta for “SIM”, você ganha +1 pergunta.`,
@@ -121,9 +121,9 @@ function makeEventPayload({ turn, maxPlayers }){
 
     // Armas
     () => `🧪 Cheiro estranho no ar (${A()}). Nesta rodada, perguntas devem ser só SIM/NÃO.`,
-    () => `🔊 Um barulho de ${A()} assustou o grupo. Nesta rodada, ninguém pode ACUSAR.`,
-    () => `🩸 Sinal de ${A()} apareceu na cena. O jogador atual pode fazer uma PERGUNTA DUPLA (o alvo responde só uma parte).`,
-    () => `🧨 Clima tenso por causa de ${A()}. O alvo da pergunta pode devolver uma pergunta em vez de responder.`,
+    () => `🔊 Um barulho de ${A()} assustou o grupo. Nesta rodada, ninguém pode dar o Palpite Final.`,
+    () => `🩸 Sinal de ${A()} apareceu na cena. O jogador atual pode fazer um PALPITE DUPLO (o alvo responde só uma parte).`,
+    () => `🧨 Clima tenso por causa de ${A()}. EM CONCENSO escolhe o palpite para o jogador da vez responder.`,
     () => `🧰 Alguém achou ${A()} “fora do lugar”. O jogador atual escolhe 1 jogador para mostrar 1 carta (apenas para ele).`,
     () => `🧊 ${A()} trouxe frieza ao jogo. Nesta rodada, só pode perguntar sobre SUSPEITOS.`,
     () => `🧯 Pânico com ${A()}. Nesta rodada, só pode perguntar sobre ARMAS.`,
@@ -131,9 +131,9 @@ function makeEventPayload({ turn, maxPlayers }){
 
     // Gerais
     () => `🌧️ Chuva forte. Nesta rodada, perguntas devem ser SIM/NÃO e sem justificativas.`,
-    () => `📻 Notícia no rádio: “algo vai mudar”. Todos ganham +1 pergunta na PRÓXIMA rodada.`,
-    () => `☎️ Alguém te ligou bem na sua vez. Você faz a pergunta, mas outro jogador responde no seu lugar.`,
-    () => `🌀 Confusão geral. Troque sua vez com o PRÓXIMO jogador na ordem (uma vez).`,
+    () => `📻 Notícia no rádio: “algo vai mudar”. Todos ganham +1 elemento do palpite (LOCAL, SUSPEITO OU ARMA) na PRÓXIMA rodada.`,
+    () => `☎️ Alguém te ligou bem na sua vez. Você faz a pergunta, mas o proximo jogador da vez responde no lugar.`,
+    () => `🌀 Confusão geral. Perde sua vez e passa para o PRÓXIMO jogador na ordem (uma vez).`,
   ];
 
   const text = pick(eventTextList)();
